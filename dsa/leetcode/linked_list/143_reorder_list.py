@@ -1,0 +1,356 @@
+"""
+You are given the head of a singly linked-list. The list can be represented as:
+
+L0 → L1 → … → Ln - 1 → Ln
+
+Reorder the list to be on the following form:
+
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+
+You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+
+Example 1:
+
+Input: head = [1,2,3,4]
+Output: [1,4,2,3]
+
+Example 2:
+
+Input: head = [1,2,3,4,5]
+Output: [1,5,2,4,3]
+
+Constraints:
+
+    The number of nodes in the list is in the range [1, 5 * 104].
+    1 <= Node.val <= 1000
+
+"""
+from typing import Optional
+
+# Definition for singly-linked list.
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+        
+class Solution:
+
+    # ── Attempt · 2026-09-03 ──────────────
+    def reorderList_20260903(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        # 1. find mid point (tortoise and hare)
+        # 2. reverse second half (typical reverse)
+        # 3. repoint
+
+        fast, slow = head, head
+
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        
+        # now slow is at middle
+        # slow.next is start of second half so let's point it there
+        secondHalf = slow.next
+
+        # break off the two lists to prevent any cycles
+        slow.next = None
+
+        # reverse second half
+        shp = secondHalf
+        prev = None
+        while shp:
+            shpNext = shp.next
+            shp.next = prev
+            prev = shp
+            shp = shpNext
+        
+        # now that we are reversed, let's repoint
+        fhp = head
+        shp = prev
+        
+        # while both are not None, point alternatively
+        while fhp and shp:
+            fhpNext = fhp.next
+            shpNext = shp.next
+            fhp.next = shp
+            shp.next = fhpNext
+            fhp = fhpNext
+            shp = shpNext
+
+    # ── Attempt · 2026-08-04 ──────────────
+    def reorderList_20260804(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        # 1 -> 2 -> 3 -> 4 -> 5
+        # 1 -> 2 -> 3
+        # 4 -> 5
+        # find middle
+        # reverse second half
+        # connect two linked list
+
+        slow, fast = head, head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        # now slow is at middle point
+        # slow.next is start of second half
+        secondHalf = slow.next
+        
+        # disconnect the two halves
+        slow.next = None
+        prev = None
+
+        def reverse(node):
+            nonlocal prev
+            while node:
+                nextNode = node.next
+                node.next = prev
+                prev = node
+                node = nextNode
+
+        reverse(secondHalf)
+
+        secondHalf = prev
+
+        # now we connect the two sides
+
+        firstTrav = head
+        secondTrav = secondHalf
+
+        while firstTrav and secondTrav:
+            firstTravNext = firstTrav.next
+            secondTravNext = secondTrav.next
+            firstTrav.next = secondTrav
+            secondTrav.next = firstTravNext
+            firstTrav = firstTravNext
+            secondTrav = secondTravNext
+
+    # ── Attempt · 2026-07-25 ──────────────
+    def reorderList_20260725(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        # 1 -> 2 -> 3 -> 4
+        # 0 -> nth -> 1 -> nth - 1 ...
+        # so second half of the linked list needs to be reversed
+        # that means we need to find the middle point, which is tortoise and hare algorithm
+        # we need to then cut off first half and second half to prevent cycles when we re-point
+        # reverse second half
+        # then link first and second half per requirement of the problem
+        slow, fast = head, head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        # now slow is at the middle of the list
+        # slow.next is the second half, so we will save it and then break off
+        secondHead = slow.next
+        slow.next = None
+
+        # now we reverse second half
+        traversal = secondHead
+        prev = None
+        while traversal:
+            nextNode = traversal.next
+            traversal.next = prev
+            prev = traversal
+            traversal = nextNode
+        
+        secondHead = prev
+
+        # now we link the two lists
+
+        # 1 -> 2 -> 3 -> None
+        # 4 -> 5 -> None
+
+        while head and secondHead:
+            headNext = head.next
+            secondHeadNext = secondHead.next
+            head.next = secondHead
+            secondHead.next = headNext
+            head = headNext
+            secondHead = secondHeadNext
+
+    # ── Attempt · 2026-07-15 ──────────────
+    def reorderList_20260715(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        # 1 -> 2 -> 3 -> 4 -> 5
+        # 1 -> 2 -> 3(index 0 -> 1 -> 2)
+        # 5 -> 4 (index 4 -> 3)
+
+        # find middle of the linked list
+        # reverse second half of list
+        # alternatively re-link
+
+        slow = head
+        fast = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        # slow is now middle of the linked list
+        # for even, this is start of second half, but doesn't seem to matter
+        # since if we consider this end of first half, looking at example 1, 2 -> 3 is exactly how the rebuild would go regardless
+        # for odd, this is end of first half
+        
+        startOfSecondHalf = slow.next
+        # break off second half
+        slow.next = None
+
+        # reverse second half
+        def reverse(node):
+            if not node or not node.next:
+                return node
+            newHead = reverse(node.next)
+            node.next.next = node
+            node.next = None
+            return newHead
+
+        secondHalfHead = reverse(startOfSecondHalf)
+
+        # now we can go through both and just relink
+
+        def relink(firstHalf, secondHalf):
+            if not firstHalf and not secondHalf:
+                return None
+            if not firstHalf:
+                return secondHalf
+            if not secondHalf:
+                return firstHalf
+
+            # now if both exists, we intertwine them
+
+            firstHalfTmp = firstHalf.next
+            secondHalfTmp = secondHalf.next
+            firstHalf.next = secondHalf
+            secondHalf.next = firstHalfTmp
+            firstHalf = firstHalfTmp
+            secondHalf = secondHalfTmp
+            
+            relink(firstHalf, secondHalf)
+
+            return firstHalf
+
+        relink(head, secondHalfHead)
+
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        # naive solution is to make a hashmap
+        # we can just loop through the list, construct hashmap of index -> node
+        # build new linked list with result
+        # L(0) -> L(n) -> L(1) -> L(n-1) -> L(2) -> L(n - 2)
+        # effectively we are merging L(n/2) with the reverse top half of L(n/2) interchangeably
+        # so first step is to find the middle of the linked list
+        # for this, we do floyd's cycle detection which puts slow at the middle
+        # then we reverse the second half of the linked list in place
+        # then we loop through with two pointers, one at beginning, one at middle and assign interchangeably
+        # also if we look at 1->2->3->4->5, we will notice that first half is 1,2,3 and second half is 4,5
+        # thus we can't use slow node from floyd's algorithm, we need slow.next for second half
+        # what an amazing problem!! floyd/reverse/merge all in one
+
+        # starting slow 
+
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        # slow = middle of list
+        # slow.next = start of second half of list
+        current = slow.next
+        # split the two lists
+        slow.next = None
+        prev = None
+
+        while current:
+            temp = current.next
+            current.next = prev
+            prev = current
+            current = temp
+        
+        # now that we have reversed, we just need to interchangeably swap the nodes
+        # current is null, prev is the actual new head of secondHalf
+
+        firstHalf, secondHalf = head, prev
+
+        # from 1,2,3,4,5, we know secondHalf is shorter
+        # thus we loop based on secondHalf
+
+        # 1,2,3
+        # 5,4
+        while secondHalf:
+            # like in all reordering problems, we store next for all lists we traverse
+            tmp1, tmp2 = firstHalf.next, secondHalf.next
+            # 1.next = 5 
+            firstHalf.next = secondHalf
+            # 5.next = 2
+            secondHalf.next = tmp1
+            firstHalf = tmp1
+            secondHalf = tmp2
+    def reorderList_20260706(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        # we can create two lists from this list
+        # one going forward (L0 -> L1 -> l2), one going backwards (Ln -> Ln-1 -> Ln-2)
+        # 1 -> 2
+        # 4 -> 3
+        # we also need length of the list
+        # 1 -> 2 -> 3
+        # 5 -> 4
+        # what we notice is that we are effectively reversing right past midway
+        # so we can use floyd algorithm to find middle node
+        # then reverse rest of the linked list
+        # then from there, we can have two pointers, one from beginning, one from middle
+        # point alternatively
+        slow = head
+        fast = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        # now slow is right before the nodes we need to reverse
+        # now we reverse all nodes after slow
+        # we do need slow pointer still so we will use another pointer to help reverse
+        secondHalf = slow.next
+        
+        # sever the connection to the first half
+        slow.next = None
+
+        def reverse(node):
+            prev = None
+            # 1->2->3->None
+            while node:
+                nxt = node.next
+                # 2-> None 1->None
+                node.next = prev
+                prev = node
+                node = nxt
+            return prev
+
+        secondHalfHead = reverse(secondHalf)
+        firstHalf = head
+        secondHalf = secondHalfHead
+
+        # second half is always shorter
+        # so we use that as our end case
+        while secondHalf:
+            tmp1Next = firstHalf.next
+            tmp2Next = secondHalf.next
+            firstHalf.next = secondHalf
+            secondHalf.next = tmp1Next
+            firstHalf = tmp1Next
+            secondHalf = tmp2Next

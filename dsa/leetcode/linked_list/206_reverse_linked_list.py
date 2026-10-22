@@ -1,0 +1,155 @@
+"""
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+Example 1:
+
+Input: head = [1,2,3,4,5]
+Output: [5,4,3,2,1]
+
+Example 2:
+
+Input: head = [1,2]
+Output: [2,1]
+
+Example 3:
+P
+Input: head = []
+Output: []
+
+Constraints:
+
+    The number of nodes in the list is the range [0, 5000].
+    -5000 <= Node.val <= 5000
+
+Follow up: A linked list can be reversed either iteratively or recursively. Could you implement both?
+"""
+
+from typing import Optional
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+
+    # ── Attempt · 2026-09-19 ──────────────
+    def reverseListIterative_20260919(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # iterative reversal
+        
+        prev = None
+        
+        while head:
+            nxt = head.next
+            head.next = prev
+            prev = head
+            head = nxt
+        
+        return prev
+
+    # ── Attempt · 2026-08-19 ──────────────
+    def reverseListRecursion_20260819(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+        
+        returnNode = self.reverseListRecursion_20260819(head.next)
+
+        nxtNode = head.next
+        nxtNode.next = head
+        head.next = None
+
+        return returnNode
+
+    # ── Attempt · 2026-07-24 ──────────────
+    def reverseListRecursion_20260724(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+        # 1 -> 2 -> 3 -> None
+        
+        returnNode = self.reverseListRecursion_20260724(head.next)
+        head.next.next = head
+        head.next = None
+
+        return returnNode
+
+    # ── Attempt · 2026-07-20 ──────────────
+    def reverseList_20260720(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # iterative
+        prev = None
+
+        while head:
+            next = head.next
+            head.next = prev
+            prev = head
+            head = next
+
+        return prev
+
+    def reverseListIterative(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # we need to initialize a prev so we can have the current head point to null
+        # then we have a pointer to help us traverse through the list
+        prev, current = None, head
+
+        while current is not None:
+            # put current.next in temp variable
+            temp = current.next
+            # change what current points to
+            current.next = prev
+            # prev should now be current
+            prev = current
+            # current is now next
+            current = temp
+        return prev
+
+    def reverseListRecursion(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # base case to stop at the last node
+        if head is None or head.next is None:
+            return head
+        
+        # if we have 3 -> 4 -> 5 -> None only
+        # returnNode would be 5 and head would be 4
+        returnNode = self.reverseListRecursion(head.next)
+        # since we passed head.next to the recursive call
+        # we need to change its next
+        # 4 is head in this case, 4.next is 5
+        head.next.next = head
+        # 4.next would be None
+        head.next = None
+        # return the base case node
+        return returnNode
+    def reverseList_20260620_iterative(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # iterative reverse linked list
+        # 1 -> 2 -> null
+        prev = None
+        current = head
+
+        while current:
+            next = current.next
+            current.next = prev
+            prev = current
+            current = next
+        
+        return prev
+    def reverseList_20260703_recursion(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # 1 -> 2 -> None
+        if not head or not head.next:
+            return head
+        # node's purpose is to act as a way for us to access the new head
+        node = self.reverseList_20260703_recursion(head.next)
+        # actual work is done here
+        next = head.next
+        next.next = head
+        head.next = None
+        return node
+
+    def reverseList_20260714(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # 1 -> 2 -> None
+        if not head or not head.next:
+            return head
+        
+        returnNode = self.reverseList_20260714(head.next)
+        
+        head.next.next = head
+        head.next = None
+
+        return returnNode

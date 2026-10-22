@@ -1,0 +1,321 @@
+"""
+You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.
+
+Return the length of the longest substring containing the same letter you can get after performing the above operations.
+
+Example 1:
+
+Input: s = "ABAB", k = 2
+Output: 4
+Explanation: Replace the two 'A's with two 'B's or vice versa.
+
+Example 2:
+
+Input: s = "AABABBA", k = 1
+Output: 4
+Explanation: Replace the one 'A' in the middle with 'B' and form "AABBBBA".
+The substring "BBBB" has the longest repeating letters, which is 4.
+There may exists other ways to achieve this answer too.
+
+Constraints:
+
+    1 <= s.length <= 105
+    s consists of only uppercase English letters.
+    0 <= k <= s.length
+
+"""
+
+from collections import defaultdict
+import collections
+import math
+
+
+class Solution:
+
+    # ── Attempt · 2026-09-22 ──────────────
+    def characterReplacement_20260922(self, s: str, k: int) -> int:
+        # our longest is constrained by maxFreq + k
+        # this maxFreq is maxFreq across the entire string, so we don't really need to ensure it is the max in current window
+        freqMap = collections.defaultdict(int)
+
+        maxFreq = -math.inf
+        longest = 0
+        l = r = 0
+
+        while r < len(s):
+            freqMap[s[r]]+=1
+            maxFreq = max(maxFreq, freqMap[s[r]])
+            # while we are out of bounds, remove from maxFreq until we are within bound
+            # we do this because we only care for maxFreq + k
+            while r - l + 1 > maxFreq + k:
+                freqMap[s[l]]-=1
+                l+=1
+                maxFreq = max(maxFreq, freqMap[s[r]])
+            # now that we know we are valid, update longest
+            longest = max(longest, r - l + 1)
+            r+=1
+
+        return longest
+
+    # ── Attempt · 2026-09-12 ──────────────
+    def characterReplacement_20260912(self, s: str, k: int) -> int:
+        # most freq char + k is our ceiling for each window
+        # sliding window
+        # freqMap to keep track of freq
+
+        l = r = 0
+        freqMap = collections.defaultdict(int)
+        maxFreq = 0
+        longest = 0
+
+        while r < len(s):
+            freqMap[s[r]]+=1
+            maxFreq = max(maxFreq, freqMap[s[r]])
+            while r - l + 1 > maxFreq + k:
+                freqMap[s[l]]-=1
+                l+=1
+            # valid window here
+            longest = max(longest, r - l + 1)
+            r+=1
+        
+        return longest
+
+    # ── Attempt · 2026-09-10 ──────────────
+    def characterReplacement_20260910(self, s: str, k: int) -> int:
+        # our size is bound by the maximum freq char of our current window
+        # issue is that in order to finding max freq each time is very costly
+        # so main challenge of this problem is actually how do we tackle the max freq problem
+        # in an efficient amount of time
+        # we need a freqMap to keep track of freq for each char
+        # keep track of biggest freq and if current index is not equal, what do we do
+        # if current index is equal, what do we do
+
+        longest = -math.inf
+        
+        l = r = 0
+
+        freqMap = collections.defaultdict(int)
+        maxFreq = 0
+        while r < len(s):
+            freqMap[s[r]]+=1
+            maxFreq = max(freqMap[s[r]], maxFreq)
+            # shrink until window is valid
+            while r - l + 1 > maxFreq + k:
+                freqMap[s[l]]-=1
+                l+=1
+            # update longest if it is the biggest
+            longest = max(longest, r - l + 1)
+            r+=1
+        
+        return longest # type: ignore
+
+    # ── Attempt · 2026-08-31 ──────────────
+    def characterReplacement_20260831(self, s: str, k: int) -> int:
+        # sliding window, highest freq char + k is the max size
+        # main difficulty here is tracking the highest freq char without constantly checking max
+        # which would bring the complexity of this problem to O(n^2)
+        # so key is how do we use r and l to track maxFreq
+        # we want to track of maxFreqChar only, not really the maxFreq in the window
+        
+        l = r = 0
+
+        freqMap = collections.defaultdict(int)
+
+        maxFreq = 0
+        maxWindow = 0
+        while r < len(s):
+            # increment the freq for s[r]
+            freqMap[s[r]]+=1
+            maxFreq = max(maxFreq, freqMap[s[r]])
+            while r - l + 1 > maxFreq + k:
+                freqMap[s[l]]-=1
+                l+=1
+            maxWindow = max(maxWindow, r - l + 1)
+            r+=1
+        
+        return maxWindow
+
+    # ── Attempt · 2026-08-27 ──────────────
+    def characterReplacement_20260827(self, s: str, k: int) -> int:
+        # we want the most freq char in the window
+        # this is a dynamic sliding window where r - l + 1 <= len(maxFreq) + k
+        # finding the maxFreq the entire time is very expensive
+        # what we should do instead is keep track of the maxFreq using l and r
+        # so a nice little two pointer problem + sliding window combo
+
+        l = r = 0
+
+        freqMap = collections.defaultdict(int)
+        # maxFreq stays as the highest frequency we've seen
+        maxFreq = 0
+        maxCount = 0
+        while r < len(s):
+            freqMap[s[r]]+=1
+            maxFreq = max(maxFreq, freqMap[s[r]])
+            while r - l + 1 > maxFreq + k:
+                freqMap[s[l]]-=1
+                l+=1
+            maxCount = max(maxCount, r - l + 1)
+            r+=1
+        
+        return maxCount
+
+    # ── Attempt · 2026-07-27 ──────────────
+    def characterReplacement_20260727(self, s: str, k: int) -> int:
+        # looking for longest substring, so sliding window
+        # the longest sliding window here is reliant on highest freq char in the current window
+        # biggest window size can be is maxFreq + k
+        # main blocker here is the maxFreq element and how to do that efficiently
+        # let's work on a frame first and then we can iron out the maxFreq detail
+
+        maxLength = 0
+
+        freqMap = collections.defaultdict(int)
+
+        maxFreq = 0
+
+        l = r = 0
+
+        while r < len(s):
+            freqMap[s[r]]+=1
+            maxFreq = max(maxFreq,freqMap[s[r]])
+            while r - l + 1 > maxFreq + k:
+                freqMap[s[l]]-=1
+                l+=1
+            maxLength = max(maxLength, r - l + 1)
+            r+=1
+        
+        return maxLength
+
+    # ── Attempt · 2026-07-17 ──────────────
+    def characterReplacement_20260717(self, s: str, k: int) -> int:
+        # this is a sliding window problem
+        # r - l is our potential longest string
+        # our longest possible is so if r - l > maxfreqChar + k, we are out of bounds and need to move l
+        # frequency, so we need a freqMap
+        # and maxfreqChar, constantly getting it is not efficient. We need a better way to get it
+
+        freqMap = defaultdict(int)
+
+        longest = 0
+        maxFreq = 0
+        l = r = 0
+        
+        while r < len(s):
+            freqMap[s[r]]+=1
+            # maxFreq represents biggest we can possibly make our window
+            maxFreq = max(maxFreq,freqMap[s[r]])
+            while r - l + 1 > maxFreq + k:
+                freqMap[s[l]]-=1
+                l+=1
+            # now that we are clear, let's update our answer    
+            longest = max(longest, r - l + 1)
+            r+=1
+        
+        return longest
+
+    def characterReplacement(self, s: str, k: int) -> int:
+        # longest substring is a two pointer / sliding window problem
+        # length of substring is based on length of highest frequency value in the substring
+        # frequency, so we can do either an array of size 26 since we know it's only uppercase letters
+        # or we can do a map to account for all characters and ignore that constraint
+        # So one thing to note is that a max length of current substring possible
+        # is map.get(maxfreqChar) + k so if (r - l) > map.get(maxfreqChar) + k, we need to shift l
+        # so how do we know maxfreqChar in our current substring in constant time
+        # in sliding window, we have l and r
+        # i want to use r to loop through the string and add freq
+        # i want l to keep track of lower bound of the window
+        # technically we have constant time to find maxFreqChar due to constraint of uppercase letters making this O(26) -> O(1)
+
+        longestSubstringLength = 0
+        l = r = 0
+        freqMap = {}
+
+        def maxFreqCharInMap() -> int:
+            maxChar = maxFreq = 0
+            for char, freq in freqMap.items():
+                if freq > maxFreq:
+                    maxChar = char
+                maxFreq = max(maxFreq,freq)
+            return maxChar
+
+        while r < len(s):
+            freqMap[s[r]] = freqMap.get(s[r],0) + 1
+            maxFreqChar = maxFreqCharInMap()
+            # If we are out of bounds, remove frequency from s[l] until we are in bound
+            # We do have to keep in mind maxFreqChar in map will change as we decrement s[l]
+            while (r - l + 1) > freqMap.get(maxFreqChar,0) + k:
+                freqMap[s[l]] = freqMap.get(s[l],0) - 1
+                l+=1
+                maxFreqChar = maxFreqCharInMap()
+            # now we know r - l is valid
+            longestSubstringLength = max(longestSubstringLength, r - l + 1)
+            r+=1
+        return longestSubstringLength
+    
+    def characterReplacementEfficient(self, s: str, k: int) -> int:
+        freqMap = {}
+        longestSubstringLength = 0
+        
+        l = r = 0
+
+        maxFreqCharCount = 0
+
+        while r < len(s):
+            freqMap[s[r]] = freqMap.get(s[r],0) + 1
+            # we can just do a comparison of current max with current char to get max freq char
+            # this way we also don't have to calculate it in the while loop to decrement s[l]
+            maxFreqCharCount = max(maxFreqCharCount, freqMap[s[r]])
+
+            # if we are out of range, get rid of s[l] until we are good to go
+            while r - l + 1 > maxFreqCharCount + k:
+                freqMap[s[l]] = freqMap.get(s[l],0) - 1
+                l+=1
+
+            # knowing we are valid, we update max length
+
+            longestSubstringLength = max(longestSubstringLength, r - l + 1)
+        
+        return longestSubstringLength
+    def characterReplacement_20260702(self, s: str, k: int) -> int:
+        # formula : window length - most frequent element in window <= k
+        # every time this is true, we update the longest counter
+        # so l to keep track of left side of window, r to keep track of right
+        # r is also responsible for adding elements into the window
+        # we do always to keep track of frequency for the items within the window
+        # so we know which one is the most frequent
+        l = r = 0
+        freqMap = defaultdict(int)
+        maxLength = 0
+        while r < len(s):
+            freqMap[s[r]]+=1
+            mostFreq = max(freqMap.values())
+            if r - l + 1 - mostFreq <= k:
+                maxLength = max(maxLength, r - l + 1)
+            else:
+                freqMap[s[l]]-=1
+                l+=1
+            r+=1
+        return maxLength
+    def characterReplacement_20260710(self, s: str, k: int) -> int:
+        # key thing to note here is that we want length only as return
+        # so sliding window, we need to know most freq char in our current window
+        # freq(longest) + k <= r - l + 1
+        # above is our criteria to move l
+        # read char with r and add freq to freqMap
+
+        l = r = 0
+        freqMap = collections.defaultdict(int)
+        maxFreq = 0
+        maxLength = 0
+        while r < len(s):
+            freqMap[s[r]]+=1
+            # max on freqMap value basically makes this o(n^2), so we need to find an alternative
+            maxFreq = max(maxFreq,freqMap[s[r]])
+            while r - l + 1 > maxFreq + k:
+                freqMap[s[l]]-=1
+                l+=1
+            # now that we are super this is valid, compare length
+            maxLength = max(maxLength, r - l + 1)
+            r+=1
+        return maxLength

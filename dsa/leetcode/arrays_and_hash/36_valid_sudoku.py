@@ -1,0 +1,209 @@
+"""
+Docstring for dsa.leetcode.arrays_and_hash.36_valid_sudoku
+Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+
+    Each row must contain the digits 1-9 without repetition.
+    Each column must contain the digits 1-9 without repetition.
+    Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+
+Note:
+
+    A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+    Only the filled cells need to be validated according to the mentioned rules.
+Input: board = 
+[["5","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]
+Output: true
+
+Example 2:
+
+Input: board = 
+[["8","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]
+Output: false
+Explanation: Same as Example 1, except with the 5 in the top left corner being modified to 8. Since there are two 8's in the top left 3x3 sub-box, it is invalid.
+"""
+from collections import defaultdict
+import collections
+from typing import List
+
+class Solution:
+
+    # ── Attempt · 2026-09-05 ──────────────
+    def isValidSudoku_20260905(self, board: List[List[str]]) -> bool:
+        # check row, check col and check each grid
+        # so let's see row[0][1] should be part of 0, 0, so that is  // 3
+        
+        rowMap, colMap, gridMap = collections.defaultdict(set), collections.defaultdict(set), collections.defaultdict(set)
+
+        rows, cols = len(board), len(board[0])
+
+        # check rows
+        for i in range(rows):
+            for j in range(cols):
+                # skip empty cells
+                if board[i][j] == ".":
+                    continue
+                if board[i][j] in rowMap[i] or board[i][j] in colMap[j] or board[i][j] in gridMap[(i//3,j//3)]:
+                    return False
+                rowMap[i].add(board[i][j])
+                colMap[j].add(board[i][j])
+                gridMap[(i//3,j//3)].add(board[i][j])
+        return True
+
+    # ── Attempt · 2026-08-21 ──────────────
+    # ── RECOGNITION — fill BEFORE coding, before the coach says anything ──
+    #   shape cues seen →
+    #   technique →
+    #   discriminator (why this, not the nearest neighbour) →
+    def isValidSudoku_20260821(self, board: List[List[str]]) -> bool:
+        # we are only checking whether the current board is valid
+        # and not if it is solvable
+        # because of that. we should just do some basic checks
+        # 1. check rows are valid, rowMap, rowCount -> set
+        # 2. check cols are valid, colMap, colCount -> set
+        # 3. check a 3x3 is valid, 9 grids, (row//3, col//3) -> set
+
+        rows, cols = len(board), len(board[0])
+
+        rowMap = collections.defaultdict(set)
+        colMap = collections.defaultdict(set)
+        gridMap = collections.defaultdict(set)
+
+        for row in range(rows):
+            for col in range(cols):
+                # skip the dots
+                if board[row][col] == '.':
+                    continue
+                # check if this node exist in rowMap
+                if board[row][col] in rowMap[row]:
+                    return False
+                # check if this node exist in colMap
+                if board[row][col] in colMap[col]:
+                    return False
+                # check if this node exists in gridMap
+                if board[row][col] in gridMap[(row//3,col//3)]:
+                    return False
+                # if not in any, we add to each
+                rowMap[row].add(board[row][col])
+                colMap[col].add(board[row][col])
+                gridMap[(row//3, col//3)].add(board[row][col])
+        
+        return True
+
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        # 3 validations
+        # 1. check row
+        # 2. check column
+        # 3. check 3x3
+        # #1 and #2 can be solved by a set + double for loop
+        # #3 we need to use (i/3, j/3) as key and a set as value where we then do a double for loop
+
+        for row in range(9):
+            columnSet = set()
+            for column in range(9):
+                if board[row][column] == '.':
+                    # wildcard, skip
+                    continue
+                elif board[row][column] in columnSet:
+                    return False
+                else:
+                    columnSet.add(board[row][column])
+        
+        for column in range(9):
+            rowSet = set()
+            for row in range(9):
+                if board[row][column] == '.':
+                    # wildcard, skip
+                    continue
+                elif board[row][column] in rowSet:
+                    return False
+                else:
+                    rowSet.add(board[row][column])
+
+        seenMap = defaultdict(set)
+
+        for row in range(9):
+            for column in range(9):
+                if board[row][column] == '.':
+                    # wildcard, skip
+                    continue
+                elif board[row][column] in seenMap[(row//3), (column//3)]:
+                    return False
+                else:
+                    seenMap[(row//3), (column//3)].add(board[row][column])
+        
+        return True
+    
+    
+    def isValidSudokuSingleLoop(self, board: List[List[str]]) -> bool:
+        # Can do this in single loop by using 3 maps
+        # each map keeping track of one criteria we are checking for
+        rowMap = defaultdict(set)
+        columnMap = defaultdict(set)
+        squareMap = defaultdict(set)
+        for row in range(9):
+            for column in range(9):
+                if board[row][column] == '.':
+                    # wildcard, skip
+                    continue
+                if ( board[row][column] in rowMap[row]
+                    or board[row][column] in columnMap[column]
+                    or board[row][column] in squareMap[(row//3),(column//3)]
+                    ):
+                    return False
+                else:
+                    rowMap[row].add(board[row][column])
+                    columnMap[column].add(board[row][column])
+                    squareMap[(row//3),(column//3)].add(board[row][column])
+        return True
+    
+    def isValidSudoku_20260709(self, board: List[List[str]]) -> bool:
+        # row check on board[i][0]
+        # column check on board[0][i]
+        # 3x3, loop on whole thing and check on map of board[i//3][j//3] -> list
+
+        rows = len(board)
+        cols = len(board[0])
+
+        boxMap = collections.defaultdict(list)
+
+        for i in range(rows):
+            rowSet = set()
+            for j in range(cols):
+                if board[i][j] != '.' and board[i][j] in rowSet:
+                    return False
+                if board[i][j] != '.':
+                    rowSet.add(board[i][j])
+
+        for i in range(rows):
+            colSet = set()
+            for j in range(cols):
+                if board[j][i] != '.' and board[j][i] in colSet:
+                    return False
+                if board[j][i] != '.':
+                    colSet.add(board[j][i])
+        
+        for i in range(rows):
+            for j in range(cols):
+                key = (i//3, j//3)
+                if board[i][j] != '.' and board[i][j] in boxMap[key]:
+                    return False
+                if board[i][j] != '.':
+                    boxMap[key].append(board[i][j])
+
+        return True

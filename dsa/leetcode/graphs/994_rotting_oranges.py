@@ -1,0 +1,281 @@
+"""
+994. Rotting Oranges   ·   https://leetcode.com/problems/rotting-oranges/
+Pattern: graphs
+
+MEDIUM
+
+You are given an m x n grid where each cell can have one of three values:
+
+    0 representing an empty cell,
+    1 representing a fresh orange, or
+    2 representing a rotten orange.
+
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+ 
+
+Example 1:
+
+Input: grid = [[2,1,1],[1,1,0],[0,1,1]]
+Output: 4
+
+Example 2:
+
+Input: grid = [[2,1,1],[0,1,1],[1,0,1]]
+Output: -1
+Explanation: The orange in the bottom left corner (row 2, column 0) is never rotten, because rotting only happens 4-directionally.
+
+Example 3:
+
+Input: grid = [[0,2]]
+Output: 0
+Explanation: Since there are already no fresh oranges at minute 0, the answer is just 0.
+
+Constraints:
+
+    m == grid.length
+    n == grid[i].length
+    1 <= m, n <= 10
+    grid[i][j] is 0, 1, or 2.
+"""
+
+import collections
+from typing import List
+
+class Solution:
+
+    # ── Attempt · 2026-08-03 ──────────────
+    def orangesRotting_20260803(self, grid: List[List[int]]) -> int:
+        # BFS
+        # we use 2s as our starting point for queues
+        # we don't need set since we are just marking visited as 2s
+        # time is basically how many layers of BFS we had to do
+        # we also need to consider unreachable oranges, so need to keep a counter
+        rows, cols = len(grid), len(grid[0])
+
+        rottenQueue = collections.deque()
+        freshCounter = 0
+        time = 0
+
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 1:
+                    freshCounter+=1
+                elif grid[row][col] == 2:
+                    rottenQueue.append((row,col))
+        
+        neighbors = [[1,0],[-1,0],[0,1],[0,-1]]
+
+        # now that our queue is ready, we start rotting everything
+        # so while we have oranges to continue rotting
+        while freshCounter > 0 and rottenQueue:
+            # do everything related to current level
+            currentLevelSize = len(rottenQueue)
+            for _ in range(currentLevelSize):
+                cr,cc = rottenQueue.popleft()
+                # rot neighbors of cr,cc
+                for ir, ic in neighbors:
+                    nr, nc = cr + ir, cc + ic
+                    if nr >= 0 and nr < rows and nc >= 0 and nc < cols and grid[nr][nc] == 1:
+                        # rot the neighbor
+                        grid[nr][nc] = 2
+                        # decrement the fresh counter
+                        freshCounter-=1
+                        rottenQueue.append((nr,nc))
+            time+=1
+        
+        if freshCounter > 0:
+            return -1
+        return time
+
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        # so this is clearly a bfs problem
+        # what happens is when we hit a rotten orange, we perform a bfs on it to mark its neighbors as rotten
+        # The above is wrong, we need to do a pre-scan to find all rotten oranges
+        # because otherwise we will not be able to scan in real time
+        # but one thing we have to keep notice is what if the orange there is already rotten
+        # then we need to do a bfs on that so we should have a bfs helper function
+        # we also need to check at the end if there are leftovers non-rotten oranges
+        # The above here is also wrong, we should instead keep track of a starting count of fresh oranges
+        # and decrement every time we mark one as rotten and if the number is not 0 at the end, we return false
+        # we don't actually need a visited set like usual since when we rot the oranges, we mark the node as 2
+        # which is equivalent of rotten here
+
+        minute = 0
+
+        neighbors = [[1,0], [-1,0], [0,1], [0,-1]]
+
+        rottenQueue = collections.deque()
+        freshOrangeCounter = 0
+
+        rows, cols = len(grid), len(grid[0])
+
+        # initial scan for rotten oranges and fresh oranges
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 1:
+                    freshOrangeCounter+=1
+                elif grid[row][col] == 2:
+                    rottenQueue.append((row,col))
+
+        # now we spread the rot to neighbors
+        # we also need to make sure there are fresh oranges to spread to
+        while rottenQueue and freshOrangeCounter > 0:
+            # we actually need to keep track of how many rotten oranges we have to start
+            # this way we accurately depict how much time has passed
+            numberOfRottenOranges = len(rottenQueue)
+            for _ in range(numberOfRottenOranges):
+                currentRow, currentCol = rottenQueue.popleft()
+                for rowIncrement, colIncrement in neighbors:
+                    # if 0, we don't do anything
+                    # if 1, we rotten them by adding them to visited and rottenQueue
+                    neighborRow = currentRow + rowIncrement
+                    neighborCol = currentCol + colIncrement
+                    if neighborRow >= 0 and neighborRow < rows and neighborCol >= 0 and neighborCol < cols and grid[neighborRow][neighborCol] == 1:
+                        # change it to rotten
+                        grid[neighborRow][neighborCol] = 2
+                        # add to queue
+                        rottenQueue.append((neighborRow, neighborCol))
+                        # decrement fresh counter
+                        freshOrangeCounter-=1
+                # with this breadth over, we will increment time
+            minute+=1
+
+        if freshOrangeCounter > 0: 
+            return -1
+        else:
+            return minute
+
+    def orangesRotting_20260615(self, grid: List[List[int]]) -> int:
+        # BFS problem
+        # we must first go through the grid and get all rotten oranges
+        # we also need to keep track number of oranges not rotten at the start
+        # and then see if we were able to rotten all of them
+        # BFS on the oranges
+        # we won't need a visited set since we can just mark nodes as rotten
+
+        orangeCounter = 0
+        timeElapsed = 0
+        rottenQueue = collections.deque()
+
+        rows, cols = len(grid), len(grid[0])
+
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 2:
+                    rottenQueue.append((row,col))
+                elif grid[row][col] == 1:
+                    orangeCounter+=1
+        
+        # now that we have our base, let's start BFS
+
+        neighbors = [[1,0],[-1,0],[0,1],[0,-1]]
+
+        while rottenQueue and orangeCounter > 0:
+            # since we need to keep track of time, aka how many levels we went through to finish, we need to keep track of size of current queue
+            lenQueue = len(rottenQueue)
+            for _ in range(lenQueue):
+                currentRow, currentCol = rottenQueue.popleft()
+                for rowInc, colInc in neighbors:
+                    neighborRow = currentRow + rowInc
+                    neighborCol = currentCol + colInc
+                    if neighborRow >= 0 and neighborRow < rows and neighborCol >= 0 and neighborCol < cols and grid[neighborRow][neighborCol] == 1:
+                        # rot this node
+                        grid[neighborRow][neighborCol] = 2
+                        # add to queue
+                        rottenQueue.append((neighborRow,neighborCol))
+                        # decrement fresh counter
+                        orangeCounter-=1
+            timeElapsed+=1
+        
+        if orangeCounter != 0:
+            return -1
+        return timeElapsed
+
+    def orangesRotting_20260625(self, grid: List[List[int]]) -> int:
+        # multi-origin BFS
+        # get all rotten oranges to start
+        # we don't need visited since we can just mark as rotten for visited
+
+        rows, cols = len(grid), len(grid[0])
+
+        timer = 0
+        freshOranges = 0
+        rottenQueue = collections.deque()
+
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 1:
+                    freshOranges+=1
+                elif grid[row][col] == 2:
+                    rottenQueue.append((row,col))
+        
+        # now that we have all the rotten oranges
+        # let's go through them level by level
+        # we do also have to consider oranges that cannot be reached
+        # so we need a counter for how many oranges
+        # so let's do a count in the beginning
+
+        neighbors = [[1,0],[-1,0],[0,1],[0,-1]]
+
+        # while there are rotten oranges left
+        # and while we have oranges to rot
+        while rottenQueue and freshOranges > 0:
+            currentLevel = len(rottenQueue)
+            for _ in range(currentLevel):
+                rottenRow, rottenCol = rottenQueue.popleft()
+                # rot neighbors
+                for ir, ic in neighbors:
+                    nr = rottenRow + ir
+                    nc = rottenCol + ic
+                    if nr >= 0 and nr < rows and nc >= 0 and nc < cols and grid[nr][nc] == 1:
+                        # rot neighbor
+                        grid[nr][nc] = 2
+                        # decrement fresh counter
+                        freshOranges-=1
+                        # add to rotting queue
+                        rottenQueue.append((nr,nc))
+            # increment time passing
+            timer+=1
+        if freshOranges > 0:
+            return -1
+        return timer
+    def orangesRotting_20260704(self, grid: List[List[int]]) -> int:
+        # we need to know where all the rotten oranges are to start
+        # this way, we can go through the rotting process simultaneously
+        # we also need to know how many fresh oranges there are to start
+        # this way, we can tell if we are even able to rot all oranges
+        # we don't need a visited set since being rotted = visited
+        time = 0
+        freshCounter = 0
+        rottenQueue = collections.deque()
+
+        rows, cols = len(grid), len(grid[0])
+
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 1:
+                    freshCounter+=1
+                elif grid[row][col] == 2:
+                    rottenQueue.append((row,col))
+        
+        neighbors = [[1,0],[-1,0],[0,1],[0,-1]]
+
+        # while we have fresh oranges to rot and while we are able to rot
+        while freshCounter > 0 and rottenQueue:
+            currentLayer = len(rottenQueue)
+            for _ in range(currentLayer):
+                rottenRow, rottenCol = rottenQueue.popleft()
+                for ir, ic in neighbors:
+                    nr = rottenRow + ir
+                    nc = rottenCol + ic
+                    if nr >= 0 and nr < rows and nc >= 0 and nc < cols and grid[nr][nc] == 1:
+                        grid[nr][nc] = 2
+                        freshCounter-=1
+                        rottenQueue.append((nr,nc))
+            time+=1
+        if freshCounter > 0:
+            return -1
+        return time

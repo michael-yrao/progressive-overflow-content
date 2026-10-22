@@ -1,0 +1,255 @@
+"""
+Given an integer array nums, find the
+
+with the largest sum, and return its sum.
+
+Example 1:
+
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: The subarray [4,-1,2,1] has the largest sum 6.
+
+Example 2:
+
+Input: nums = [1]
+Output: 1
+Explanation: The subarray [1] has the largest sum 1.
+
+Example 3:
+
+Input: nums = [5,4,-1,7,8]
+Output: 23
+Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
+
+Constraints:
+
+    1 <= nums.length <= 105
+    -104 <= nums[i] <= 104
+
+Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
+
+"""
+
+import math
+from typing import List
+
+class Solution:
+
+    # ── Attempt · 2026-10-12 ──────────────
+    def maxSubArray_20261012(self, nums: List[int]) -> int:
+        # prefix sum method today
+        # subarray sum using prefix sum is prefix[j] - prefix[i] = subarray sum
+        # we can maximize by maximizing prefix[j] and/or minimizing prefix[i]
+        # nums = [-2, 1,-3, 4,-1, 2,1,-5, 4]
+        # pre  = [0 ,-2,-1,-4, 0,-1,1, 2,-3,1]
+
+        max_sum = -math.inf
+
+        pre = [0] * (len(nums) + 1)
+        
+        for i in range(1,len(pre)):
+            pre[i] = pre[i-1] + nums[i-1]
+        
+        prefix_i = pre[0]
+        # now we want to maximize the runningSum and minimize prefix[i]
+        for j in range(1, len(pre)):
+            max_sum = max(max_sum, pre[j] - prefix_i)
+            prefix_i = min(prefix_i, pre[j])
+        
+        return max_sum # type: ignore
+
+    # ── Attempt · 2026-10-11 ──────────────
+    def maxSubArray_20261011(self, nums: List[int]) -> int:
+        # Kadane's algorithm
+
+        subarray_sum = -math.inf
+
+        running_sum = 0
+        for num in nums:
+            running_sum+=num
+            subarray_sum = max(subarray_sum, running_sum)
+            # if smaller than 0, greed and reset to 0
+            if running_sum < 0:
+                running_sum = 0
+        
+        return subarray_sum # type: ignore
+
+    # ── Attempt · 2026-09-29 ──────────────
+    def maxSubArrayKadane_20260929(self, nums: List[int]) -> int:
+        # kadane's
+
+        max_sum = -math.inf
+        current_sum = 0
+
+        for num in nums:
+            current_sum+=num
+            # need to do this here in case the max is less than 0
+            max_sum = max(max_sum, current_sum)
+            if current_sum < 0:
+                current_sum = 0
+        
+        return max_sum # type: ignore
+
+    # ── Attempt · 2026-09-01 ──────────────
+    def maxSubArrayPrefixMin_20260901(self, nums: List[int]) -> int:
+        # we are doing prefix sum today
+        # not the most efficient way to do this problem, however when we think of subarray sum
+        # first thing that typically comes to mind is prefixSum
+        # now naive prefix sum will mean we do prefix[j] - prefix[i] to find all combinations of subarray sum which gives us O(n^2) time and O(n) space
+        # we can do better, we can maximize prefix[j] or minimize prefix[i] to get highest number possible
+        # [-2, 1,-3, 4,-1, 2, 1,-5, 4   ]
+        # [ 0,-2, 1,-2, 2, 1, 3, 4,-1, 3]
+        # let's keep track of a maxSum and then minimize prefix[i] as go through with prefix[j]
+        maxSum = -math.inf
+        # initialize prefixSum
+        prefixSum = [0] * (len(nums) + 1)
+
+        for i in range(1, len(prefixSum)):
+            prefixSum[i] = prefixSum[i-1] + nums[i-1]
+        
+        prefixI = prefixSum[0]
+        # now let's go through prefixSum and we update prefix[i] when it is smaller
+        for j in range(1, len(prefixSum)):
+            maxSum = max(maxSum, prefixSum[j] - prefixI)
+            prefixI = min(prefixSum[j], prefixI)
+        
+        return maxSum # type: ignore
+
+    # ── Attempt · 2026-08-22 ──────────────
+    # ── RECOGNITION — fill BEFORE coding, before the coach says anything ──
+    #   shape cues seen →
+    #   technique →
+    #   discriminator (why this, not the nearest neighbour) →
+    def maxSubArrayPrefixMin_20260822(self, nums: List[int]) -> int:
+        # prefix sum method today
+        # subarray sum = prefix[j] - prefix[i]
+        # to maximize subarray sum, we maximize prefix[j] or minimize prefix[i]
+        # we will store prefix[j] as prefix subarray
+        # then we will keep track of the smallest prefix[i]
+
+        # len + 1 because we need to check all values
+        prefix = [0] * (len(nums) + 1)
+
+        for i in range(1,len(prefix)):
+            prefix[i] = prefix[i-1] + nums[i-1]
+        
+        minPrefix = 0
+        maxSum = -math.inf
+        for i in range(1, len(prefix)):
+            # prefix[j] is our current value
+            currentPrefixSum = prefix[i]
+            maxSum = max(maxSum, currentPrefixSum - minPrefix)
+            minPrefix = min(minPrefix, currentPrefixSum)
+        
+        return maxSum # type: ignore
+
+    # ── Attempt · 2026-08-20 ──────────────
+    def maxSubArray_20260820(self, nums: List[int]) -> int:
+        # subarray sum = prefixSum
+        # subarray sum can also be sliding window but not knowing how to slide the window
+        # makes it hard to do so prefixSum
+        # subarray sum = prefix[j] - prefix[i]
+        # to maximize subarray sum, we minimize prefix[i]
+        # so let's keep track of that value
+
+        prefixSum = [0] * (len(nums)+1)
+
+        for i in range(1,len(prefixSum)):
+            prefixSum[i] = nums[i-1] + prefixSum[i-1]
+        
+        # default to first value
+        minPrefix = 0
+        maxSum = -math.inf
+        for i in range(1,len(prefixSum)):
+            maxSum = max(maxSum, prefixSum[i] - minPrefix)
+            minPrefix = min(minPrefix, prefixSum[i])
+
+        return maxSum # type: ignore
+
+    # ── Attempt · 2026-07-26 ──────────────
+    def maxSubArrayKadane_20260726(self, nums: List[int]) -> int:
+        # Maximum Subarray with both positive and negative
+        # so we use Kadane's Greedy Algorithm
+        # since we are returning sum, we keep track of a runningSum, if it is less than 0
+        # we set it to 0 instead and start over
+
+        endSum = -math.inf
+        runningSum = 0
+        for num in nums:
+            runningSum+=num
+            endSum = max(endSum, runningSum)
+            if runningSum < 0:
+                runningSum = 0
+            
+        return endSum # type: ignore
+
+    def maxSubArrayKadane(self, nums: List[int]) -> int:
+        # Kadane's Algorithm
+        maxSum = currentSum = nums[0]
+        for n in nums:
+            if currentSum < 0:
+                currentSum = 0
+            currentSum += n
+            maxSum = max(maxSum, currentSum)
+        return maxSum
+    
+    def maxSubarrayKadaneV2(self, nums: List[int]) -> int:
+        # Kadane's Algorithm
+        maxSum = currentSum = nums[0]
+        for n in nums[1:]:
+            # if currentSum + n is smaller than n
+            # that means currentSum is negative
+            # thus we start a new subarray with n only
+            currentSum = max(n, currentSum + n)
+            maxSum = max(maxSum, currentSum)
+        return maxSum
+    
+    def maxSubarrayPrefixSum(self, nums: List[int]) -> int:
+        # prefix sum solution
+        # we can build a prefix sum list
+        # sum of subarray = pre[j] - pre[i]
+        # keep track of a maxSum
+        # and also a min pre since we need to do pre[j] - pre[i] to get sum
+
+        maxSum = -math.inf
+        preMin = 0
+
+        pre = []
+        pre.append(nums[0])
+
+        for i in range(1,len(nums)):
+            pre.append(pre[i-1]+nums[i])
+
+        for prefixSum in pre:
+            maxSum = max(maxSum, prefixSum - preMin)
+            preMin = min(preMin, prefixSum)
+
+        return maxSum # type: ignore
+    
+    def maxSubArray_20260623_Kadane(self, nums: List[int]) -> int:
+        # Kadane's Algorithm - Reset to 0 if current sum is less than 0
+        # initialize maxSum to -math.inf
+        maxSum = -math.inf
+        currentSum = 0
+
+        for num in nums:
+            currentSum+=num
+            maxSum = max(maxSum, currentSum)
+            if currentSum < 0:
+                currentSum = 0
+        return maxSum # type: ignore
+
+    def maxSubArray_20260624(self, nums: List[int]) -> int:
+        maxTotal = -math.inf
+        currentTotal = 0
+
+        for num in nums:
+            currentTotal+=num
+            maxTotal = max(maxTotal, currentTotal)
+            if currentTotal < 0:
+                currentTotal = 0
+        
+        return maxTotal # type: ignore
+
+    def maxSubarrayDivideNConquer(self, nums: List[int]) -> int:
+        return # type: ignore

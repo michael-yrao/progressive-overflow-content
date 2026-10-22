@@ -1,0 +1,198 @@
+"""
+57. Insert Interval   ·   https://leetcode.com/problems/insert-interval/
+Pattern: intervals
+
+Given `intervals`, a list of non-overlapping intervals sorted by start, and a
+new interval `newInterval`, insert it into the list so the result is still sorted
+and non-overlapping (merge where needed). Return the resulting list.
+
+Example: intervals = [[1,3],[6,9]], newInterval = [2,5]  ->  [[1,5],[6,9]]
+Example: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+         ->  [[1,2],[3,10],[12,16]]
+
+Constraints: intervals sorted by start, non-overlapping; 0 <= n <= 10^4.
+"""
+# Write everything yourself from here — including any ListNode/TreeNode classes a
+# problem needs. No shared data-model imports (whiteboard fidelity).
+from typing import List, Optional
+
+
+class Solution:
+
+    # ── Attempt · 2026-10-07 ──────────────
+    def insertInterval_20261007(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        # this is a variant of merging, so we want to sort by start time
+        # now let's say we are on [1,3], how do know [2,5] is overlapping, current_end > new_start
+        # in example 2, how do we know [1,2] is before [4,8], same thing, current_end < new_start
+        # for intervals greater, current_end > new_start is also true, so we need to do current_start > new_end
+        # multi-stepper
+        # 1. go through intervals beforehand that do not overlap
+        # 2. create the overlap interval
+        # 3. insert said overlap interval
+        # 4. go through interval after that do not overlap
+
+        result = []
+
+        intervals.sort()
+
+        incr = 0
+
+        # step 1: intervals before merges
+        while incr < len(intervals) and intervals[incr][1] < newInterval[0]:
+            result.append(intervals[incr])
+            incr+=1
+
+        # step 2: merge intervals. end >= newStart is a given now, need to stop when current_start > new_end so while current_start <= new_end
+
+        while incr < len(intervals) and intervals[incr][0] <= newInterval[1]:
+            newInterval[0] = min(intervals[incr][0], newInterval[0])
+            newInterval[1] = max(intervals[incr][1], newInterval[1])
+            incr+=1
+        
+        # step 3: insert newInterval to result
+        result.append(newInterval)
+
+        # step 4: insert intervals after the merge. shouldn't need anymore checks
+        while incr < len(intervals):
+            result.append(intervals[incr])
+            incr+=1
+        
+        return result
+
+    # ── Attempt · 2026-09-07 ──────────────
+    def insertInterval_20260907(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        # so sharing any point is considered for merging
+        # so let's find the criteria for merge
+        # [[1,3], [6,9]] ; [2,5]
+        # we merge with [1,3] because newStart <= currentEnd
+        # we do not merge with [6,9] because of the above
+        # now let's consider [[2,4],[6,9]] ; [1,2]
+        # we merge with [2,4] because newStart <= currentEnd
+        # so the rule holds
+        # so let's do multi-steps here
+        # 1. find intervals before new interval that do not intersect
+        # 2. find intervals that do intersect and merge them
+        # 3. find intervals after new interval that do not intersect
+        # these 3 things combined will give us our solution
+
+        result = []
+
+        # 1. find intervals before new interval that do not intersect
+        
+        currentIndex = 0
+        while currentIndex < len(intervals) and newInterval[0] > intervals[currentIndex][1]:
+            result.append(intervals[currentIndex])
+            currentIndex+=1
+        
+        # now we know starting at currentIndex, we intersect
+        # so what is our criteria to stop merging
+        # easier to think about when to stop and to swap that around
+        # let's check how to merge, set start to min of both and end to max of both
+        while currentIndex < len(intervals) and newInterval[1] >= intervals[currentIndex][0]:
+            newInterval[0] = min(newInterval[0], intervals[currentIndex][0])
+            newInterval[1] = max(newInterval[1], intervals[currentIndex][1])
+            currentIndex+=1
+            
+        # now let's insert this new interval into the result
+        result.append(newInterval)
+
+        # 3. find intervals after new interval that do not intersect
+        while currentIndex < len(intervals) and newInterval[1] < intervals[currentIndex][0]:
+            result.append(intervals[currentIndex])
+            currentIndex+=1
+        
+        return result
+
+    # ── Attempt · 2026-08-28 ──────────────
+    def insertInterval_20260828(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        # how to tell if two intervals are overlapping
+        # from example 1:
+        # interval.end >= newInterval.start
+        # from example 2:
+        # [3,5] merges with [4,8] with same as above to get [3,8]
+        # this is min(interval.start, newInterval.start) and max(interval.end, newInterval.end)
+        # [6,7] merges with the same to get [3,8]
+        # [8,10] merges with [3,8] with the same logic
+        # we will do this in a few steps to make it easy
+        # 1. insert intervals before that don't overlap
+        # 2. merge intervals that do overlap
+        # 3. insert final merged interval
+        # 4. insert intervals after that don't overlap
+
+        result = []
+        index = 0
+        
+        # find intervals don't overlap
+        # this criteria is interval.end < newInterval.start
+        while index < len(intervals) and intervals[index][1] < newInterval[0]:
+            result.append(intervals[index])
+            index+=1
+        
+        # now we know we are hitting overlap so let's do merge
+        # we known intervals.end >= newInterval.start here
+        # but this could also mean it is after the newInterval
+        # so we need to make sure it is under that boundary
+        # so interval = [3,8] and newInterval = [4,10]
+        # and interval = [18,20] and newInterval = [4,10]
+        # what is the difference, it is the start of interval and end of newInterval
+        # from our trace earlier, we need to update the newInterval
+        while index < len(intervals) and intervals[index][0] <= newInterval[1]:
+            newInterval[0] = min(intervals[index][0], newInterval[0])
+            newInterval[1] = max(intervals[index][1], newInterval[1])
+            index+=1
+        
+        # now our newInterval is ready to be pushed into the result
+        result.append(newInterval)
+
+        # now we put everything that are after
+        # that criteria is interval.start > newInterval.end
+        while index < len(intervals) and intervals[index][0] > newInterval[1]:
+            result.append(intervals[index])
+            index+=1
+        
+        return result
+
+    # ── Attempt 1 · 2026-08-26 ────────────────────────────────────────────
+    def insertInterval(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        # intervals = [[1,3],[6,9]], newInterval = [2,5] -> merge with [1,3]
+        # intervals = [2,4], newInterval = [1,6] -> absorbs [2,4]
+        # compare end of each interval with newInterval's start
+        # if intervalEnd >= newStart, we merge these
+        # if intervalEnd < newStart, this interval is not in scope, so we go next
+        # but this doesn't work because 9 < 2 is false
+        # so we need to do if intervalEnd < newStart which means interval is before newInterval
+        # OR intervalStart > newEnd which means interval is AFTER newInterval
+
+        # we will split this into phases
+        # 1. insert intervals newInterval
+        # 2. combine intervals that overlap with newInterval
+        # 3. insert merged interval
+        # 4. insert intervals after merged interval
+
+        result = []
+        newStart, newEnd = newInterval
+        index = 0
+        
+        # insert intervals smaller than newInterval into result
+        while index < len(intervals) and intervals[index][1] < newStart:        
+            result.append(intervals[index])
+            index+=1
+        
+        # index is now overlapping with newInterval, so go until we no longer overlap
+        # so while intervalStart <= newEnd
+        while index < len(intervals) and intervals[index][0] <= newEnd: 
+            # update newStart and newEnd accordingly each time
+            # marking these as 'merging'
+            newStart = min(newStart, intervals[index][0])
+            newEnd = max(newEnd, intervals[index][1])
+            index+=1
+        
+        # insert merged interval into result
+        result.append([newStart, newEnd])
+        
+        # now insert everything that comes after
+        while index < len(intervals) and intervals[index][0] > newEnd:
+            result.append(intervals[index])
+            index+=1
+        
+        return result

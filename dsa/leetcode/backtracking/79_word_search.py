@@ -1,0 +1,163 @@
+"""
+79. Word Search   ·   https://leetcode.com/problems/word-search/
+Pattern: backtracking
+
+Given an m x n grid of characters board and a string word, return true if word
+exists in the grid.
+
+The word can be constructed from letters of sequentially adjacent cells, where
+adjacent cells are horizontally or vertically neighboring. The same letter cell may
+not be used more than once.
+
+Examples:
+  board = [["A","B","C","E"],
+           ["S","F","C","S"],
+           ["A","D","E","E"]]
+  word = "ABCCED"  ->  true
+  word = "SEE"     ->  true
+  word = "ABCB"    ->  false
+
+Constraints:
+  m == board.length
+  n == board[i].length
+  1 <= m, n <= 6
+  1 <= word.length <= 15
+  board and word consist of only lowercase and uppercase English letters.
+"""
+# Write everything yourself from here — including any ListNode/TreeNode classes a
+# problem needs. No shared data-model imports (whiteboard fidelity).
+from typing import List, Optional
+
+
+class Solution:
+
+    # ── Attempt · 2026-10-19 ──────────────
+    def exist_20261019(self, board: List[List[str]], word: str) -> bool:
+        # backtracking
+        # find the first letter that matches and look at all neighbors
+        # backtrack as needed, similar to DFS as well
+        # we don't need to provide the actual path
+        # path: what we currently have
+        # state: current row, col to consider, don't need to keep track of next char since we can just use length of path
+        # decision: 
+        #   a. always pick if matches next char
+        # validity: if it matches next char
+        # base case: if len path is equal to len word, return True. if row/col are out of bound, return False
+
+        rows, cols = len(board), len(board[0])
+
+        def backtrack(path, row, col, visited):
+            if len(path) == len(word):
+                return True
+            if row < 0 or row >= rows or col < 0 or col >= cols:
+                return False
+            if (row, col) in visited:
+                return False
+            
+            status = False
+            # next char to look for is at len(path)
+            if board[row][col] == word[len(path)]:
+                path.append(board[row][col])
+                visited.add((row,col))
+                status = (backtrack(path, row + 1, col, visited)
+                or backtrack(path, row - 1, col, visited)
+                or backtrack(path, row, col + 1, visited)
+                or backtrack(path, row, col - 1, visited))
+                visited.remove((row,col))
+                path.pop()
+            
+            return status
+        
+        for row in range(rows):
+            for col in range(cols):
+                if board[row][col] == word[0] and backtrack([],row,col,set()):
+                    return True
+        
+        return False
+
+    # ── Attempt · 2026-10-09 ──────────────
+    def exist_20261009(self, board: List[List[str]], word: str) -> bool:
+        # we hit the first letter and try to go down the grid
+        # backtrack if we don't see letters matching
+        # so this feels like either a backtracking or a DFS
+        # let's try backtracking here
+        # path: current letters matched so far. 
+        # state: row and col of the current grid. we can figure out which letter we are trying to match based on length of path
+        # decision: feels like it is always a pick, no valid reason to not pick
+        # validity: check if current row, col matches what we are looking for 
+        # base case: if len(path) == len(word), return True. # if either row, col are out of bounds, we are done, return False
+
+        rows, cols = len(board), len(board[0])
+
+        def backtrack(path, r, c, visited):
+            if len(path) == len(word):
+                return True
+            if r < 0 or r >= rows or c < 0 or c >= cols:
+                return False
+            if (r, c) in visited:
+                return False
+
+            if word[len(path)] == board[r][c]:
+                path.append(board[r][c])
+                visited.add((r,c))
+                status = (backtrack(path, r + 1, c, visited)
+                or backtrack(path, r - 1, c, visited)
+                or backtrack(path, r, c + 1, visited)
+                or backtrack(path, r, c - 1, visited))
+                visited.remove((r,c))
+                path.pop()
+                return status
+        
+        for row in range(rows):
+            for col in range(cols):
+                if board[row][col] == word[0]:
+                    if backtrack([], row, col, set()):
+                        return True
+        
+        return False
+
+    # ── Attempt 1 · 2026-09-29 ────────────────────────────────────────────
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        # first thought is DFS but we need to be able to backtrack if our current path is bad
+        # so that basically lends itself into backtracking
+        # find the node that matches, then check neighbors and backtrack accordingly
+        # after finding the first node, we would need to define our backtracking criterias
+        # path: current path
+        # state: current set of nodes, current index of the word, current row, current col
+        # validity: if not out of bounds and if char at index matches
+        # choice: choose regardless
+        # base case: bad cases : out of bound, char don't match | good cases : current index >= len(word)
+
+        rows, cols = len(board), len(board[0])
+
+        def backtrack(path, word_index_state, row_state, col_state, node_set_state):
+            # all base cases
+            if len(path) >= len(word) and word_index_state >= len(word):
+                return True
+            if row_state < 0 or row_state >= rows or col_state < 0 or col_state >= cols: 
+                return False
+            if word_index_state < len(word) and board[row_state][col_state] != word[word_index_state]:
+                return False
+            
+            # at this point, we know we are not out of bound and current char does match
+            # so the check for equals is actually redundant, thus we just check to make sure it is not already used then go look at neighbors
+            # add to the set
+            if (row_state, col_state) not in node_set_state: 
+                # we picked the current node, so now check if any of our neighbors can satisfy our path
+                node_set_state.add((row_state, col_state))
+                current_path_status = (backtrack(path + [board[row_state][col_state]], word_index_state + 1, row_state + 1, col_state, node_set_state) 
+                        or backtrack(path + [board[row_state][col_state]], word_index_state + 1, row_state -1, col_state, node_set_state) 
+                        or backtrack(path + [board[row_state][col_state]], word_index_state + 1, row_state, col_state + 1, node_set_state) 
+                        or backtrack(path + [board[row_state][col_state]], word_index_state + 1, row_state, col_state - 1, node_set_state))
+                # remove from set in case it did not work out and we need to backtrack
+                node_set_state.remove((row_state, col_state))
+                return current_path_status
+
+        for row in range(rows):
+            for col in range(cols):
+                if board[row][col] == word[0]:
+                    # path, current word index, row, col, node set
+                    if backtrack([], 0, row, col, set()):
+                        return True
+        
+        return False

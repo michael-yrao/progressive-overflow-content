@@ -1,0 +1,124 @@
+"""
+Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
+
+The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
+
+You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
+
+Example 1:
+
+Input: points = [[1,3],[-2,2]], k = 1
+Output: [[-2,2]]
+Explanation:
+The distance between (1, 3) and the origin is sqrt(10).
+The distance between (-2, 2) and the origin is sqrt(8).
+Since sqrt(8) < sqrt(10), (-2, 2) is closer to the origin.
+We only want the closest k = 1 points from the origin, so the answer is just [[-2,2]].
+
+Example 2:
+
+Input: points = [[3,3],[5,-1],[-2,4]], k = 2
+Output: [[3,3],[-2,4]]
+Explanation: The answer [[-2,4],[3,3]] would also be accepted.
+
+Constraints:
+
+    1 <= k <= points.length <= 104
+    -104 <= xi, yi <= 104
+"""
+import heapq
+import math
+from typing import List
+
+class Solution:
+
+    # ── Attempt · 2026-10-12 ──────────────
+    def kClosest_20261012(self, points: List[List[int]], k: int) -> List[List[int]]:
+        # k closest point, so this is heap
+        # closest, so we want maxheap
+
+        max_heap = []
+
+        for x,y in points:
+            euclidean_distance = math.sqrt(x**2 + y**2)
+            heapq.heappush(max_heap, (-euclidean_distance, x, y))
+            while len(max_heap) > k:
+                heapq.heappop(max_heap)
+        
+        result = []
+
+        while max_heap:
+            weight,x,y = heapq.heappop(max_heap)
+            result.append([x,y])
+        
+        return result
+
+    # ── Attempt · 2026-08-07 ──────────────
+    def kClosest_20260807(self, points: List[List[int]], k: int) -> List[List[int]]:
+        # maxHeap of size k
+
+        maxHeap = []
+
+        for x,y in points:
+            distance = math.sqrt(x**2 + y**2)
+            heapq.heappush(maxHeap,(-distance,x,y))
+            while len(maxHeap) > k:
+                heapq.heappop(maxHeap)
+        
+        result = []
+        while maxHeap:
+            distance,x,y = heapq.heappop(maxHeap)
+            result.append([x,y])
+        
+        return result
+
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+    
+        def euclideanDistance(origin, destination):
+            x1, y1 = origin[0], origin[1]
+            x2, y2 = destination[0], destination[1]
+            
+            return math.sqrt(((x2 - x1)**2 + (y2 - y1)**2))
+        
+        # we want the kth smallest so that means we should have a max heap
+        # a max heap of size k
+        # we need to store distance -> (x,y) in the heap
+        
+        maxHeap = []
+        
+        for x, y in points:
+            dist = euclideanDistance((x,y),(0,0))
+            heapq.heappush(maxHeap, (-dist,(x,y)))
+            while len(maxHeap) > k:
+                heapq.heappop(maxHeap)
+        
+        result = []
+        
+        while maxHeap:
+            currentCoordinate = heapq.heappop(maxHeap)[1]
+            result.append((currentCoordinate[0],currentCoordinate[1]))
+        
+        return result
+
+    def kClosest_20260703(self, points: List[List[int]], k: int) -> List[List[int]]:
+        # kth closest so we need to use a heap
+        # we also need to keep track of the point, not just the distance
+        # so the heap will have (distance, (coordinates))
+        def euclideanDistance(x,y):
+            return abs(math.sqrt(x**2+y**2))
+        
+        # k closest, so we want a max heap of size k
+        heap = []
+
+        for x, y in points:
+            distance = euclideanDistance(x,y)
+            heapq.heappush(heap,(-distance, (x,y)))
+            while len(heap) > k:
+                heapq.heappop(heap)
+        
+        result = []
+
+        while heap:
+            x,y=heapq.heappop(heap)[1]
+            result.append([x,y])
+        return result

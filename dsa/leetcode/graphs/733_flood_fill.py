@@ -1,0 +1,168 @@
+"""
+
+EASY
+
+You are given an image represented by an m x n grid of integers image, where image[i][j] represents the pixel value of the image. You are also given three integers sr, sc, and color. Your task is to perform a flood fill on the image starting from the pixel image[sr][sc].
+
+To perform a flood fill:
+
+    Begin with the starting pixel and change its color to color.
+    Perform the same process for each pixel that is directly adjacent (pixels that share a side with the original pixel, either horizontally or vertically) and shares the same color as the starting pixel.
+    Keep repeating this process by checking neighboring pixels of the updated pixels and modifying their color if it matches the original color of the starting pixel.
+    The process stops when there are no more adjacent pixels of the original color to update.
+
+Return the modified image after performing the flood fill.
+
+Example 1:
+
+Input: image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2
+
+Output: [[2,2,2],[2,2,0],[2,0,1]]
+
+Explanation:
+
+From the center of the image with position (sr, sc) = (1, 1) (i.e., the red pixel), all pixels connected by a path of the same color as the starting pixel (i.e., the blue pixels) are colored with the new color.
+
+Note the bottom corner is not colored 2, because it is not horizontally or vertically connected to the starting pixel.
+
+Example 2:
+
+Input: image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0
+
+Output: [[0,0,0],[0,0,0]]
+
+Explanation:
+
+The starting pixel is already colored with 0, which is the same as the target color. Therefore, no changes are made to the image.
+
+Constraints:
+
+    m == image.length
+    n == image[i].length
+    1 <= m, n <= 50
+    0 <= image[i][j], color < 216
+    0 <= sr < m
+    0 <= sc < n
+"""
+import collections
+from typing import List
+
+class Solution:
+
+    # ── Attempt · 2026-07-29 ──────────────
+    def floodFill_20260729(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        # we have a starting node and we want to change all nodes of the same color to target color
+        # basic BFS, don't need a visited since we are changing the value of each node
+
+        rows, cols = len(image), len(image[0])
+
+        # nothing to change if same color
+        if image[sr][sc] == color:
+            return image
+
+        sourceColor = image[sr][sc]
+
+        queue = collections.deque()
+
+        queue.append((sr,sc))
+        neighbors = [[1,0],[-1,0],[0,1],[0,-1]]
+        while queue:
+            cr, cc = queue.popleft()
+            originalColor = image[cr][cc]
+            if originalColor == sourceColor:
+                image[cr][cc] = color
+                for ir, ic in neighbors:
+                    nr, nc = cr + ir, cc + ic
+                    if nr >= 0 and nr < rows and nc >= 0 and nc < cols and image[nr][nc] == sourceColor:
+                        queue.append((nr,nc))
+        
+        return image
+
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        # we are basically just doing BFS from one node and that's it
+        # we actually need to save the original color of starting point so it can be compared
+
+        originalColor = image[sr][sc]
+        
+        rows, cols = len(image), len(image[0])
+
+        queue = collections.deque()
+        
+        queue.append((sr,sc))
+
+        neighbors = [[1,0],[-1,0],[0,1],[0,-1]]
+
+        while queue:
+            # we can mark nodes as visited by just changing them to the color
+            # so no need to have a visited set
+            currentRow, currentCol = queue.popleft()
+            image[currentRow][currentCol] = color
+            # we now check currentNode's neighbors
+            
+            for rowInc, colInc in neighbors:
+                neighborRow = currentRow + rowInc
+                neighborCol = currentCol + colInc
+                # if not out of bounds and was same color as original
+                # we want to add it to queue
+                # and also if originalColor != color
+                if (neighborRow >= 0 and neighborRow < rows and neighborCol >= 0 and neighborCol < cols 
+                    and image[neighborRow][neighborCol] == originalColor
+                    and originalColor != color):
+                    queue.append((neighborRow, neighborCol))
+
+        return image
+    
+    def floodFill_20260619(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        # so we need to keep track of original color of sr, sc, so we can match with its neighbors
+        # we do bfs until all the colors are converted
+        originalColor = image[sr][sc]
+
+        rows, cols = len(image), len(image[0])
+
+        queue = collections.deque()
+        
+        queue.append((sr,sc))
+
+        neighbors = [[1,0],[-1,0],[0,1],[0,-1]]
+
+        while queue:
+            currentRow, currentCol = queue.popleft()
+            # mark node as visited
+            image[currentRow][currentCol] = color
+            # add neighbors
+            for rowInc, colInc in neighbors:
+                neighborRow = currentRow + rowInc
+                neighborCol = currentCol + colInc
+                if neighborRow >= 0 and neighborRow < rows and neighborCol >= 0 and neighborCol < cols and image[neighborRow][neighborCol] == originalColor and originalColor != color:
+                    queue.append((neighborRow, neighborCol))
+
+        return image
+
+    def floodFill_20260628(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        # we are saying starting at [sr][sc], we want to change all neighbors that have the same color to the input color
+
+        # nothing to do if initial color is same as color
+        if image[sr][sc] == color:
+            return image
+        
+        # if not equal, we want to perform bfs or dfs until all neighbors are filled
+        # we don't need visited as we can just change the color and it will be same as being visited
+        rows, cols = len(image), len(image[0])
+
+        queue = collections.deque()
+        queue.append((sr,sc))
+        originalColor = image[sr][sc]
+        image[sr][sc] = color
+        while queue:
+            cr, cc = queue.popleft()
+            neighbors = [[1,0],[-1,0],[0,1],[0,-1]]
+            # check valid neighbors and mark them as color and add to queue
+            for ir, ic in neighbors:
+                nr, nc = cr + ir, cc + ic
+                if nr >= 0 and nr < rows and nc >= 0 and nc < cols and image[nr][nc] == originalColor:
+                    # change color (mark as visited)
+                    image[nr][nc] = color
+                    # add to queue so we can mark neighbors of it
+                    queue.append((nr,nc))
+
+        return image

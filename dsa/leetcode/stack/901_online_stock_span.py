@@ -1,0 +1,147 @@
+"""
+Design an algorithm that collects daily price quotes for some stock and returns the span of that stock's price for the current day.
+
+The span of the stock's price in one day is the maximum number of consecutive days (starting from that day and going backward) for which the stock price was less than or equal to the price of that day.
+
+    For example, if the prices of the stock in the last four days is [7,2,1,2] and the price of the stock today is 2, then the span of today is 4 because starting from today, the price of the stock was less than or equal 2 for 4 consecutive days.
+    Also, if the prices of the stock in the last four days is [7,34,1,2] and the price of the stock today is 8, then the span of today is 3 because starting from today, the price of the stock was less than or equal 8 for 3 consecutive days.
+
+Implement the StockSpanner class:
+
+    StockSpanner() Initializes the object of the class.
+    int next(int price) Returns the span of the stock's price given that today's price is price.
+
+Example 1:
+
+Input
+["StockSpanner", "next", "next", "next", "next", "next", "next", "next"]
+[[], [100], [80], [60], [70], [60], [75], [85]]
+Output
+[null, 1, 1, 1, 2, 1, 4, 6]
+
+Explanation
+StockSpanner stockSpanner = new StockSpanner();
+stockSpanner.next(100); // return 1
+stockSpanner.next(80);  // return 1
+stockSpanner.next(60);  // return 1
+stockSpanner.next(70);  // return 2
+stockSpanner.next(60);  // return 1
+stockSpanner.next(75);  // return 4, because the last 4 prices (including today's price of 75) were less than or equal to today's price.
+stockSpanner.next(85);  // return 6
+
+Constraints:
+
+    1 <= price <= 105
+    At most 104 calls will be made to next.
+"""
+
+
+# ── Attempt · 2026-10-02 ──────────────
+class StockSpanner_20261002:
+# non increasing stack (decreasing with equality check), each stack node keeps its span so (value, span) tuple
+    def __init__(self):
+        self.decreasing_stack = []
+
+    def next(self, price: int) -> int:
+        span = 1
+        while self.decreasing_stack and price >= self.decreasing_stack[-1][0]:
+            previous_value, previous_span = self.decreasing_stack.pop()
+            span+=previous_span
+        self.decreasing_stack.append((price, span))
+        return span
+
+# ── Attempt · 2026-09-22 ──────────────
+class StockSpanner_20260922:
+# in example 1, if we do a traditional decreasingStack, we lose the details to populate 4 for 75
+# we need to be able to store the detail somewhere, where do we store that? we store as tuple
+    def __init__(self):
+        self.decreasingStack = []
+
+    def next(self, price: int) -> int:
+        priceSpan = 1
+        while self.decreasingStack and price >= self.decreasingStack[-1][0]:
+            priorValue, priorSpan = self.decreasingStack.pop()
+            priceSpan+=priorSpan
+        self.decreasingStack.append((price, priceSpan))
+        return priceSpan
+
+# ── Attempt · 2026-08-23 ──────────────
+class StockSpanner_20260823:
+# this is clearly a monotonic stack problem
+# each number's default span is 1
+# but how do I get 4 on 75, I have to store the previous value span somewhere
+# this sounds like a tuple, so do (value, span) in the tuple, decreasing stack
+
+    def __init__(self):
+        self.decreasingStack = []
+
+    def next(self, price: int) -> int:
+        # default span for any number is 1
+        currentSpan = 1
+        # while we do not conform by the decreasing stack
+        # add it to the currentSpan
+        while self.decreasingStack and price >= self.decreasingStack[-1][0]:
+            priorValue, priorSpan = self.decreasingStack.pop()
+            currentSpan+=priorSpan
+        self.decreasingStack.append((price, currentSpan))
+
+        return currentSpan
+
+# ── Attempt · 2026-08-13 ──────────────
+class StockSpanner_20260813:
+    # we can have a stack of tuples here
+    # we will have a decreasing stack where each value holds its own span
+    def __init__(self):
+        self.stack = []    
+
+    def next(self, price: int) -> int:
+        # span defaults to 1
+        priceSpan = 1
+        # while we are not having a decreasing stack
+        while self.stack and price >= self.stack[-1][0]:
+            priorElement, priorElementSpan = self.stack.pop()
+            priceSpan+=priorElementSpan
+        self.stack.append((price, priceSpan))
+        return priceSpan
+
+# ── Attempt · 2026-07-14 ──────────────
+class StockSpanner_20260714:
+# [7,2,1,2,4]
+# [1,1,1,3,4]
+# we increment if prior value is smaller
+# so while stack[-1] <= current: pop
+# since we are popping out of the stack, we need to keep track at each point
+# so (value, span) for the decreasing stack
+    def __init__(self):
+        self.decreasingStack = []
+
+    def next(self, price: int) -> int:
+        currentSpan = 1
+        while self.decreasingStack and price >= self.decreasingStack[-1][0]:
+            priorValue, priorSpan = self.decreasingStack.pop()
+            currentSpan+=priorSpan
+        self.decreasingStack.append((price,currentSpan))
+        return currentSpan
+
+class StockSpanner_20260712:
+# we want until the previous day is greater
+# so [7,2,1,2,4]
+#    [1,1,1,3,4]
+# so while num > stack[-1], increment, this means a decreasing stack
+# but issue becomes how do we do the next element
+# key here is to do a tuple for the monotonic stack, so we have (value, span) for each
+    def __init__(self):
+        self.decreasingStack = []
+
+    def next(self, price: int) -> int:
+        # first element, just insert with span of 1
+        priceSpan = 1
+        while self.decreasingStack and price >= self.decreasingStack[-1][0]:
+            priorValue, priorSpan = self.decreasingStack.pop()
+            priceSpan+=priorSpan
+        self.decreasingStack.append((price, priceSpan))
+        return priceSpan
+
+# Your StockSpanner object will be instantiated and called as such:
+# obj = StockSpanner()
+# param_1 = obj.next(price)

@@ -1,0 +1,215 @@
+"""
+There is an integer array nums sorted in ascending order (with distinct values).
+
+Prior to being passed to your function, nums is possibly left rotated at an unknown index k (1 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be left rotated by 3 indices and become [4,5,6,7,0,1,2].
+
+Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+
+You must write an algorithm with O(log n) runtime complexity.
+
+Example 1:
+
+Input: nums = [4,5,6,7,0,1,2], target = 0
+Output: 4
+
+Example 2:
+
+Input: nums = [4,5,6,7,0,1,2], target = 3
+Output: -1
+
+Example 3:
+
+Input: nums = [1], target = 0
+Output: -1
+
+Constraints:
+
+    1 <= nums.length <= 5000
+    -104 <= nums[i] <= 104
+    All values of nums are unique.
+    nums is an ascending array that is possibly rotated.
+    -104 <= target <= 104
+"""
+
+from typing import List
+
+class Solution:
+
+    # ── Attempt · 2026-08-24 ──────────────
+    def search_20260824(self, nums: List[int], target: int) -> int:
+        # two stepper
+        # 1. find where rotation happens, this is min boundary binary search
+        # 2. look at both sides for the target, this is single target binary search
+
+        l, r = 0, len(nums) - 1
+
+        while l < r:
+            m = (l + r) // 2
+            # 4, 5, 6, 7, 0, 1, 2
+            # l        m        r
+            # if m greater, definitely not the smallest so skip this
+            if nums[m] > nums[r]:
+                l = m + 1
+            else:
+                r = m
+        
+        # l is now the start of the rotation, so now check both sides
+        rotationIndex = l
+    
+        def binarySearch(l,r):
+            while l <= r:
+                m = (l+r)//2
+                if nums[m] == target:
+                    return m
+                elif nums[m] > target:
+                    r = m - 1
+                else:
+                    l = m + 1
+            return -1
+
+        firstHalfSearch = binarySearch(0, rotationIndex-1)
+
+        if firstHalfSearch == -1:
+            return binarySearch(rotationIndex, len(nums)-1)
+        else:
+            return firstHalfSearch
+
+    def search(self, nums: List[int], target: int) -> int:
+        # if we are looking for logn time, we can't go through the array to find k
+        # we should binary search to find k
+        # then binary search on the 2 halves
+        # k is smallest value, thus we do binary search on smallest value
+        # Want exact target index? l <= r
+        # Want first/last occurrence or smallest pivot? l < r
+        # If looking for a boundary and not a single target, prefer l < r
+
+        l, r = 0, len(nums) - 1
+
+        while l < r:
+            m = (l + r) // 2
+            if nums[m] > nums[r]:
+                l = m + 1
+            else:
+                r = m
+        
+        k = l
+
+        # binary search on both halves
+
+        def binarySearch(l,r) -> int:
+            while l<=r:
+                mid = (l+r)//2
+                if nums[mid] == target:
+                    return mid
+                elif nums[mid] > target:
+                    r = mid - 1
+                else:
+                    l = mid + 1
+            return -1
+        
+        result = binarySearch(0,k-1)
+        if result == -1:
+            result = binarySearch(k,len(nums)-1)
+        
+        return result
+
+    def search_20260615(self, nums: List[int], target: int) -> int:
+        # Finding a specific number in a rotated sorted array
+        # but since array is rotated, we actually need to find where it rotated at
+        # so min boundary binary search, then based on that, we search both sides for an answer
+        # [4,5,6,7,0,1,2]
+        #  l     m     r
+        # because mid is greater than r, we know we shifted further to the right
+        
+        l, r = 0, len(nums) - 1
+
+        while l < r:
+            m = (l+r)//2
+            if nums[m] > nums[r]:
+                l = m + 1
+            else:
+                r = m
+
+        # rotation happened at l
+        # so we binary search on 0, l-1 and l, r
+
+        def binarySearch(l,r):
+            while l <= r:
+                m = (l+r)//2
+                if nums[m] == target:
+                    return m
+                if nums[m] > target:
+                    r = m - 1
+                else:
+                    l = m + 1
+            return -1
+
+        if binarySearch(0,l-1) == -1:
+            return binarySearch(l,len(nums)-1)
+        else:
+            return binarySearch(0,l-1)
+        
+    def search_20260625(self, nums: List[int], target: int) -> int:
+        # find start of rotation using min boundary binary search
+        # then look on both sides using exact value binary search
+        l, r = 0, len(nums) - 1
+
+        while l < r:
+            m = (l+r)//2
+            # if this is true, boundary is up top
+            if nums[m] > nums[r]:
+                l = m + 1
+            else:
+                r = m
+        
+        # l is now the boundary
+        k = l
+
+        def binarySearch(l,r):
+            m = (l+r)//2
+            while l <= r:
+                if nums[m] == target:
+                    return nums[m]
+                elif nums[m] > target:
+                    r = m - 1
+                else:
+                    l = m + 1
+            return -1
+
+        if binarySearch(0, k-1) == -1:
+            return binarySearch(k, len(nums)-1)
+        else:
+            return binarySearch(0, k-1)
+    def search_20260704(self, nums: List[int], target: int) -> int:
+        # two part problem
+        # find where the rotation starts using min boundary search
+        # then do exact search on both sides
+
+        l, r = 0, len(nums)-1
+
+        while l<r:
+            m = (l+r)//2
+            # if greater, m cannot possibly be where the rotation starts
+            if nums[m] > nums[r]:
+                l = m + 1
+            else:
+                r = m
+        
+        # now that l is at the rotation point
+        # we search on both sides
+        
+        def binarySearch(l,r):
+            while l <= r:
+                m=(l+r)//2
+                if nums[m] == target:
+                    return m
+                if nums[m] > target:
+                    r = m - 1
+                else:
+                    l = m + 1
+            return -1
+        k = l
+        if binarySearch(0,k-1) == -1:
+            return binarySearch(k,len(nums)-1)
+        else:
+            return binarySearch(0,k-1)

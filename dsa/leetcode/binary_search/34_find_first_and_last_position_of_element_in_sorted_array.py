@@ -1,0 +1,165 @@
+"""
+34. Find First and Last Position of Element in Sorted Array   ·   https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+Pattern: binary_search
+
+Given an array of integers `nums` sorted in non-decreasing order, find the starting
+and ending position of a given `target` value.
+
+If `target` is not found in the array, return `[-1, -1]`.
+
+You must write an algorithm with O(log n) runtime complexity.
+
+Example 1:
+  Input:  nums = [5,7,7,8,8,10], target = 8
+  Output: [3, 4]
+
+Example 2:
+  Input:  nums = [5,7,7,8,8,10], target = 6
+  Output: [-1, -1]
+
+Example 3:
+  Input:  nums = [], target = 0
+  Output: [-1, -1]
+
+Constraints:
+  0 <= nums.length <= 10^5
+  -10^9 <= nums[i] <= 10^9
+  nums is a non-decreasing array.
+  -10^9 <= target <= 10^9
+"""
+# Write everything yourself from here — including any ListNode/TreeNode classes a
+# problem needs. No shared data-model imports (whiteboard fidelity).
+from typing import List, Optional
+
+
+class Solution:
+
+    # ── Attempt · 2026-09-26 ──────────────
+    def searchRange_20260926(self, nums: List[int], target: int) -> List[int]:
+        # binary search, first and last means we do both min boundary and max boundary
+        # [5,7,7,8,8,9,9,10] ; 8
+        #  l       m     r
+
+        result = [-1,-1]
+
+        l, r = 0, len(nums) - 1
+
+        while l < r:
+            m = (l + r) // 2
+            # if value is less, we need to move up, which is obvious for both cases
+            # but if it is equal, we keep as candidate and move r down
+            # if value is bigger, we need to move r down as down
+            if nums[m] >= target:
+                r = m
+            else:
+                l = m + 1
+        
+        if l < len(nums) and nums[l] == target:
+            result[0] = l
+
+        l, r = 0, len(nums) - 1
+
+        while l < r:
+            m = (l + r + 1) // 2
+            # if value is less, we need to move up, which is obvious for both cases
+            # but if it is equal, we keep as candidate and move l up
+            # if value is bigger, we need to move r down as down
+            if nums[m] <= target:
+                l = m
+            else:
+                r = m - 1
+        
+        if l < len(nums) and nums[l] == target:
+            result[1] = l
+        
+        return result
+
+    # ── Attempt · 2026-09-16 ──────────────
+    def searchRange_20260916(self, nums: List[int], target: int) -> List[int]:
+        # min boundary and max boundary binary search
+
+        if not nums:
+            return [-1,-1]
+
+        result = []
+
+        # min boundary, find the target with the smallest index
+        # criteria to move up or down here is if m < 8, it is outside of potential range
+        # [5,7,7,8,8,10]
+        #  l   m r
+
+        l, r = 0, len(nums) - 1
+
+        while l < r:
+            m = (l + r) // 2
+            # if not answer, move up
+            if nums[m] < target:
+                l = m + 1
+            else:
+                r = m
+        
+        if nums[l] == target:
+            result.append(l)
+        else:
+            result.append(-1)
+        
+        l, r = 0, len(nums) - 1
+
+        while l < r:
+            m = (l + r + 1) // 2
+            if nums[m] > target:
+                r = m - 1
+            else:
+                l = m
+        
+        if nums[l] == target:
+            result.append(l)
+        else:
+            result.append(-1)
+        
+        return result
+
+    # ── Attempt 1 · 2026-09-06 ────────────────────────────────────────────
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        # we have to find this number twice
+        # so let's do one min boundary and one max boundary
+        # this is sorted, so we just shrink like normal binary search
+
+        result = []
+
+        # min boundary
+        l, r = 0, len(nums) - 1
+
+        while l < r:
+            m = (l + r)//2
+            # if too small, this can't be the start
+            # so move l up
+            if nums[m] < target:
+                l = m + 1
+            else:
+                r = m
+        
+        if l >= 0 and l < len(nums) and nums[l] == target:
+            result.append(l)
+        else:
+            result.append(-1)
+
+        l, r = 0, len(nums) - 1
+
+        # [5,7,7,8,8,10]
+        #          l r
+        while l < r:
+            m = (l + r + 1)//2
+            # if too big, this can't be the end
+            # so move r down
+            if nums[m] > target:
+                r = m - 1
+            else:
+                l = m
+        
+        if l >= 0 and l < len(nums) and nums[l] == target:
+            result.append(l)
+        else:
+            result.append(-1)
+        
+        return result

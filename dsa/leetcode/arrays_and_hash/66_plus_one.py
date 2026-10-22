@@ -1,0 +1,117 @@
+"""
+Docstring for dsa.leetcode.arrays_and_hash.66_plus_one
+
+You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
+
+Increment the large integer by one and return the resulting array of digits.
+
+ 
+
+Example 1:
+
+Input: digits = [1,2,3]
+Output: [1,2,4]
+Explanation: The array represents the integer 123.
+Incrementing by one gives 123 + 1 = 124.
+Thus, the result should be [1,2,4].
+
+Example 2:
+
+Input: digits = [4,3,2,1]
+Output: [4,3,2,2]
+Explanation: The array represents the integer 4321.
+Incrementing by one gives 4321 + 1 = 4322.
+Thus, the result should be [4,3,2,2].
+
+Example 3:
+
+Input: digits = [9]
+Output: [1,0]
+Explanation: The array represents the integer 9.
+Incrementing by one gives 9 + 1 = 10.
+Thus, the result should be [1,0].
+
+ 
+
+Constraints:
+
+    1 <= digits.length <= 100
+    0 <= digits[i] <= 9
+    digits does not contain any leading 0's.
+
+"""
+
+from typing import List
+import unittest
+
+class Solution:
+
+    # ── Attempt · 2026-08-10 ──────────────
+    def plusOneSolution1_20260810(self, digits: List[int]) -> List[int]:
+        # only special case here is if the values are 9s
+        # so if 999, we change each 9 to a 0 and put a 1 in front
+        # otherwise we just add 1
+
+        for i in range(len(digits)-1,-1,-1):
+            if digits[i] == 9:
+                digits[i] = 0
+            else:
+                digits[i]+=1
+                return digits
+        
+        return [1] + digits
+
+    def plusOneSolution1(self, digits: List[int]) -> List[int]:
+        # iterate from last number in list
+        # if digit is 9, set to 0 and continue
+        # otherwise, add 1 and return
+        # if we are out of loop without returning, it means it was all 9s
+        # thus we add 1 in front of list
+
+        # range(start, end, increment)
+        for i in range(len(digits)-1,-1,-1):
+            if digits[i] != 9:
+                digits[i] += 1
+                return digits
+            digits[i] = 0
+
+        return [1] + digits
+
+    def plusOne_20260622(self, digits: List[int]) -> List[int]:
+        # only special case is if all numbers are 9
+        # otherwise, we just increment by 1 starting from the end
+        # since we do addition from the end
+
+        for i in range(len(digits)-1,-1,-1):
+            if digits[i] != 9:
+                digits[i]+=1
+                # no carryforward needed, just return
+                return digits
+            # otherwise, we need to carry over which makes current number 0
+            digits[i] = 0
+        return [1] + digits
+
+    def plusOne_20260701(self, digits: List[int]) -> List[int]:
+        # adding one is really easy, except for when we have to carry forward
+        # so only one real case here
+        # start from the end, if not equal to 9. add 1, return
+        # if equal, set to 0 and continue
+
+        for i in range(len(digits)-1,-1,-1):
+            if digits[i] != 9:
+                digits[i]+=1
+                return digits
+            digits[i] = 0
+        return [1] + digits
+
+class UnitTest(unittest.TestCase):
+    test1 = [4,3,2,1]
+    output1 = [4,3,2,2]
+    test2 = [1,2,3]
+    output2 = [1,2,4]
+
+    def test1PlusOneSolution1(self):
+        result = Solution().plusOneSolution1(self.test1)
+        self.assertEqual(self.output1, result)
+        
+unittest.main()

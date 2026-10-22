@@ -1,0 +1,458 @@
+"""
+332. Reconstruct Itinerary   ·   https://leetcode.com/problems/reconstruct-itinerary/
+Pattern: graphs
+
+tickets[i] = [from_i, to_i] = one flight. Reconstruct the itinerary in order,
+using ALL tickets exactly once, starting from "JFK".
+If multiple valid itineraries → return the lexicographically smallest one
+(compare the whole itinerary as a list of strings).
+A valid itinerary is guaranteed to exist (may reuse an airport, not a ticket).
+
+  Input:  [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]
+  Output: ["JFK","MUC","LHR","SFO","SJC"]
+
+Constraints: 1 <= tickets.length <= 300; airport codes are 3 uppercase letters.
+"""
+# Write everything yourself from here — including any ListNode/TreeNode classes a
+# problem needs. No shared data-model imports (whiteboard fidelity).
+import collections
+import heapq
+from typing import List, Optional
+
+
+class Solution:
+
+    # ── Attempt · 2026-10-19 ──────────────
+    def findItinerary_20261019(self, tickets: List[List[str]]) -> List[str]:
+        # hierholzer with min-heap
+        # eulerian path since we are trying to visit all edges once and are not guaranteed to end at starting point, thus not circuit
+        # eulerian path specialty is about degrees, so starting point is always -1 degree and ending is always +1 degree
+        # we are given our start but not our ending here, so finding the ending is the important thing here
+        # since we are doing min heap method, we can just do a nice adjacency map with min heap
+        # this takes care of the lexicographical order as well
+        # because of this, we also do not need visited
+        adj_map = collections.defaultdict(list)
+
+        for src,dst in tickets:
+            heapq.heappush(adj_map[src], dst)
+
+        result = []
+        
+        def dfs(node):
+            while adj_map[node]:
+                closest_neighbor = heapq.heappop(adj_map[node])
+                dfs(closest_neighbor)
+            result.append(node)
+
+        dfs("JFK")
+        
+        result.reverse()
+        return result
+
+    # ── Attempt · 2026-10-09 ──────────────
+    def findItinerary_20260829_minheap_20261009(self, tickets: List[List[str]]) -> List[str]:
+        # min heap hierholzer
+        # hierholzer is a graph technique specifically used for Euler's Circuit and path which means we visit every edge exactly once
+        # Euler's Path is when we do not guarantee that we will end up at the same node that we started at
+        # Euler's Circuit is when we are guaranteed to end where we started
+        # in this problem, we know we start at JFK but not sure where we end so this is an Euler's Path
+        # Hierholzer is a postorder dfs technique
+        # so what we want to do is add nodes in from the end, e.g. when there are no more neighbors, which means no outgoing degrees
+        # we are heavily reliant on degrees. 
+        # looking at example 1, we see that JFK has one degree leaving it and our end has one degree entering it
+        # we want to go to target in lexicographical order, so sort by target
+        # doesn't seem necessary with min heap though
+        # we need an adjMap, the adjMap is how we determine when to stop
+
+        result = []
+
+        # this list will be a minHeap, so we get sorted for free 
+        adj_map = collections.defaultdict(list)
+
+        for src,dst in tickets:
+            heapq.heappush(adj_map[src], dst)
+
+        def dfs(node):
+            while adj_map[node]:
+                closest_neighbor = heapq.heappop(adj_map[node])
+                dfs(closest_neighbor)
+            result.append(node)
+        
+        dfs("JFK")
+
+        result.reverse()
+
+        return result
+
+    # ── Attempt · 2026-09-15 ──────────────
+    def findItinerary_stack_20260915(self, tickets: List[List[str]]) -> List[str]:
+        # practicing stack hierholzer today
+        # directed graph with defined starting node
+        # visiting each edge once is exactly hierholzer
+        # this is an eulerian path since we cannot guarantee circling back to the starting node
+        # we are to do stack hierholzer today, so this is an iterative DFS approach
+        # since we need do lexicographical order, we need to sort first
+        # we would sort by destination I believe since we go from JFK, so this would help us find the smallest lexical destination
+        # now the way hierholzer works is we go through the adjMap until there is no more neighbors left
+
+        result = []
+
+        # we need to pop out of adjMap, which means we need smallest on the right side
+        # so do biggest to smallest, thus reverse=True
+        tickets.sort(key=lambda ticket:ticket[1], reverse=True)
+
+        adjMap = collections.defaultdict(list)
+
+        for src, dst in tickets:
+            adjMap[src].append(dst)
+
+        # now we put in JFK in the stack
+        stack = []
+        stack.append("JFK")
+
+        # now we go until we have nothing left in the stack
+
+        while stack:
+            currentAirport = stack[-1]
+            # if we do not have any more neighbors to visit
+            # we add to the result
+            if not adjMap[currentAirport]:
+                result.append(stack.pop())
+            # if it does exist, take the smallest lexicographical edge
+            else:
+                stack.append(adjMap[currentAirport].pop())
+
+        result.reverse()
+
+        return result
+
+    # ── Attempt · 2026-09-10 ──────────────
+    def findItinerary_20260829_minheap_20260910(self, tickets: List[List[str]]) -> List[str]:
+        # Eulerian Path since we need to use all tickets (edges) once and only once
+        # path and not Circuit since we are not guaranteed to get back to the starting point
+        # since we are also required to do lexicographical order
+        # we can do this one of two ways: sort -> stack hierholzer or minHeap hierholzer
+        # we will do minHeap Hierholzer
+        # so we have an adjMap that holds a heap instead of a list
+        # and we do the classic Hierholzer algorithm, which is to add to result when we 
+        # have no neighbors for this node to visit
+
+        adjMap = collections.defaultdict(list)
+
+        # initialize our adjMap
+        for src, dst in tickets:
+            heapq.heappush(adjMap[src],dst)
+
+        result = []
+        def dfs(node):
+            nonlocal result
+            # if nowhere else to visit, add it to result
+            if not adjMap[node]:
+                result.append(node)
+                return
+            # if neighbors to visit, dfs on them
+            while adjMap[node]:
+                dfs(heapq.heappop(adjMap[node]))
+            
+            # when we get here, we would have gone through every neighbor
+            # now we add the node
+            result.append(node)
+        
+        dfs("JFK")
+        result.reverse()
+        return result
+
+    # ── Attempt · 2026-09-05 ──────────────
+    def findItinerary_20260829_minheap_20260905(self, tickets: List[List[str]]) -> List[str]:
+        # Eulerian Path since we are visiting edges once each
+        # and we are not guaranteed to end at the starting node
+        # we have a requirement to go in smallest lexical order if possible
+        # so this makes a minHeap very attractively here
+        # However, today the practice is to use iterative hierholzer
+        # hierholzer's use a form of DFS, which means iterative is stack
+        # issue is that with stack, we don't have a good way to handle the lexical order it wants
+        # so maybe we pre-sort first so the tickets enter the stack in lexical order
+        # we should sort by 'to' so JFK goes to the smallest destination first
+        # so let's do an adjMap and visited set like normal DFS
+
+        tickets.sort(key=lambda ticket:ticket[1], reverse=True)
+
+        adjMap = collections.defaultdict(list)
+
+        for source, dst in tickets:
+            adjMap[source].append(dst)
+        
+        stack = []
+        
+        stack.append("JFK")
+
+        result = []
+        # while we still have nodes in the stack to visit, we keep going
+        while stack:
+            currentNode = stack[-1]
+            # if no neighbors left for current node
+            # that means we add this to result
+            if not adjMap[currentNode]:
+                result.append(stack.pop())
+            else:
+                # otherwise, add its neighbors
+                neighbor = adjMap[currentNode].pop()
+                stack.append(neighbor)
+
+        result.reverse()
+
+        return result
+
+    # ── Attempt · 2026-08-31 ──────────────
+    def findItinerary_20260829_minheap_20260831(self, tickets: List[List[str]]) -> List[str]:
+        # Eulerian Path - Visit each edge once with no guarantee that we will end up at starting node
+        # adjMap with minHeap since we need to worry about lexicographical order
+        # we must have an end, which is a node with no edges to traverse
+        # we can find that by checking if adjMap is empty for the node
+        # we won't need visited set since we are just popping out of minHeap
+        
+        adjMap = collections.defaultdict(list)
+
+        # initiate the adjMap
+        for src, dst in tickets:
+            heapq.heappush(adjMap[src], dst)
+        
+        # we need to go through to the end until we find a node with no neighbors
+        # that is DFS
+        result = []
+        def dfs(node):
+            # add the final node
+            if not adjMap[node]:
+                result.append(node)
+                return
+            
+            # we have neighbors here so let's go through them
+            while adjMap[node]:
+                dfs(heapq.heappop(adjMap[node]))
+            
+            # add the caller nodes, so we constructed backwards
+            result.append(node)
+        
+        dfs("JFK")
+        result.reverse()
+        return result
+
+    # ── Attempt · 2026-08-29 · ROW 2 — min-heap ordering ──────────────
+    def findItinerary_20260829_minheap(self, tickets: List[List[str]]) -> List[str]:
+        # Eulerian Path since we are not guaranteed to finish at our starting vertex
+        # we know we traverse starting with JFK
+        # Eulerian Path, we want to visit every edge once, so that is our visited set
+        # visited set = (startVertex, endVertex) but we are not given that those are unique
+        # so maybe just a visited list instead
+        # lexicalgraphical order, minHeap to hold the vertices will sort that for us automatically
+        # we then need adjacency map so we can push those onto the minHeap
+        # actually we just might not need visited if we are popping off the minHeap
+        # it basically tells us it is visited, TBD
+
+        adjMap = collections.defaultdict(list)
+
+        for src, dst in tickets:
+            heapq.heappush(adjMap[src],dst)
+
+        result = []
+        # now that we have an adjMap with the neighbors in lexicographical order
+        # go through the edges
+        # notice that we end when we hit the final node without any edges
+        # DFS until we hit the end
+        def dfs(node):
+            # we have neighbors for this node, so we push them onto our recursion stack
+            while adjMap[node]:
+                dfs(heapq.heappop(adjMap[node]))
+
+            # add each node to the result
+            result.append(node)
+
+        dfs("JFK")
+        result.reverse()
+        return result
+
+    # ── Attempt · 2026-08-18 ──────────────
+    def findItinerary_20260818(self, tickets: List[List[str]]) -> List[str]:
+        # Eulerian 
+        # we use a stack to trace current path of the vertices and find dead ends
+        # we pop off the stack when this node gets stuck, aka all neighbors visited
+        stack = []
+
+        # we have to do lexicographical order, so since we are not doing minHeap method
+        # we need to sort the input before mapping so we go by lexicographical order
+        tickets.sort(reverse=True)
+        
+        adjMap = collections.defaultdict(list)
+
+        for src, tgt in tickets:
+            adjMap[src].append(tgt)
+        
+        # we know we start with JFK so we put JFK onto the stack
+        
+        stack.append("JFK")
+
+        result = []
+        # while we still have nodes in the stack to visit, we keep going
+        while stack:
+            currentNode = stack[-1]
+            # if no neighbors left for current node
+            # it means we hit a dead end and this node is elligible
+            # to go onto the result
+            if not adjMap[currentNode]:
+                result.append(stack.pop())
+            else:
+                # otherwise, add its neighbor to the stack
+                neighbor = adjMap[currentNode].pop()
+                stack.append(neighbor)
+
+        result.reverse()
+
+        return result
+
+    # ── Attempt · 2026-08-14 ──────────────
+    def findItinerary_20260814(self, tickets: List[List[str]]) -> List[str]:
+        # this is not Dijkstra's, we don't have a destination nor edge weight
+        # notice that we do try to do lexicographical order
+        # we start with JFK and the ending node must have nowhere else to go
+        # this looks like DFS, get to end node first then take care of call stack
+        # adjacency map, visited holds edges not nodes and needs to be a minHeap
+        # the minHeap takes care of our lexicographical issue
+
+        adjMap = collections.defaultdict(list)
+        result = []
+        
+        for src, dst in tickets:
+            heapq.heappush(adjMap[src], dst)
+
+        def dfs(node):
+            # we are trying to find our end node
+            # so if no more neighbors, that is the end
+            if not adjMap[node]: 
+                result.append(node)
+                return
+            
+            # while we have neighbors we visited
+            while adjMap[node]:
+                neighbor = heapq.heappop(adjMap[node])
+                dfs(neighbor)
+            result.append(node)
+        
+        dfs("JFK")
+        result.reverse()
+        return result
+
+    # ── Attempt · 2026-08-04 ──────────────
+    def findItinerary_20260804(self, tickets: List[List[str]]) -> List[str]:
+        # the most important thing to note here is that the final node has nowhere else to go
+        # so what we can do is get to the end and construct backwards to the start
+        # so this reads like variation of DFS
+        # we have a starting node, we need to build an adj map
+        # and we also need visited
+        # this also looks like we are storing edges in visited, not nodes
+        # missed the lexical order completely, we need a minheap for it
+        # so our adjacency map will be a minHeap
+
+        adjMap = collections.defaultdict(list)
+
+        for src, dst in tickets:
+            heapq.heappush(adjMap[src], dst)
+
+        result = []
+
+        def dfs(node):
+            nonlocal result
+            # we go back when we have nowhere else to go
+            if not adjMap[node]:
+                result.append(node)
+                return
+
+            while adjMap[node]:
+                closestNeighbor = heapq.heappop(adjMap[node])
+                dfs(closestNeighbor)
+            
+            # this is our postorder traversal here
+            result.append(node)
+        
+        dfs("JFK")
+        result.reverse()
+        return result
+
+    # ── Attempt · 2026-07-28 ──────────────
+    def findItinerary_20260728(self, tickets: List[List[str]]) -> List[str]:
+        # Eulerian Path = visit all edges once - Hierholzer's
+        # Hamiltonian Path = visit all nodes once
+        # we are marking edges as visited not nodes, so this is Eulerian
+        # We know the starting location of JFK
+        # for adjMap, do string -> minHeap to get smallest lexical ordering
+        # DFS since we don't want to push all neighbors of JFK (e.g. example 2)
+        # One very important detail to note is that what happens when there is nowhere to go
+        # Since we know we must form a valid itinerary, this node must be the end
+        # so we should append backwards on the DFS
+        # [["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]]
+        result = []
+
+        adjMap = collections.defaultdict(list)
+
+        # construct the adjacency map
+        for source, destination in tickets:
+            heapq.heappush(adjMap[source], destination)
+        
+        def dfs(node):
+            # exhaust every ticket out of a node, then append the node itself
+            # first node to run out = last stop, so the list builds end-to-front
+            # on the way back up the stack, push leftover tickets into the result
+            while adjMap[node]:
+                currentChild = heapq.heappop(adjMap[node])
+                # go as deep as we can here
+                dfs(currentChild)
+            # now when we are back here, we are the last node of this DFS
+            # so we add ourselves to the result
+            result.append(node)
+
+        dfs("JFK")
+        result.reverse()
+        return result
+
+    # ── Attempt 1 · 2026-07-22 ────────────────────────────────────────────
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        # using only once means we should keep track of edges and not nodes
+        # so maybe set of tuple, (from, to)
+        # since we should also go in smaller lexical order, I'm also considering using a minHeap
+        # so adjMap -> minHeap
+        # popping off the heap is kinda us telling us we visited already, so don't need visited set
+        # problem tells us our starting node is JFK, so we can work off that as well
+        # so is this a DFS or BFS or does it not matter since we cannot revisit edges
+        # I will try DFS since I cannot use a queue since I don't know my destination node instantly so I can't initialize my starting node
+        
+        # string -> minheap
+        adjMap = collections.defaultdict(list)
+        # construct our minHeap
+        for source, destination in tickets:
+            heapq.heappush(adjMap[source], destination)
+        
+        # add JFK to result
+        result = []
+
+        # go to the first destination possible from current node
+        def dfs(node):
+            nonlocal result
+            # if node is null or node has no more neighbors
+            if not node:
+                return
+            
+            # one important thing to note that the destination with nowhere else to go
+            # must be our end
+            while adjMap[node]:
+                closestNeighbor = heapq.heappop(adjMap[node])
+                
+                # go to neighbor
+                dfs(closestNeighbor)
+            # we are popping back from the end, so we need to remember to reverse when we return
+            if not adjMap[node]:
+                result.append(node)
+
+        dfs("JFK")
+
+        result.reverse()
+
+        return result

@@ -1,0 +1,391 @@
+"""
+127. Word Ladder   ·   https://leetcode.com/problems/word-ladder/
+Pattern: graphs
+
+A transformation sequence from word `beginWord` to word `endWord` using a dictionary
+`wordList` is a sequence beginWord -> s1 -> s2 -> ... -> sk such that:
+  - Every adjacent pair of words differs by a single letter.
+  - Every si (1 <= i <= k) is in wordList. Note beginWord need not be in wordList.
+  - sk == endWord
+
+Given beginWord, endWord, and wordList, return the number of words in the SHORTEST
+transformation sequence from beginWord to endWord, or 0 if no such sequence exists.
+
+Example 1:
+    Input:  beginWord = "hit", endWord = "cog",
+            wordList = ["hot","dot","dog","lot","log","cog"]
+    Output: 5
+    Explanation: "hit" -> "hot" -> "dot" -> "dog" -> "cog" is 5 words long.
+
+Example 2:
+    Input:  beginWord = "hit", endWord = "cog",
+            wordList = ["hot","dot","dog","lot","log"]
+    Output: 0
+    Explanation: endWord "cog" is not in wordList, so no valid sequence.
+
+Constraints:
+    1 <= beginWord.length <= 10
+    endWord.length == beginWord.length
+    1 <= wordList.length <= 5000
+    wordList[i].length == beginWord.length
+    beginWord, endWord, wordList[i] are lowercase English letters.
+    beginWord != endWord; all words in wordList are unique.
+"""
+# Write everything yourself from here — including any ListNode/TreeNode classes a
+# problem needs. No shared data-model imports (whiteboard fidelity).
+import collections
+from typing import List, Optional
+
+
+class Solution:
+
+    # ── Attempt · 2026-10-02 ──────────────
+    def ladderLength_20261002(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        # endword must be in the wordlist or the beginWord
+        # so first thing is to add beginword to wordlist
+        # then we need to create a map of .it -> hit, h.t -> hit, hi. -> hit 
+        # and repeat this for all words
+        # this is actually just a BFS navigating to nearest neighbors
+
+        adjMap = collections.defaultdict(list)
+        
+        wordList.append(beginWord)
+
+        def get_regex_word(index, input_word):
+            # we replace word[index] with .
+            pre = input_word[:index]
+            post = input_word[index+1:]
+            regex_word = pre + '.' + post
+            return regex_word
+        
+        for word in wordList:
+            for i in range(len(word)):
+                regex_word = get_regex_word(i, word)
+                adjMap[regex_word].append(word)
+
+        # now we add beginWord to the queue and go through all keys that own it
+
+        # need a visited set here to avoid revisiting
+        visited = set()
+        
+        queue = collections.deque()
+        queue.append(beginWord)
+        
+        visited.add(beginWord)
+        
+        # keep track of iterations we are doing
+        iteration = 1
+        
+        while queue:
+            lenQueue = len(queue)
+            for _ in range(lenQueue):
+                current_word = queue.popleft()
+                if current_word == endWord:
+                    return iteration
+                for i in range(len(current_word)):
+                    regex_word = get_regex_word(i, current_word)
+                    for neighbor in adjMap[regex_word]:
+                        if neighbor not in visited:
+                            queue.append(neighbor)
+                            visited.add(neighbor)
+            iteration+=1
+
+        return 0
+
+    # ── Attempt · 2026-09-02 ──────────────
+    def ladderLength_20260902(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        # graph to try to get from start node of beginWord to end node of endWord
+        # we can traverse one letter difference at a time so we do wildcard
+        # e.g. create an adjMap of wildcards, *it -> hit, h*t -> hit, hot
+        # example 2 shows that if endWord is not part of beginWord + wordList, we can't finish
+        # we are looking for the shortest transformation sequence
+        # since this is not weighted, shortest can be found via BFS
+
+        wordList.append(beginWord)
+
+        # now let's construct the adjacency Map
+        adjMap = collections.defaultdict(list)
+
+        for word in wordList:
+            # need to create the wildcard for each char
+            for i in range(len(word)):
+                pre = word[:i]
+                post = word[i+1:]
+                wildcard = pre + '*' + post
+                adjMap[wildcard].append(word)
+        
+        # now that we have our adjMap created, let's do BFS
+        queue = collections.deque()
+        visited = set()
+
+        # start with beginWord, so add beginWord to queue
+        queue.append(beginWord)
+        visited.add(beginWord)
+
+        # note that we are counting beginWord in result counter
+        # so let's initialize this to 1
+        numberOfIterations = 1
+        while queue:
+            lenQueue = len(queue)
+            for _ in range(lenQueue):
+                currentWord = queue.popleft()
+                # if we are currently at endWord, return
+                if currentWord == endWord:
+                    return numberOfIterations
+                # otherwise, let's check the neighbors
+                # have to do the wildcard
+                for i in range(len(currentWord)):
+                    pre = currentWord[:i]
+                    post = currentWord[i+1:]
+                    wildcard = pre + '*' + post
+                    # now that wildcard is constructed, check the neighbors
+                    for neighbor in adjMap[wildcard]:
+                        # if we haven't visited yet, add to queue and visited
+                        if neighbor not in visited:
+                            visited.add(neighbor)
+                            queue.append(neighbor)
+            numberOfIterations+=1
+        
+        # if we haven't returned by now, we prob never saw endWord
+        return 0
+
+    # ── Attempt · 2026-08-23 ──────────────
+    def ladderLength_20260823(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        # in example 2, we notice that because endWord is not part of wordList, it is a failed sequence
+        # so our adjMap is constructed on beginWord + wordList
+        # for each word, we need to use a wildcard to match neighbors
+        # so hit will be .it -> hit, h.t -> hit, hi. -> hit
+        # we do need to keep track of words we've visited I believe
+        # but seems to be a simple BFS otherwise
+
+        wordList.append(beginWord)
+        adjMap = collections.defaultdict(list)
+
+        # build the adjMap
+        for word in wordList:
+            for i in range(len(word)):
+                prefix = word[:i]
+                postfix = word[i+1:]
+                key = prefix + '.' + postfix
+                adjMap[key].append(word)
+        
+        queue = collections.deque()
+        # we know beginWord is the start of our map, so we use that in our queue to start
+        queue.append(beginWord)
+
+        visited = set()
+        visited.add(beginWord)
+        # starts at 1 since beginWord counts in the sequence counter
+        cycle = 1
+        while queue:
+            # we need to keep track of number of words it took, which is actually just number of cycles in the BFS
+            lenQueue = len(queue)
+            for _ in range(lenQueue):
+                currentWord = queue.popleft()
+                # if we are at endWord, return cycle counter
+                if currentWord == endWord:
+                    return cycle
+                # if not, add neighbors to queue
+                for i in range(len(currentWord)):
+                    prefix = currentWord[:i]
+                    postfix = currentWord[i+1:]
+                    key = prefix + '.' + postfix
+                    for neighbor in adjMap[key]:
+                        if neighbor not in visited:
+                            queue.append(neighbor)
+                            visited.add(neighbor)
+            cycle+=1
+        
+        return 0
+
+    # ── Attempt · 2026-08-13 ──────────────
+    def ladderLength_20260813(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        # this is just BFS with an extra step of creating the adjMap based on wildcard
+        # we are given beginWord and wordList as our actual list, so let's add beginWord in there
+        wordSet = set(wordList)
+        wordSet.add(beginWord)
+        # moving one character at a time means a word like hit can be .it, h.t or hi.
+        # so we will create an adjacency map based on the wildcards
+        adjMap = collections.defaultdict(list)
+
+        for word in wordSet:
+            for i in range(len(word)):
+                pre = word[:i]
+                post = word[i+1:]
+                wildcard = pre + '.' + post
+                adjMap[wildcard].append(word)
+        
+        # with our adjacency map set, we need a queue and visited
+        queue = collections.deque()
+        visited = set()
+        queue.append(beginWord)
+        visited.add(beginWord)
+        # result is how many cycles we've gone through in the BFS, so depth counter
+        depth = 1
+        while queue:
+            lenQueue = len(queue)
+            for _ in range(lenQueue):
+                currentWord = queue.popleft()
+                for i in range(len(currentWord)):
+                    pre = currentWord[:i]
+                    post = currentWord[i+1:]
+                    wildcard = pre + '.' + post
+                    for neighbor in adjMap[wildcard]:
+                        # if we are reaching end word here, return depth + 1
+                        if neighbor == endWord:
+                            return depth + 1
+                        # otherwise, add neighbor to the queue and mark as visited
+                        if neighbor not in visited:
+                            queue.append(neighbor)
+                            visited.add(neighbor)
+            depth+=1
+        
+        # if we reached the end without seeing endWord, it doesn't exist
+        return 0
+
+    # ── Attempt · 2026-08-03 ──────────────
+    def ladderLength_20260803(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        # this builds off of the trie problem we had with the wildcard
+        # because for us to properly look for neighbors, e.g. one char diff, we need to use wildcard
+        # so for the word hit, we should have '.it' -> [hit], 'h.t' -> [hit], 'hi.' -> [hit]
+        # this is clearly a graph question, we are looking for a sequence that gets us from a node to another node
+        # beginWord + wordList are the nodes on the list, beginWord is our start
+        # endWord must exist in that list of nodes. shortest in non-weighted graph is BFS
+
+        fullWordList = []
+        fullWordList.append(beginWord)
+        fullWordList+=wordList
+
+        # build our adjacency map
+        adjMap = collections.defaultdict(list)
+
+        for string in fullWordList:
+            for i in range(len(string)):
+                strBeforeI = string[:i]
+                strAfterI = string[i+1:]
+                key = strBeforeI + '.' + strAfterI
+                adjMap[key].append(string)
+        
+        # with the adjMap built, we'll add beginWord to the queue for us to start traversing through
+        queue = collections.deque()
+        queue.append(beginWord)
+        visited = set()
+        visited.add(beginWord)
+        # start at 1 to count starting node
+        iteration = 1
+        while queue:
+            lenQueue = len(queue)
+            for _ in range(lenQueue):
+                currentWord = queue.popleft()
+                # for all neighbors of currentWord, we add them to the queue
+                for i in range(len(currentWord)):
+                    strBeforeI = currentWord[:i]
+                    strAfterI = currentWord[i+1:]
+                    key = strBeforeI + '.' + strAfterI
+                    for neighbor in adjMap[key]:
+                        if neighbor not in visited:
+                            if neighbor == endWord:
+                                return iteration + 1
+                            queue.append(neighbor)
+                            visited.add(neighbor)
+            iteration+=1
+        
+        return 0
+
+    # ── Attempt · 2026-07-21 ──────────────
+    def ladderLength_20260721(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        # so this is a graph, we want to find a path from beginWord to endWord through wordList
+        # so we can add beginWord to the wordList and mark beginWord as our starting node
+        # since it's a graph, we need an adjacency map, how do we know hot is next to dot
+        # we take what we learned in 211 and create a map from .ot -> [hot, dot] and h.t -> [hot, dot], etc.
+        # so let's build this map first
+
+        adjMap = collections.defaultdict(list)
+        wordList.append(beginWord)
+
+        for string in wordList:
+            for i in range(len(string)):
+                wildCardKey = string[:i] + '.' + string[i+1:]
+                adjMap[wildCardKey].append(string)
+        
+        # now we have the adjacency map
+        # all edges are same length, so we default to BFS for shortest path
+        # that means queue and visited
+
+        visited = set()
+        
+        queue = collections.deque()
+        queue.append(beginWord)
+        visited.add(beginWord)
+
+        # we also need to keep track of depth cause that's how many iterations it would get to the end
+        level = 1
+        
+        # while we still have a path to go, keep looking
+        while queue:
+            queueSize = len(queue)
+            for _ in range(queueSize):
+                currentWord = queue.popleft()
+                # go through all neighbors of currentWord
+                for i in range(len(currentWord)):
+                    wildCardKey = currentWord[:i] + '.' + currentWord[i+1:]
+                    for neighbor in adjMap[wildCardKey]:
+                        # if we found endWord, return
+                        if neighbor == endWord:
+                            return level + 1
+                        # if not, add neighbor to the queue
+                        if neighbor not in visited:
+                            queue.append(neighbor)
+                            visited.add(neighbor)
+            level+=1
+        
+        return 0
+
+    # ── Attempt 1 · 2026-07-18 ────────────────────────────────────────────
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        # so we need to build an adjmap of beginWord, endWord and wordList
+        # this will construct us a graph of equal edge size
+        # from here, we can BFS to find path from beginWord to endWord
+
+        wildcardMap = collections.defaultdict(set)
+
+        allWords = []
+        allWords.append(beginWord)
+        allWords+=wordList
+
+        # building the adjacency map normally would cost us O(n^2)
+        # we can do better by building with wildcard like how we do for word search in Trie
+        # so we will have wildcardMap instead of adjMap where *ot -> [hot, tot, dot, lot]
+
+        for word in allWords:
+            # we need to check if wildcard is a key already, if not create it
+            for i in range(len(word)):
+                wildcardWord = word[:i] + '*' + word[i+1:]
+                wildcardMap[wildcardWord].add(word)
+        
+        # now that we have our adjacency map, let's do our BFS with visited set and queue
+
+        visited = set()
+        queue = collections.deque()
+        queue.append(beginWord)
+        visited.add(beginWord)
+        level = 0
+        # while we still have pathes to go and have not yet visited endWord
+        while queue and endWord not in visited:
+            level+=1
+            wordPerLevel = len(queue)
+            for _ in range(wordPerLevel):
+                currentWord = queue.popleft()
+                # go through all wildcards that match the current word
+                # we actually need to go level by level, so we know exactly how many levels it took to get to endWord
+                for i in range(len(currentWord)):
+                    wildcardWord = currentWord[:i] + '*' + currentWord[i+1:]
+                    # now we get all words in the wildcard into the queue
+                    for nextWord in wildcardMap[wildcardWord]:
+                        if nextWord == endWord:
+                            return level + 1
+                        if nextWord not in visited:
+                            visited.add(nextWord)
+                            queue.append(nextWord)
+        
+        return 0

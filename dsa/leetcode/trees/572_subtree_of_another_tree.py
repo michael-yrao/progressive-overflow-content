@@ -1,0 +1,200 @@
+"""
+
+MEDIUM
+
+Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.
+
+A subtree of a binary tree tree is a tree that consists of a node in tree and all of this node's descendants. The tree tree could also be considered as a subtree of itself.
+
+Example 1:
+
+Input: root = [3,4,5,1,2], subRoot = [4,1,2]
+Output: true
+
+Example 2:
+
+Input: root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]
+Output: false
+
+Constraints:
+
+    The number of nodes in the root tree is in the range [1, 2000].
+    The number of nodes in the subRoot tree is in the range [1, 1000].
+    -104 <= root.val <= 104
+    -104 <= subRoot.val <= 104
+"""
+
+# Definition for a binary tree node.
+from collections import deque
+from typing import Optional
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+class Solution:
+
+    # ── Attempt · 2026-09-28 ──────────────
+    def isSubtree_20260928(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        # find the first node that matches the root of subroot
+        # then see if same tree
+        # if not, we continue, if yes, we return True
+        
+        # if both are None, return True
+        if not root and not subRoot:
+            return True
+        
+        # if root is None, return False
+        if not root or not subRoot:
+            return False
+        
+        def isSameTree(root, subRoot):
+            # if both are None, return True
+            if not root and not subRoot:
+                return True
+            
+            # if either is None, return False
+            if not root or not subRoot:
+                return False
+
+            if root.val != subRoot.val:
+                return False
+            
+            return isSameTree(root.left, subRoot.left) and isSameTree(root.right, subRoot.right)
+
+        # now we look for the same value
+        if root.val == subRoot.val:
+            if isSameTree(root, subRoot):
+                return True
+        # look left and right
+        return self.isSubtree_20260928(root.left, subRoot) or self.isSubtree_20260928(root.right, subRoot)
+
+    # ── Attempt · 2026-08-25 ──────────────
+    def isSubtree_20260825(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        # go through the root, find the first node then see if it is same tree
+        # if it is same tree, return True. if not, continue down
+        # preorder DFS basically
+
+        # if null together, they are equal
+        if not root and not subRoot:
+            return True
+        
+        # if null separately, not equal
+        if not root or not subRoot:
+            return False
+
+        def isSameTree(t1, t2):
+            if not t1 and not t2:
+                return True
+            if not t1 or not t2:
+                return False
+            if t1.val != t2.val:
+                return False
+            return isSameTree(t1.left, t2.left) and isSameTree(t1.right, t2.right)
+
+        if root.val == subRoot.val:
+            if isSameTree(root, subRoot):
+                return True
+        
+        return self.isSubtree_20260825(root.left, subRoot) or self.isSubtree_20260825(root.right, subRoot)
+
+    # ── Attempt · 2026-08-15 ──────────────
+    def isSubtree_20260815(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        # subtree means there should be a tree in root such that it is exactly same as subroot
+        # we start matching by checking before we go down recursively
+        # so we are checking current value of each
+        # so this is preorder DFS
+        # find where root.val == subroot.val, then recursively go down
+
+        # if both are None at the same time, assume True
+        if not root and not subRoot:
+            return True
+        
+        # if one and not the other, return False
+        if not root or not subRoot:
+            return False
+
+        def isSameTree(root, subRoot):
+            # if both are None at the same time, assume True
+            if not root and not subRoot:
+                return True
+            
+            # if one and not the other, return False
+            if not root or not subRoot:
+                return False
+
+            if root.val != subRoot.val:
+                return False
+            return isSameTree(root.left, subRoot.left) and isSameTree(root.right, subRoot.right)
+
+        # if we are at a potential starting node, check equality
+        if root.val == subRoot.val:
+            # if this current match works, we are finished
+            # if not, we continue on
+            if isSameTree(root, subRoot):
+                return True
+        # if we are not at a potential starting node, check left or right of root
+        return self.isSubtree_20260815(root.left, subRoot) or self.isSubtree_20260815(root.right, subRoot)
+
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        # so this is like a combo problem
+        # we want to find if the root of subRoot is in root
+        # then we want to run isSameTree from there
+        # so we can start with a bfs to find the subroot node
+        # then we do preorder dfs to check isSameTree
+
+        # bfs is queue based, so we go through the root tree
+        # and populate the queue until we find the node we are looking for
+        # then we run preorder dfs to find subRoot
+
+        def dfs(p,q):
+            if not p and not q:
+                return True
+
+            if p and q and p.val == q.val:
+                return dfs(p.left,q.left) and dfs(p.right,q.right)
+            else:
+                return False
+
+        queue = deque([root])
+
+        while queue:
+            # deque is both a queue and a stack
+            # popleft is equivalent to queue.pop()
+            # popright is equivalent to stack.pop()
+            currentNode = queue.popleft()
+
+            if currentNode.val == subRoot.val:
+                # if found, we just return True
+                # if not found, we continue to search
+                if dfs(currentNode, subRoot):
+                    return True
+            if currentNode.left:
+                queue.append(currentNode.left)
+            if currentNode.right:
+                queue.append(currentNode.right)
+
+        return False
+    
+    def isSubtreeSerialization(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        # one interesting way to do this is to serialize both trees
+        # then with the strings, we can just check if subRootStr is in rootStr
+        # we need to be able to tell when a node starts and ends, so we use a delimiter
+        # we serialize using preorder traversal
+        # we need to enclose both the front and the back of the character
+        # otherwise we would accidentally return true on scenario where root = [12] and subRoot = [2]
+        
+        def serializationPreorderDFS(root):
+            
+            if not root:
+                return "|?|"
+            
+            # preorder, we create the string
+            return ("|"+str(root.val)+"|"+serializationPreorderDFS(root.left)+serializationPreorderDFS(root.right))
+        
+        rootStr = serializationPreorderDFS(root)
+        subRootStr = serializationPreorderDFS(subRoot)
+        
+        # now we just check if subRootStr in rootStr
+        return subRootStr in rootStr

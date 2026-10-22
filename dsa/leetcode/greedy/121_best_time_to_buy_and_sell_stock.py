@@ -1,0 +1,103 @@
+"""
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+Example 1:
+
+Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+
+Example 2:
+
+Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transactions are done and the max profit = 0.
+
+Constraints:
+
+    1 <= prices.length <= 105
+    0 <= prices[i] <= 104
+
+"""
+import math
+from typing import List
+class Solution:
+
+    # ── Attempt · 2026-08-13 ──────────────
+    def maxProfit_20260813(self, prices: List[int]) -> int:
+        # two pointer
+        # left moves if and only if right is smaller
+        profit = 0
+        l = r = 0
+        while r < len(prices):
+            if prices[r] < prices[l]:
+                l = r
+            profit = max(profit, prices[r] - prices[l])
+            r+=1
+        return profit
+
+    # ── Attempt · 2026-07-14 ──────────────
+    def maxProfit_20260714(self, prices: List[int]) -> int:
+        # two pointer
+        
+        l = r = 0
+        profit = 0
+        while r < len(prices):
+            if l != r and prices[r] > prices[l]:
+                profit = max(profit, prices[r] - prices[l])
+            else:
+                # r is smaller than l, just move l to r
+                l = r
+            r+=1
+        return profit
+
+    def maxProfit(self, prices: List[int]) -> int:
+        # keep track of current max
+        # currentMaxProfit = max(currentMaxProfit, prices[r] - prices[l])
+        currentMaxProfit = 0
+        
+        # l = buy
+        # r = sell
+        l, r = 0, 1
+
+        while r < len(prices):
+            
+            # update currentMaxProfit
+            currentMaxProfit = max(currentMaxProfit, prices[r] - prices[l])
+            
+            # if prices[r] < prices[l], update l
+            # this ensures we have lowest prices[l] possible
+            if prices[r] < prices[l]:
+                l = r
+            r+=1
+        
+        return currentMaxProfit
+    def maxProfit_20260625(self, prices: List[int]) -> int:
+        # two pointer
+        l, r = 0, 1
+
+        maxProfit = 0
+
+        while r < len(prices):
+            maxProfit = max(maxProfit, prices[r] - prices[l])
+            if prices[l] > prices[r]:
+                l = r
+            r+=1
+        return maxProfit
+    def maxProfit_20260703(self, prices: List[int]) -> int:
+        # two pointer
+        l = r = 0
+
+        # we will use r to find the highest to sell and l for the lowest
+        maxPrice = -math.inf
+        while r < len(prices):
+            maxPrice = max(maxPrice, prices[r] - prices[l])
+            if prices[l] > prices[r]:
+                l = r
+            r+=1
+        return maxPrice # type: ignore

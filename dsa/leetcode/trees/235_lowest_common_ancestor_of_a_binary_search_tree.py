@@ -1,0 +1,165 @@
+"""
+235. Lowest Common Ancestor of a Binary Search Tree   ·   https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+Pattern: trees
+
+⚠️ NOT 236 — that is the plain-binary-tree version. This one is the BST, and the ordering
+property is the whole point: it lets you prune to one subtree instead of searching both.
+
+Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+
+Example 1:
+
+Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+Output: 6
+Explanation: The LCA of nodes 2 and 8 is 6.
+
+Example 2:
+
+Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
+Output: 2
+Explanation: The LCA of nodes 2 and 4 is 2, since a node can be a descendant of itself according to the LCA definition.
+
+Example 3:
+
+Input: root = [2,1], p = 2, q = 1
+Output: 2
+
+Constraints:
+
+    The number of nodes in the tree is in the range [2, 105].
+    -109 <= Node.val <= 109
+    All Node.val are unique.
+    p != q
+    p and q will exist in the BST.
+"""
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution:
+
+    # ── Attempt · 2026-09-17 ──────────────
+    def lowestCommonAncestor_20260917(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode: # type: ignore
+        # this is a BST but doesn't say balanced BST
+        # regardless, if both are smaller than root, we go left, if both are bigger, we go right
+        # it allows node to be descendant of itself, so we need to exclude equality when it comes to moving to the left or right
+        # we also know p and q will exist
+        
+        # success scenario is if between including equality
+        if (p.val <= root.val and q.val >= root.val) or (p.val >= root.val and q.val <= root.val):
+            return root
+
+        if p.val < root.val and q.val < root.val:
+            return self.lowestCommonAncestor_20260917(root.left, p, q) # type: ignore
+        if p.val > root.val and q.val > root.val:
+            return self.lowestCommonAncestor_20260917(root.right, p, q) # type: ignore
+
+    # ── Attempt · 2026-08-18 ──────────────
+    def lowestCommonAncestor_20260818(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+        # BST, so if both are smaller, we go left, if both are bigger we go right
+        # now the thing here we allow a node to be its own parent
+        # so we need to check equality for success cases
+        if not root:
+            return None
+        # success criterias
+        if root.val <= p.val and root.val >= q.val:
+            return root
+        if root.val >= p.val and root.val <= q.val:
+            return root
+        
+        if p.val < root.val and q.val < root.val:
+            return self.lowestCommonAncestor_20260818(root.left, p, q) # type: ignore
+        else:
+            return self.lowestCommonAncestor_20260818(root.right,p, q) # type: ignore
+
+    # ── Attempt · 2026-08-08 ──────────────
+    def lowestCommonAncestor_20260808(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+        # we know this is a BST
+        # so if the two nodes are smaller than root, we go left
+        # if the two nodes are bigger than root, we go right
+        # we do have to check equality as well since we can be own our ancestor
+
+        # success scenario: if root.val is in between p and q or if root.val is equal to one of them
+        if p.val <= root.val <= q.val or q.val <= root.val <= p.val:
+            return root
+        
+        if p.val < root.val and q.val < root.val:
+            return self.lowestCommonAncestor_20260808(root.left, p, q) # type: ignore
+        else:
+            return self.lowestCommonAncestor_20260808(root.right, p, q) # type: ignore
+
+    # ── Attempt · 2026-07-29 ──────────────
+    def lowestCommonAncestor_20260729(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+        # BST, so a few checks we should do
+        # 1. if both p and q are smaller, go left
+        # 2. if both p and q are bigger, go right
+        # 3. if neither, we found the answer
+        # from example 2, it seems like we need to check equality as well
+
+        if p.val < root.val and q.val < root.val:
+            return self.lowestCommonAncestor_20260729(root.left, p, q) # type: ignore
+        elif p.val > root.val and q.val > root.val:
+            return self.lowestCommonAncestor_20260729(root.right, p, q) # type: ignore
+        else:
+            return root
+
+    # ── Attempt · 2026-07-19 ──────────────
+    def lowestCommonAncestor_20260719(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+        # this is a BST so we can decide direction to go based on values
+        # if root is smaller than both p and q, we go left
+        # if root is bigger than both p and q, we go right
+        # if root is in between, this is the smallest LCA
+        if not root or not p or not q:
+            return root
+        
+        # if root is in between p and q, we found the answer
+        if root.val <= p.val and root.val >= q.val:
+            return root
+        if root.val <= q.val and root.val >= p.val:
+            return root
+
+        if root.val <= p.val and root.val <= q.val:
+            return self.lowestCommonAncestor_20260719(root.right, p, q) # type: ignore
+        else:
+            return self.lowestCommonAncestor_20260719(root.left, p, q) # type: ignore
+
+    def lowestCommonAncestor_20260612(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode: # type: ignore
+        # While we can generate the BST with inorder DFS
+        # it isn't the right way to find the answer
+        # this is preorder DFS since the direction we go depends on the currentNode.val
+        # since we are making a decision based on currentNode to go left or right, this is preorder
+        currentNode = root
+
+        while currentNode:
+            # if both are smaller, we go left
+            if p.val < currentNode.val and q.val < currentNode.val:
+                currentNode = currentNode.left
+            # if both are bigger, we go right
+            elif p.val > currentNode.val and q.val > currentNode.val:
+                currentNode = currentNode.right
+            # if in separate sub-trees, it's currentNode
+            else:
+                return currentNode
+    
+    def lowestCommonAncestor_20260503(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode: # type: ignore
+        # kind of difficult for me to understand the concept of LCA
+        # but essentially we are just trying to find the nodes p and q
+        # so we do preorder since we need to compare value of current node to value of p and q
+
+        currentNode = root
+
+        while currentNode:
+            # if bigger than both, we go left
+            if currentNode.val > p.val and currentNode.val > q.val:
+                currentNode = currentNode.left
+            # if smaller than both, we go right
+            elif currentNode.val < p.val and currentNode.val < q.val:
+                currentNode = currentNode.right
+            # if in between, we found answer already
+            else:
+                return currentNode

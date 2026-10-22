@@ -1,0 +1,413 @@
+"""
+211. Design Add and Search Words Data Structure  ·  https://leetcode.com/problems/design-add-and-search-words-data-structure/
+Pattern: trie
+
+Design a data structure that supports adding new words and finding if a string
+matches any previously added string.
+
+  - addWord(word): adds word to the structure.
+  - search(word): returns True if any added string matches word. word may contain
+    '.', a wildcard that matches ANY single letter.
+
+Example:
+    addWord("bad"); addWord("dad"); addWord("mad")
+    search("pad") -> False
+    search("bad") -> True
+    search(".ad") -> True
+    search("b..") -> True
+
+Constraints:
+    1 <= word.length <= 25 ; addWord words are lowercase a-z.
+    search words may contain '.'; up to 2 dots in a search word.
+    At most 10^4 calls to addWord and search.
+"""
+
+
+# ── Attempt · 2026-09-21 ──────────────
+# NOTE: suffix any helper class you write (Node, TrieNode, …) with _20260921 too — an undated helper collides with the restored canonical one.
+class TrieNode_20260921:
+    def __init__(self):
+        # char -> TrieNode_20260921
+        self.children = {}
+        self.isWord = False
+
+class WordDictionary_20260921:
+
+    def __init__(self):
+        self.root = TrieNode_20260921()
+
+    def addWord(self, word: str) -> None:
+        traversal = self.root
+        for char in word:
+            if char not in traversal.children:
+                traversal.children[char] = TrieNode_20260921()
+            traversal = traversal.children[char]
+        traversal.isWord = True
+
+    def search(self, word: str) -> bool:
+        # searching with a wildcard means we need to be able to do a sweep of all chars and then go as deep as possible from all the possibilities when we see a wildcard
+        # we will use indices to avoid splicing the word into more substrings
+        # we will also need traversal node for us to move forward
+        traversal = self.root
+        def dfs(node, index):
+            # three possibilities
+            # 1. not period and not in children = False
+            # 2. not period and in children = continue the loop
+            # 3. period, dfs on next index and all of traversal.children
+            for i in range(index, len(word)):
+                # case 1
+                if word[i] != '.' and word[i] not in node.children:
+                    return False
+                # case 2
+                if word[i] in node.children:
+                    node = node.children[word[i]]
+                # case 3
+                if word[i] == '.':
+                    # go through all child TrieNodes of node
+                    for childNode in node.children.values():
+                        # if we found a result from dfs, we return True
+                        if dfs(childNode, i + 1):
+                            return True
+                    # if we went through all the children and did not find a result
+                    # return false
+                    return False
+            return node.isWord
+        
+        return dfs(traversal,0)
+
+# ── Attempt · 2026-08-22 ──────────────
+# NOTE: suffix any helper class you write (Node, TrieNode, …) with _20260822 too — an undated helper collides with the restored canonical one.
+class TrieNode_20260822:
+    def __init__(self):
+        # char -> TrieNode_20260822 map
+        self.children = {}
+        self.isWord = False
+
+class WordDictionary_20260822:
+
+    def __init__(self):
+        self.root = TrieNode_20260822()
+
+    def addWord(self, word: str) -> None:
+        # this is basic add word into a Trie
+        traversal = self.root
+        for char in word:
+            if char not in traversal.children:
+                traversal.children[char] = TrieNode_20260822()
+            traversal = traversal.children[char]
+        traversal.isWord = True
+
+    def search(self, word: str) -> bool:
+        # searching for a regular word is nothing hard but we need to consider the wildcard
+        # if we see wildcard, we need to skip the current character and look at every child
+        # so this is DFS to find a word in that scenario
+        # skipping node and skipping char so we need two parameters in dfs
+        traversal = self.root
+        def dfs(node, startingIndex):
+            while startingIndex < len(word):
+                char = word[startingIndex]
+                # basic case that it is a char in the Trie
+                if char in node.children:
+                    node = node.children[char]
+                # if char is wildcard, skip char and node
+                elif char == '.':
+                    # go through all childrens of node
+                    for neighbor in node.children.values():
+                        if dfs(neighbor, startingIndex+1):
+                            return True
+                    return False
+                else:
+                    return False
+                startingIndex+=1
+            return node.isWord
+        
+        return dfs(traversal, 0)
+
+# ── Attempt · 2026-08-12 ──────────────
+# NOTE: suffix any helper class you write (Node, TrieNode, …) with _20260812 too — an undated helper collides with the restored canonical one.
+# Word Data Structure is Trie, so create TrieNode class to start
+
+class TrieNode_20260812:
+    # trie nodes has children: char -> TrieNode
+    # and whether or not this node is the end of a word
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+
+class WordDictionary_20260812:
+    def __init__(self):
+        # create root of the trie
+        self.root = TrieNode_20260812()
+
+    def addWord(self, word: str) -> None:
+        traversal = self.root
+        for char in word:
+            if char not in traversal.children:
+                traversal.children[char] = TrieNode_20260812()
+            traversal = traversal.children[char]
+        traversal.isWord = True
+
+    def search(self, word: str) -> bool:
+        # searching without wildcard is trivial
+        # with wildcard, we skip the current node and look at every children it has
+        # when we skip a node, we also skip the current char, so we need to adjust as such
+        # if we do substring, we are adding additional complexity, so we should use indices
+        traversal = self.root
+        def trieSearch(trieNode, startingIndex):
+            for i in range(startingIndex, len(word)):
+                currentChar = word[i]
+                if currentChar == '.':
+                    # if wildcard, skip this index and search all trieNode's children
+                    for childNode in trieNode.children.values():
+                        # if we found a word, return True
+                        if trieSearch(childNode, i+1):
+                            return True
+                    # if we went through all children and didn't find anything, return False
+                    return False
+                elif currentChar in trieNode.children:
+                    trieNode = trieNode.children[currentChar]
+                # not a wildcard nor is it part of the Trie, return False
+                else:
+                    return False
+            # return whether or not this is a word
+            return trieNode.isWord
+        return trieSearch(traversal, 0)
+
+# ── Attempt · 2026-08-02 ──────────────
+# NOTE: suffix any helper class you write (Node, TrieNode, …) with _20260802 too — an undated helper collides with the restored canonical one.
+class TrieNode_20260802:
+    def __init__(self):
+        # maps char to a TrieNode
+        self.children = {}
+        # tells us if this node is end of a word
+        self.isWord = False
+
+class WordDictionary_20260802:
+
+    def __init__(self):
+        self.root = TrieNode_20260802()
+
+    def addWord(self, word: str) -> None:
+        traversal = self.root
+        for char in word:
+            if char not in traversal.children:
+                traversal.children[char] = TrieNode_20260802()
+            traversal = traversal.children[char]
+        traversal.isWord = True
+
+    def search(self, word: str) -> bool:
+        # any wildcard character, we need to look at all its children and DFS
+        # otherwise, it is the safe as regular search for word
+        traversal = self.root
+        def dfs(node,index):
+            # go through the chars in the word
+            for i in range(index,len(word)):
+                # if char is wildcard, we do the dfs
+                if word[i] == '.':
+                    # go through each children
+                    for trieNode in node.children.values():
+                        # skip current index
+                        if dfs(trieNode,i+1):
+                            return True
+                    # went through all nodes and didn't find anything, return False
+                    return False
+                elif word[i] in node.children:
+                    # exact match
+                    node = node.children[word[i]]
+                else:
+                    # no match at all
+                    return False
+            return node.isWord
+        
+        return dfs(traversal,0)
+
+# ── Attempt · 2026-07-23 ──────────────
+# NOTE: suffix any helper class you write (Node, TrieNode, …) with _20260723 too — an undated helper collides with the restored canonical one.
+class TrieNode_20260723:
+    def __init__(self):
+        # char -> TrieNode map
+        self.children = {}
+        self.isWord = False
+        
+class WordDictionary_20260723:
+
+    def __init__(self):
+        self.root = TrieNode_20260723()
+
+    def addWord(self, word: str) -> None:
+        traversal = self.root
+        for char in word:
+            if char not in traversal.children:
+                traversal.children[char] = TrieNode_20260723()
+            traversal = traversal.children[char]
+        traversal.isWord = True
+
+    def search(self, word: str) -> bool:
+        traversal = self.root
+        # if we see a wildcard, dfs until we see a result
+        # otherwise, same as normal search
+        # we need to dfs on the node and pass starting index of string
+        def dfs(node, index):
+            for i in range(index, len(word)):
+                currentChar = word[i]
+                # if wildcard, we skip a char and search all node's childrens
+                if currentChar == '.':
+                    for child in node.children.values():
+                        # if we found a match, return True
+                        if dfs(child, i+1):
+                            return True
+                    # if we went through all children and did not return True
+                    # then we def don't have a match
+                    return False
+                elif currentChar in node.children:
+                    node = node.children[currentChar]
+                # if neither of these are true, then we just return False
+                else:
+                    return False
+            return node.isWord
+        return dfs(traversal, 0)
+
+# ── Attempt · 2026-07-21 ──────────────
+# NOTE: suffix any helper class you write (Node, TrieNode, …) with _20260721 too — an undated helper collides with the restored canonical one.
+class TrieNode:
+
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+
+class WordDictionary_20260721:
+
+    def __init__(self):
+        self.root = TrieNode()
+
+    def addWord(self, word: str) -> None:
+        traversal = self.root
+        for char in word:
+            if char not in traversal.children:
+                newNode = TrieNode()
+                traversal.children[char] = newNode
+            traversal = traversal.children[char]
+        traversal.isWord = True
+
+    def search(self, word: str) -> bool:
+        # so the regular word search is easy here
+        # the wildcard requires a bit of finesse. when we see a wildcard, we want to go next and do DFS on each of the children, so we need to do a DFS when we see wildcard
+        # otherwise, just do normal logic
+        traversal = self.root
+        def dfs(traversal, index):
+            for i in range(index,len(word)):
+                if word[i] == '.':
+                    # for every child of traversal, we go through the rest of the string to find a match
+                    for child in traversal.children.values():
+                        if dfs(child, i+1):
+                            return True
+                    return False
+                elif word[i] != '.' and word[i] not in traversal.children:
+                    return False
+                else:
+                    traversal = traversal.children[word[i]]
+            return traversal.isWord
+        return dfs(traversal,0)
+
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
+
+class TrieNode_20260709:
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+
+class WordDictionary_20260709:
+
+    def __init__(self):
+        self.root = TrieNode_20260709()
+
+    def addWord(self, word: str) -> None:
+        traversal = self.root
+        for char in word:
+            if char not in traversal.children:
+                traversal.children[char] = TrieNode_20260709()
+            traversal = traversal.children[char]
+        traversal.isWord = True
+
+    def search(self, word: str) -> bool:
+        # so this is like a form of DFS
+        # and what we are going to do is go down a route as far as we can
+        # then when we hit a wildcard, we need to look at every single child of that node
+        # so we loop for the characters we know (non-wildcards)
+        # then we perform recursion for characters that we do not know (wildcards)
+        def dfs(i, node):
+            currentNode = node
+            for j in range(i,len(word)):
+                char = word[j]
+                if char == '.':
+                    # if wildcard, we need to check every child
+                    for child in currentNode.children.values():
+                        # but since it's wildcard, we need to skip this value
+                        if dfs(j+1,child):
+                            return True
+                    # tried all children, no luck, thus return False
+                    return False
+                else:
+                    # if not wildcard, check if not in children and immediately return False is bad
+                    if char not in currentNode.children:
+                        return False
+                    # if no issues, continue to next node
+                    currentNode = currentNode.children[char]
+            return currentNode.isWord
+        return dfs(0,self.root)
+
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
+
+class TrieNode_20260711:
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+
+class WordDictionary_20260711:
+
+    def __init__(self):
+        self.root = TrieNode_20260711()
+
+    def addWord(self, word: str) -> None:
+        traversal = self.root
+        for char in word:
+            if char not in traversal.children:
+                traversal.children[char] = TrieNode_20260711()
+            traversal = traversal.children[char]
+        traversal.isWord = True
+
+    def search(self, word: str) -> bool:
+        # main difficulty here is the wildcard character
+        # but matching same character is no big deal
+        
+        def dfs(node,substr):
+            for i in range(len(substr)):
+                if substr[i] != '.' and substr[i] not in node.children:
+                    return False
+                if substr[i] == '.':
+                    # we want to skip this letter and we also want to go through every child of node
+                    for char, childNode in node.children.items():
+                        # if we went all the way down a path and got a match, return true
+                        if dfs(childNode, substr[i+1:]):
+                            return True
+                    # tried all children, did not find success
+                    return False
+                else:
+                    # if not ., then check exact match
+                    if substr[i] in node.children:
+                        node = node.children[substr[i]]
+            return node.isWord
+        
+        return dfs(self.root, word)
+
+
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)

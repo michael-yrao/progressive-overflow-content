@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-20",
+  "week": null,
+  "vocabHash": "3bafef",
+  "families": [
+    {
+      "id": "advanced_graphs",
+      "techniques": [
+        "Dijkstra",
+        "Dense Dijkstra",
+        "Bellman-Ford",
+        "Floyd-Warshall (all-pairs shortest path)",
+        "Hierholzer (Eulerian path)",
+        "Prim's MST",
+        "Kruskal's MST"
+      ]
+    },
+    {
+      "id": "arrays_and_hash",
+      "techniques": [
+        "Hash Map Lookup",
+        "Hash Set Membership",
+        "Frequency Counting",
+        "Prefix/Suffix Products",
+        "Boyer-Moore Voting",
+        "Length-Prefix Encoding",
+        "In-Place Array Rotation",
+        "Array/String Fundamentals"
+      ]
+    },
+    {
+      "id": "backtracking",
+      "techniques": [
+        "Backtracking"
+      ]
+    },
+    {
+      "id": "binary_search",
+      "techniques": [
+        "Binary Search (exact match)",
+        "Binary Search (min boundary)",
+        "Binary Search on Answer",
+        "Binary Search (max boundary)"
+      ]
+    },
+    {
+      "id": "bit_manipulation",
+      "techniques": [
+        "Bit Manipulation"
+      ]
+    },
+    {
+      "id": "design",
+      "techniques": [
+        "Design (composed data structures)"
+      ]
+    },
+    {
+      "id": "dynamic_programming",
+      "techniques": [
+        "Memoization",
+        "Knapsack",
+        "Interval DP",
+        "Longest Increasing Subsequence",
+        "Longest Common Subsequence",
+        "Space Compression",
+        "1D Dynamic Programming",
+        "2D Dynamic Programming"
+      ]
+    },
+    {
+      "id": "graphs",
+      "techniques": [
+        "Grid DFS",
+        "Grid BFS",
+        "Multi-source BFS",
+        "Graph Clone (DFS + Hash Map)",
+        "Graph Cycle Detection (DFS)",
+        "Cycle Detection in an Iterated Sequence",
+        "Connected Components",
+        "Union-Find",
+        "Topological Sort",
+        "BFS on Implicit Graph"
+      ]
+    },
+    {
+      "id": "greedy",
+      "techniques": [
+        "Greedy (single pass)"
+      ]
+    },
+    {
+      "id": "heap",
+      "techniques": [
+        "Heap / Priority Queue"
+      ]
+    },
+    {
+      "id": "intervals",
+      "techniques": [
+        "Intervals: Merge & Insert (sort by start)",
+        "Interval Scheduling (sort by end)",
+        "Sweep Line / Max Concurrent",
+        "Interval List Intersection (two pointers)"
+      ]
+    },
+    {
+      "id": "linked_list",
+      "techniques": [
+        "Dummy Node",
+        "Linked List Reversal",
+        "Linked List Merge",
+        "Remove Nth From End",
+        "Floyd's Cycle / Midpoint",
+        "Linked List Arithmetic",
+        "Deep Copy via Hash Map",
+        "HashMap + Doubly Linked List (LRU)"
+      ]
+    },
+    {
+      "id": "math_sim",
+      "techniques": [
+        "Math / Number Manipulation",
+        "Simulation / Matrix Walk"
+      ]
+    },
+    {
+      "id": "prefix_sum",
+      "techniques": [
+        "Prefix Sum",
+        "Kadane"
+      ]
+    },
+    {
+      "id": "recursion",
+      "techniques": [
+        "Recursion"
+      ]
+    },
+    {
+      "id": "sliding_window",
+      "techniques": [
+        "Sliding Window"
+      ]
+    },
+    {
+      "id": "sorting",
+      "techniques": [
+        "Divide & Conquer / Sorting"
+      ]
+    },
+    {
+      "id": "stack",
+      "techniques": [
+        "Stack (matching)",
+        "Stack (expression evaluation)",
+        "Stack (augmented entries)",
+        "Monotonic Stack",
+        "Monotonic Deque"
+      ]
+    },
+    {
+      "id": "strings",
+      "techniques": [
+        "String Parsing / Manipulation",
+        "String Building & Encoding"
+      ]
+    },
+    {
+      "id": "trees",
+      "techniques": [
+        "Tree DFS (recursive)",
+        "Tree DFS with Postorder Return",
+        "Tree BFS (level order)",
+        "BST Descent",
+        "Tree Construction (Divide & Conquer)"
+      ]
+    },
+    {
+      "id": "tries",
+      "techniques": [
+        "Trie"
+      ]
+    },
+    {
+      "id": "two_pointers",
+      "techniques": [
+        "Two Pointers (converging)",
+        "Fast/Slow In-Place Write",
+        "Dutch National Flag",
+        "Prefix/Suffix Max"
+      ]
+    }
+  ],
+  "problems": []
+}
