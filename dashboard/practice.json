@@ -10563,7 +10563,9 @@
       "compare": "exact",
       "figure": {
         "kind": "grid",
-        "gridArg": 0
+        "gridArg": 0,
+        "boxSize": 3,
+        "blank": "."
       },
       "cases": [
         {
