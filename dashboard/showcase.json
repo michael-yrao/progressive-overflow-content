@@ -8186,8 +8186,8 @@
         {
           "kind": "attempt",
           "symbol": "dailyTemperatures_20260906",
-          "startLine": 31,
-          "endLine": 53,
+          "startLine": 51,
+          "endLine": 73,
           "lines": [
             "    # ── Attempt · 2026-09-06 ──────────────",
             "    def dailyTemperatures_20260906(self, temperatures: List[int]) -> List[int]:",
@@ -8375,8 +8375,8 @@
         {
           "kind": "attempt",
           "symbol": "carFleet_20260829",
-          "startLine": 106,
-          "endLine": 140,
+          "startLine": 131,
+          "endLine": 165,
           "lines": [
             "    # ── Attempt · 2026-08-29 ──────────────",
             "    def carFleet_20260829(self, target: int, position: List[int], speed: List[int]) -> int:",

@@ -49,6 +49,31 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-10-21 ──────────────
+    def carFleet_20261021(self, target: int, position: List[int], speed: List[int]) -> int:
+        # position matters since you cannot pass a car
+        # each speed is tied to it so we need a new array
+        # then its just a matter of checking if each car will pass the next
+        # if it does not pass, it is a new fleet
+
+        car_position = []
+
+        for i in range(len(position)):
+            car_position.append([position[i], speed[i]])
+        
+        # sorted descending
+        car_position.sort(reverse=True)
+
+        # this will contain unique fleet times it takes to get to target
+        fleet_times = []
+
+        for i in range(len(car_position)):
+            current_time_to_target = (target - car_position[i][0]) / car_position[i][1]
+            if len(fleet_times) == 0 or current_time_to_target > fleet_times[-1]:
+                fleet_times.append(current_time_to_target)
+        
+        return len(fleet_times)
+
     # ── Attempt · 2026-10-08 ──────────────
     def carFleet_20261008(self, target: int, position: List[int], speed: List[int]) -> int:
         # position matters, nothing can pass the positions in front

@@ -46,6 +46,55 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-10-21 ──────────────
+    def lostMap_20261021(self, distances: List[List[int]]) -> List[List[int]]:
+        # we are essentially given the distances map of how we get to every village
+        # and we are trying to find the MST
+        # we can do either Prim's or Kruskal's but Kruskal's would be slightly less efficient as we'd need to sort on 2D array
+        # so we will build using Prim's using distances as a way to verify and getting the smallest path
+        result = []
+        
+        n = len(distances)
+        # keep track of smallest edge to each node and what lead to it
+        # prims_distance[to] = [weight, from]
+        prims_distance = []
+        for i in range(n):
+            prims_distance.append([math.inf, None])
+
+        # will say we start at 0
+        prims_distance[0][0] = 0
+
+        # which nodes we've already visited
+        visited = set()
+
+        def find_smallest_unvisited():
+            current_smallest = math.inf
+            current_smallest_node = math.inf
+            for i in range(n):
+                if i not in visited and prims_distance[i][0] < current_smallest:
+                    current_smallest_node = i
+                    current_smallest = prims_distance[i][0]
+            return current_smallest_node
+
+        def relax_relative_to_smallest(node):
+            for i in range(n):
+                # if not visited and we found a smaller distance to i, update our prims
+                if i not in visited and distances[node][i] < prims_distance[i][0]:
+                    prims_distance[i] = [distances[node][i], node]
+        
+        for i in range(n):
+            # find the closest we can visit
+            node = find_smallest_unvisited()
+            # mark it as visited
+            visited.add(node)
+            # also add to result if there is something going to it
+            if prims_distance[node][1] != None: # type: ignore
+                result.append([node, prims_distance[node][1]]) # type: ignore
+            # relax rest of the nodes relative to it
+            relax_relative_to_smallest(node)
+
+        return result
+
     # ── Attempt · 2026-10-11 ──────────────
     def lostMap_20261011(self, distances: List[List[int]]) -> List[List[int]]:
         # distances is the full constructed distance map

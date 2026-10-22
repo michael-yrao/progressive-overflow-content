@@ -28,6 +28,26 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-10-21 ──────────────
+    def dailyTemperatures_20261021(self, temperatures: List[int]) -> List[int]:
+        # we know from the end, it is always starting at 0 because there is no next temperature
+        # so we will go from the back, when w hit 76, 73 is useless because it is not greater for anyone
+        # so we can drop it, so this is a decreasing stack from the end
+
+        decreasing_stack = []
+        result = [0] * len(temperatures)
+
+        for i in range(len(temperatures)-1,-1,-1):
+            while decreasing_stack and temperatures[i] >= temperatures[decreasing_stack[-1]]:
+                decreasing_stack.pop()
+            # here we know the top of the stack is greater than i
+            # so if stack exists still, get diff
+            if decreasing_stack:
+                result[i] = decreasing_stack[-1] - i
+            decreasing_stack.append(i)
+        
+        return result
+
     # ── Attempt · 2026-09-06 ──────────────
     def dailyTemperatures_20260906(self, temperatures: List[int]) -> List[int]:
         # from the result, we can tell the indices matter since we are saying
