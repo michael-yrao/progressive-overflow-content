@@ -28,6 +28,46 @@ from typing import List
 
 class Solution:
 
+    # ── Attempt · 2026-10-22 ──────────────
+    def sortArrayMergeSort_20261022(self, nums: List[int]) -> List[int]:
+        # merge sort = divide and conquer
+        # dividing is dividing in half
+
+        def merge(left, right):
+            # first case if when left = [5], right = [2]
+            left_pointer = 0
+            right_pointer = 0
+            result = []
+            while left_pointer < len(left) and right_pointer < len(right):
+                if left[left_pointer] < right[right_pointer]:
+                    result.append(left[left_pointer])
+                    left_pointer+=1
+                else:
+                    result.append(right[right_pointer])
+                    right_pointer+=1
+            while left_pointer < len(left):
+                    result.append(left[left_pointer])
+                    left_pointer+=1
+            while right_pointer < len(right):
+                result.append(right[right_pointer])
+                right_pointer+=1
+            return result
+
+        def mergeSort(l, r):
+            # if current subarray is size 1, don't need to go further
+            if r - l == 1:
+                return nums[l:r]
+            # divide
+            m = (l + r) // 2
+
+            first_half = mergeSort(l, m)
+            second_half = mergeSort(m, r)
+
+            # now we merge these two
+            return merge(first_half, second_half)
+
+        return(mergeSort(0,len(nums)))
+
     # ── Attempt · 2026-09-17 ──────────────
     def sortArrayMergeSort_20260917(self, nums: List[int]) -> List[int]:
         # doing merge sort today
