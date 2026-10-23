@@ -138240,6 +138240,463 @@
       ]
     },
     {
+      "number": 819,
+      "title": "Most Common Word",
+      "url": "https://leetcode.com/problems/most-common-word/",
+      "difficulty": "Easy",
+      "statement": "Given a string `paragraph` and a string array of the banned words `banned`,\nreturn the most frequent word that is not banned. It is guaranteed there is\nat least one word that is not banned, and that the answer is unique.\n\nThe words in `paragraph` are case-insensitive and the answer should be\nreturned in lowercase.\n\nNote that words can not contain punctuation symbols.\n\nExample 1:\n    Input:\n        paragraph = \"Bob hit a ball, the hit BALL flew far\n                     after it was hit.\"\n        banned = [\"hit\"]\n    Output: \"ball\"\n    Explanation:\n        \"hit\" occurs 3 times, but it is a banned word.\n        \"ball\" occurs twice (and no other word does), so it\n        is the most frequent non-banned word in the paragraph.\n        Note that words in the paragraph are not case\n        sensitive, that punctuation is ignored (even if\n        adjacent to words, such as \"ball,\"), and that \"hit\"\n        isn't the answer even though it occurs more because\n        it is banned.\n\nExample 2:\n    Input:  paragraph = \"a.\", banned = []\n    Output: \"a\"\n\nConstraints:\n    1 <= paragraph.length <= 1000\n    paragraph consists of English letters, space ' ', or one of\n        the symbols: \"!?',;.\"\n    0 <= banned.length <= 100\n    1 <= banned[i].length <= 10\n    banned[i] consists of only lowercase English letters.",
+      "stub": "from typing import List, Optional\n\n\nclass Solution:\n    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:\n        pass\n",
+      "entry": {
+        "className": "Solution",
+        "method": "mostCommonWord"
+      },
+      "compare": "exact",
+      "figure": null,
+      "cases": [
+        {
+          "args": [
+            "Bob hit a ball, the hit BALL flew far after it was hit.",
+            [
+              "hit"
+            ]
+          ],
+          "expected": "ball",
+          "example": true
+        },
+        {
+          "args": [
+            "a.",
+            []
+          ],
+          "expected": "a",
+          "example": true
+        },
+        {
+          "args": [
+            "Bob. hIt, baLl",
+            [
+              "bob",
+              "hit"
+            ]
+          ],
+          "expected": "ball",
+          "example": false
+        },
+        {
+          "args": [
+            "a, a, a, a, b,b,b,c, c",
+            [
+              "a"
+            ]
+          ],
+          "expected": "b",
+          "example": false
+        },
+        {
+          "args": [
+            "L, P! P,P? L; l. l, x",
+            [
+              "x"
+            ]
+          ],
+          "expected": "l",
+          "example": false
+        },
+        {
+          "args": [
+            "Hello hello HELLO world",
+            []
+          ],
+          "expected": "hello",
+          "example": false
+        },
+        {
+          "args": [
+            "It was the best of times, it was the worst of times, the end",
+            [
+              "it",
+              "was"
+            ]
+          ],
+          "expected": "the",
+          "example": false
+        },
+        {
+          "args": [
+            "abc abc? abc abc, bcd bcd bcd",
+            [
+              "bcd"
+            ]
+          ],
+          "expected": "abc",
+          "example": false
+        },
+        {
+          "args": [
+            "z",
+            []
+          ],
+          "expected": "z",
+          "example": false
+        },
+        {
+          "args": [
+            "a b b c c c d d d d",
+            [
+              "d",
+              "c"
+            ]
+          ],
+          "expected": "b",
+          "example": false
+        },
+        {
+          "args": [
+            "Apple! apple; APPLE. pear? Pear, fig",
+            [
+              "pear"
+            ]
+          ],
+          "expected": "apple",
+          "example": false
+        },
+        {
+          "args": [
+            "x,y,x,y,x",
+            [
+              "y"
+            ]
+          ],
+          "expected": "x",
+          "example": false
+        },
+        {
+          "args": [
+            "bird. bird, ant, bee' bird? ant, fox; ant. bee; ant Fox' fish? EMU! Ant; Yak yak! owl.",
+            [
+              "dog"
+            ]
+          ],
+          "expected": "ant",
+          "example": false
+        },
+        {
+          "args": [
+            "fish Owl, fish' fish fish, bird; fish. bird, emu! cat. Fox,",
+            [
+              "dog"
+            ]
+          ],
+          "expected": "fish",
+          "example": false
+        },
+        {
+          "args": [
+            "Fish bee' ant! CAT, Fox! emu' bee! Cat. fish OWL! bee! Cat' YAK! ant' Owl. bee. yak.",
+            []
+          ],
+          "expected": "bee",
+          "example": false
+        },
+        {
+          "args": [
+            "yak; Emu, yak, Bee; fish! YAK? Owl' FISH? fish; emu; OWL. yak! bee Bird; owl? yak, BIRD! cat! fox EMU; emu!",
+            [
+              "dog",
+              "emu"
+            ]
+          ],
+          "expected": "yak",
+          "example": false
+        },
+        {
+          "args": [
+            "Bee; Ant, fish, ant' fox? BIRD fox! emu? fish. EMU? yak? owl; YAK? bee! cat! Yak! Fox, fox, Fish, Dog,",
+            [
+              "bird"
+            ]
+          ],
+          "expected": "fox",
+          "example": false
+        },
+        {
+          "args": [
+            "OWL' fish' ant yak. EMU, cat, emu! yak. Owl BEE! dog' Fish? ant! BIRD' fox! yak. dog! yak, ant, BIRD; emu. bee. dog!",
+            [
+              "dog",
+              "bee"
+            ]
+          ],
+          "expected": "yak",
+          "example": false
+        },
+        {
+          "args": [
+            "bee! emu; bee, dog' BEE, bee' dog! Cat dog. Bee, Fish? FISH; fox; FISH Dog? FISH. owl! bird. BEE, fox, BEE. cat; Emu",
+            [
+              "dog",
+              "owl",
+              "bird"
+            ]
+          ],
+          "expected": "bee",
+          "example": false
+        },
+        {
+          "args": [
+            "owl! dog. FOX; bird. bee' FOX! emu? Cat! dog' fish, emu. cat' Bird; owl; owl? dog, EMU? cat. dog!",
+            []
+          ],
+          "expected": "dog",
+          "example": false
+        },
+        {
+          "args": [
+            "fish. owl; emu, BIRD! FOX owl' owl; dog? emu. dog bird' cat! Bird! dog' Bird, Ant! OWL' owl! Yak yak; OWL YAK. Emu' dog; emu! YAK? emu. Emu! dog? ANT BIRD emu? fish, bee. bee, EMU! Yak; bird! fish, Dog' fox, DOG! dog' BEE, fish' owl' BEE! ant! cat; FOX! bee, ant! FISH, bird' ant' bee, BIRD OWL EMU! YAK; bee. bird. fox' BIRD' bird! bird, CAT, bee! Fish. yak, bee' Fox? Dog DOG ant Bird. Emu, DOG. FISH, Bird? bee Bird. Fish; fox, fish. Fish; cat FISH? OWL! bee? Bird, Ant emu BEE? OWL emu. YAK? ant. Fish. owl! Emu? yak' owl' Dog! DOG? FOX; ant, yak' ant, fish! bird! bird owl Emu; bird. cat; bird, EMU, cat. ant' FOX Bird, Fish; Yak; ANT, Owl, Bee; fox, cat bird EMU? Dog! OWL! fish. fish? yak? EMU, Emu! bee? ANT fox. fox' Emu yak! FISH, CAT ant! yak Fish' ant! OWL, EMU; fox, bee; DOG FISH Bee emu! dog owl emu; CAT' fox, yak. BIRD fox, fox! emu; fox! Dog; OWL. Fish. EMU. fish Fox bee; Emu? cat FISH' bee! fish. owl, bee; ANT; Emu Cat. fish emu, bee; yak' bee' EMU, ant! yak; bee! fish! fish?",
+            [
+              "cat",
+              "dog"
+            ]
+          ],
+          "expected": "emu",
+          "example": false
+        },
+        {
+          "args": [
+            "hits hits hit hit hit hits Hit",
+            [
+              "hit"
+            ]
+          ],
+          "expected": "hits",
+          "example": false
+        },
+        {
+          "args": [
+            "cat cat at bat at at Bat cat",
+            [
+              "at"
+            ]
+          ],
+          "expected": "cat",
+          "example": false
+        },
+        {
+          "args": [
+            "  ,,Ball!!  ?? ball;; ;hit ,. hit hit.  ",
+            [
+              "hit"
+            ]
+          ],
+          "expected": "ball",
+          "example": false
+        },
+        {
+          "args": [
+            "!!! ...Dog  dog,,, cat   ?!",
+            []
+          ],
+          "expected": "dog",
+          "example": false
+        },
+        {
+          "args": [
+            "'bee' ant;ant bee, ,,bee ;; ant . ant",
+            [
+              "bee"
+            ]
+          ],
+          "expected": "ant",
+          "example": false
+        },
+        {
+          "args": [
+            "alpha beta Beta gamma gamma GAMMA alpha delta",
+            [
+              "waa",
+              "wab",
+              "wac",
+              "wad",
+              "wae",
+              "waf",
+              "wag",
+              "wah",
+              "wai",
+              "waj",
+              "wak",
+              "wal",
+              "wam",
+              "wan",
+              "wao",
+              "wap",
+              "waq",
+              "war",
+              "was",
+              "wat",
+              "wau",
+              "wav",
+              "waw",
+              "wax",
+              "way",
+              "waz",
+              "wba",
+              "wbb",
+              "wbc",
+              "wbd",
+              "wbe",
+              "wbf",
+              "wbg",
+              "wbh",
+              "wbi",
+              "wbj",
+              "wbk",
+              "wbl",
+              "wbm",
+              "wbn",
+              "wbo",
+              "wbp",
+              "wbq",
+              "wbr",
+              "wbs",
+              "wbt",
+              "wbu",
+              "wbv",
+              "wbw",
+              "wbx",
+              "wby",
+              "wbz",
+              "wca",
+              "wcb",
+              "wcc",
+              "wcd",
+              "wce",
+              "wcf",
+              "wcg",
+              "wch",
+              "wci",
+              "wcj",
+              "wck",
+              "wcl",
+              "wcm",
+              "wcn",
+              "wco",
+              "wcp",
+              "wcq",
+              "wcr",
+              "wcs",
+              "wct",
+              "wcu",
+              "wcv",
+              "wcw",
+              "wcx",
+              "wcy",
+              "wcz",
+              "wda",
+              "wdb",
+              "wdc",
+              "wdd",
+              "wde",
+              "wdf",
+              "wdg",
+              "wdh",
+              "wdi",
+              "wdj",
+              "wdk",
+              "wdl",
+              "wdm",
+              "wdn",
+              "wdo",
+              "wdp",
+              "wdq",
+              "wdr",
+              "wds",
+              "wdt",
+              "wdu",
+              "wdv"
+            ]
+          ],
+          "expected": "gamma",
+          "example": false
+        },
+        {
+          "args": [
+            "fox Fox cat. cat, owl; owl owl! owl? emu emu",
+            [
+              "waa",
+              "wab",
+              "wac",
+              "wad",
+              "wae",
+              "waf",
+              "wag",
+              "wah",
+              "wai",
+              "waj",
+              "wak",
+              "wal",
+              "wam",
+              "wan",
+              "wao",
+              "wap",
+              "waq",
+              "war",
+              "was",
+              "wat",
+              "wau",
+              "wav",
+              "waw",
+              "wax",
+              "way",
+              "waz",
+              "wba",
+              "wbb",
+              "wbc",
+              "wbd",
+              "wbe",
+              "wbf",
+              "wbg",
+              "wbh",
+              "wbi",
+              "wbj",
+              "wbk",
+              "wbl",
+              "wbm",
+              "wbn",
+              "wbo",
+              "wbp",
+              "wbq",
+              "wbr",
+              "wbs",
+              "cat",
+              "owl",
+              "fox"
+            ]
+          ],
+          "expected": "emu",
+          "example": false
+        },
+        {
+          "args": [
+            "bee, OWL? Dog; dog' cat! owl? BEE' dog Bee cat; bird. cat! emu' fox; fox. EMU. Cat! bird, bird yak bee CAT, ant. Owl emu! bird owl! fish; EMU!",
+            []
+          ],
+          "expected": "cat",
+          "example": false
+        },
+        {
+          "args": [
+            "Emu; Owl! EMU. Cat. fox; bee; CAT! DOG, EMU? OWL! cat; dog BEE dog' Yak' bird bee fox' yak' bee. Yak BEE. BEE! Emu! cat, Bird fox; ant! bird, ant!",
+            [
+              "fish",
+              "yak"
+            ]
+          ],
+          "expected": "bee",
+          "example": false
+        }
+      ]
+    },
+    {
       "number": 846,
       "title": "Hand of Straights",
       "url": "https://leetcode.com/problems/hand-of-straights/",
