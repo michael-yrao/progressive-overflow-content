@@ -160655,6 +160655,400 @@
       ]
     },
     {
+      "number": 1249,
+      "title": "Minimum Remove to Make Valid Parentheses",
+      "url": "https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/",
+      "difficulty": "Medium",
+      "statement": "Given a string `s` of '(' , ')' and lowercase English characters.\n\nYour task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting parentheses string is valid and return any valid string.\n\nFormally, a parentheses string is valid if and only if:\n  - It is the empty string, contains only lowercase\n    characters, or\n  - It can be written as AB (A concatenated with B),\n    where A and B are valid strings, or\n  - It can be written as (A), where A is a valid string.\n\nExample 1:\n    Input:  s = \"lee(t(c)o)de)\"\n    Output: \"lee(t(c)o)de\"\n    Explanation: \"lee(t(co)de)\" , \"lee(t(c)ode)\" would\n    also be accepted.\n\nExample 2:\n    Input:  s = \"a)b(c)d\"\n    Output: \"ab(c)d\"\n\nExample 3:\n    Input:  s = \"))((\"\n    Output: \"\"\n    Explanation: An empty string is also valid.\n\nConstraints:\n    1 <= s.length <= 10^5\n    s[i] is either '(' , ')', or lowercase English letter.",
+      "stub": "from typing import List, Optional\n\n\nclass Solution:\n    def minRemoveToMakeValid(self, s: str) -> str:\n        pass\n",
+      "entry": {
+        "className": "Solution",
+        "method": "minRemoveToMakeValid"
+      },
+      "compare": "exact",
+      "figure": null,
+      "cases": [
+        {
+          "args": [
+            "lee(t(c)o)de)"
+          ],
+          "expected": {
+            "anyOf": [
+              "lee(t(c)o)de",
+              "lee(t(c)ode)",
+              "lee(t(co)de)"
+            ]
+          },
+          "example": true
+        },
+        {
+          "args": [
+            "a)b(c)d"
+          ],
+          "expected": "ab(c)d",
+          "example": true
+        },
+        {
+          "args": [
+            "))(("
+          ],
+          "expected": "",
+          "example": true
+        },
+        {
+          "args": [
+            "a"
+          ],
+          "expected": "a",
+          "example": false
+        },
+        {
+          "args": [
+            "("
+          ],
+          "expected": "",
+          "example": false
+        },
+        {
+          "args": [
+            ")"
+          ],
+          "expected": "",
+          "example": false
+        },
+        {
+          "args": [
+            "()"
+          ],
+          "expected": "()",
+          "example": false
+        },
+        {
+          "args": [
+            ")("
+          ],
+          "expected": "",
+          "example": false
+        },
+        {
+          "args": [
+            "abc"
+          ],
+          "expected": "abc",
+          "example": false
+        },
+        {
+          "args": [
+            "(a)"
+          ],
+          "expected": "(a)",
+          "example": false
+        },
+        {
+          "args": [
+            "a("
+          ],
+          "expected": "a",
+          "example": false
+        },
+        {
+          "args": [
+            ")a"
+          ],
+          "expected": "a",
+          "example": false
+        },
+        {
+          "args": [
+            "((a))"
+          ],
+          "expected": "((a))",
+          "example": false
+        },
+        {
+          "args": [
+            "())"
+          ],
+          "expected": "()",
+          "example": false
+        },
+        {
+          "args": [
+            "(()"
+          ],
+          "expected": "()",
+          "example": false
+        },
+        {
+          "args": [
+            "((("
+          ],
+          "expected": "",
+          "example": false
+        },
+        {
+          "args": [
+            ")))"
+          ],
+          "expected": "",
+          "example": false
+        },
+        {
+          "args": [
+            "a(b)c"
+          ],
+          "expected": "a(b)c",
+          "example": false
+        },
+        {
+          "args": [
+            "(a(b(c)d)e)f"
+          ],
+          "expected": "(a(b(c)d)e)f",
+          "example": false
+        },
+        {
+          "args": [
+            ")a("
+          ],
+          "expected": "a",
+          "example": false
+        },
+        {
+          "args": [
+            "(a)(b)(c)"
+          ],
+          "expected": "(a)(b)(c)",
+          "example": false
+        },
+        {
+          "args": [
+            "x)y)z"
+          ],
+          "expected": "xyz",
+          "example": false
+        },
+        {
+          "args": [
+            "(x(y(z"
+          ],
+          "expected": "xyz",
+          "example": false
+        },
+        {
+          "args": [
+            "a)b)c(d(e"
+          ],
+          "expected": "abcde",
+          "example": false
+        },
+        {
+          "args": [
+            "()()"
+          ],
+          "expected": "()()",
+          "example": false
+        },
+        {
+          "args": [
+            "))a((b))"
+          ],
+          "expected": "a((b))",
+          "example": false
+        },
+        {
+          "args": [
+            "(()())"
+          ],
+          "expected": "(()())",
+          "example": false
+        },
+        {
+          "args": [
+            ")()("
+          ],
+          "expected": "()",
+          "example": false
+        },
+        {
+          "args": [
+            "((())"
+          ],
+          "expected": "(())",
+          "example": false
+        },
+        {
+          "args": [
+            "(()))"
+          ],
+          "expected": "(())",
+          "example": false
+        },
+        {
+          "args": [
+            ")b))))()("
+          ],
+          "expected": "b()",
+          "example": false
+        },
+        {
+          "args": [
+            "bab)c"
+          ],
+          "expected": "babc",
+          "example": false
+        },
+        {
+          "args": [
+            "((a)ac"
+          ],
+          "expected": "(a)ac",
+          "example": false
+        },
+        {
+          "args": [
+            "c()(a)()c"
+          ],
+          "expected": "c()(a)()c",
+          "example": false
+        },
+        {
+          "args": [
+            "c()((b))b)"
+          ],
+          "expected": {
+            "anyOf": [
+              "c(((b))b)",
+              "c()((b))b",
+              "c()((b)b)"
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            ")b)c)(("
+          ],
+          "expected": "bc",
+          "example": false
+        },
+        {
+          "args": [
+            "()b((c())(a"
+          ],
+          "expected": {
+            "anyOf": [
+              "()b((c))a",
+              "()b(c())a"
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            "b)ca("
+          ],
+          "expected": "bca",
+          "example": false
+        },
+        {
+          "args": [
+            "()c())(()"
+          ],
+          "expected": {
+            "anyOf": [
+              "()c()()",
+              "(c())()"
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            "(a)b)c"
+          ],
+          "expected": {
+            "anyOf": [
+              "(a)bc",
+              "(ab)c"
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            "())(c)((a(c"
+          ],
+          "expected": "()(c)ac",
+          "example": false
+        },
+        {
+          "args": [
+            ")b)b)a()b"
+          ],
+          "expected": "bba()b",
+          "example": false
+        },
+        {
+          "args": [
+            "b)c(())))"
+          ],
+          "expected": "bc(())",
+          "example": false
+        },
+        {
+          "args": [
+            "a(b()(((c()"
+          ],
+          "expected": {
+            "anyOf": [
+              "a(b()c)",
+              "a(b)(c)",
+              "a(b)c()",
+              "ab()(c)",
+              "ab()c()"
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            "))ab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)ef(("
+          ],
+          "expected": "ab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)efab(cd)ef",
+          "example": false
+        },
+        {
+          "args": [
+            "((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((x))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))"
+          ],
+          "expected": "((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((x))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))",
+          "example": false
+        },
+        {
+          "args": [
+            "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+          ],
+          "expected": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
+          "example": false
+        },
+        {
+          "args": [
+            "(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((("
+          ],
+          "expected": "",
+          "example": false
+        },
+        {
+          "args": [
+            "))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))q"
+          ],
+          "expected": "q",
+          "example": false
+        }
+      ]
+    },
+    {
       "number": 1334,
       "title": "Find the City With the Smallest Number of Neighbors at a Threshold Distance",
       "url": "https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/",
