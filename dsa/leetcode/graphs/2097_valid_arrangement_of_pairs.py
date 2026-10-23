@@ -23,6 +23,66 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-10-22 ──────────────
+    def validArrangementOfPairs_20261022(self, pairs: List[List[int]]) -> List[List[int]]:
+        # each unique number is a node
+        # 11 -> 9 -> 4 -> 5 -> 1
+        # this is an eulerian path
+        # we can also have eulerian circuit per example 2
+        # so what we need to do is find our starting point and ending point
+        # this can be done by finding our degrees
+        # starting degree = -1
+        # ending degree = 1
+        # middle nodes = 0
+        # now if this is a circuit, all of these would be 0
+        # so we just pick a random starting node and ending can just be whenever we visit all nodes
+        # we can start by getting the unique numbers for our nodes
+
+        # we need adjacency map for classic hierholzer
+        adj_map = collections.defaultdict(list)
+        degree_map = collections.defaultdict(int)
+        for x,y in pairs:
+            # x is leaving, so -1
+            degree_map[x]-=1
+            # y has entering, so +1
+            degree_map[y]+=1
+            # adj map
+            adj_map[x].append(y)
+        
+        # find the one with -1 as starting
+        # we will default to first one to account for eulerian circuit
+        starting_node = next(iter(degree_map))
+
+        # now we go through the degree map and set accordingly
+        for key, value in degree_map.items():
+            if value == -1:
+                starting_node = key
+        
+        # now that we have our starting node, we can just treat this as a classic hierholzer
+        # we will use a stack since we don't need ordering from heap
+        stack = []
+        stack.append(starting_node)
+
+        result_nodes = []
+
+        while stack:
+            # we only take off current node if it has no neighbors
+            current_node = stack[-1]
+            if len(adj_map[current_node]) == 0:
+                result_nodes.append(stack.pop())
+            # if it does have things, push next child in
+            else:
+                next_node = adj_map[current_node].pop()
+                stack.append(next_node)
+        
+        result_nodes.reverse()
+        result_pairs = []
+        # now we create the output
+        for i in range(1, len(result_nodes)):
+            result_pairs.append([result_nodes[i-1], result_nodes[i]])
+        
+        return result_pairs
+
     # ── Attempt · 2026-09-19 ──────────────
     def validArrangementOfPairs_20260919(self, pairs: List[List[int]]) -> List[List[int]]:
         # 11 -> 9 -> 4 -> 5 -> 1

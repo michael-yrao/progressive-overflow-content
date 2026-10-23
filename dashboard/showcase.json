@@ -8647,8 +8647,8 @@
         {
           "kind": "attempt",
           "symbol": "validArrangementOfPairs_20260907",
-          "startLine": 91,
-          "endLine": 162,
+          "startLine": 151,
+          "endLine": 222,
           "lines": [
             "    # ── Attempt · 2026-09-07 ──────────────",
             "    def validArrangementOfPairs_20260907(self, pairs: List[List[int]]) -> List[List[int]]:",
