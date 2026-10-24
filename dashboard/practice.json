@@ -190925,7 +190925,8 @@
           "expected": 460.0,
           "example": false
         }
-      ]
+      ],
+      "tolerance": 1e-05
     },
     {
       "number": 2408,
