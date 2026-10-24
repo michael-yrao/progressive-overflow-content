@@ -24,10 +24,37 @@ Constraints:
 """
 # Write everything yourself from here — including any ListNode/TreeNode classes a
 # problem needs. No shared data-model imports (whiteboard fidelity).
+import math
 from typing import List, Optional
 
 
 class Solution:
+
+    # ── Attempt · 2026-10-24 ──────────────
+    def canCompleteCircuit_20261024(self, gas: List[int], cost: List[int]) -> int:
+        # if total cost > total gas, it's just not possible
+        # now with example 1, why is it 3 and why can it not be the others
+        # we know total gas must be bigger than total cost, but does diff matter
+        # gas  = [1,2,3,4,5]
+        # cost = [3,4,5,1,2]
+        # diff = [-2,-2,-2,3,3]
+        # this tells us we go with the highest first diff, let's try this
+        # -----------------
+        # above approach is right to a point but this is just Kadane's
+        # if total gas is negative, don't use it and go next
+
+        if sum(gas) < sum(cost):
+            return -1
+
+        starting_point = 0
+        total_gas = 0
+
+        for i in range(len(gas)):
+            total_gas+=(gas[i] - cost[i])
+            if total_gas < 0:
+                starting_point = i + 1
+                total_gas = 0
+        return starting_point
 
     # ── Attempt · 2026-09-21 ──────────────
     def gasStation_20260921(self, gas: List[int], cost: List[int]) -> int:
