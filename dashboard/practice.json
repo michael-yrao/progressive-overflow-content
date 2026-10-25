@@ -157419,6 +157419,946 @@
       ]
     },
     {
+      "number": 1169,
+      "title": "Invalid Transactions",
+      "url": "https://leetcode.com/problems/invalid-transactions/",
+      "difficulty": "Medium",
+      "statement": "A transaction is possibly invalid if:\n  - the amount exceeds $1000, or;\n  - if it occurs within (and including) 60 minutes of another\n    transaction with the same name in a different city.\n\nYou are given an array of strings `transactions` where\n`transactions[i]` consists of comma-separated values\nrepresenting the name, time (in minutes), amount, and city of\nthe transaction.\n\nReturn a list of `transactions` that are possibly invalid. You\nmay return the answer in any order.\n\nExample 1:\n    Input:\n        transactions =\n        [\"alice,20,800,mtv\",\"alice,50,100,beijing\"]\n    Output:\n        [\"alice,20,800,mtv\",\"alice,50,100,beijing\"]\n    Explanation:\n        The first transaction is invalid because the second\n        transaction occurs within a difference of 60 minutes,\n        have the same name and is in a different city.\n        Similarly the second one is invalid too.\n\nExample 2:\n    Input:\n        transactions =\n        [\"alice,20,800,mtv\",\"alice,50,1200,mtv\"]\n    Output: [\"alice,50,1200,mtv\"]\n\nExample 3:\n    Input:\n        transactions =\n        [\"alice,20,800,mtv\",\"bob,50,1200,mtv\"]\n    Output: [\"bob,50,1200,mtv\"]\n\nConstraints:\n    transactions.length <= 1000\n    Each transactions[i] takes the form\n        \"{name},{time},{amount},{city}\"\n    Each {name} and {city} consist of lowercase English letters,\n        and have lengths between 1 and 10.\n    Each {time} consist of digits, and represent an integer\n        between 0 and 1000.\n    Each {amount} consist of digits, and represent an integer\n        between 0 and 2000.",
+      "stub": "from typing import List, Optional\n\n\nclass Solution:\n    def invalidTransactions(self, transactions: List[str]) -> List[str]:\n        pass\n",
+      "entry": {
+        "className": "Solution",
+        "method": "invalidTransactions"
+      },
+      "compare": "unordered",
+      "figure": null,
+      "cases": [
+        {
+          "args": [
+            [
+              "alice,20,800,mtv",
+              "alice,50,100,beijing"
+            ]
+          ],
+          "expected": [
+            "alice,20,800,mtv",
+            "alice,50,100,beijing"
+          ],
+          "example": true
+        },
+        {
+          "args": [
+            [
+              "alice,20,800,mtv",
+              "alice,50,1200,mtv"
+            ]
+          ],
+          "expected": [
+            "alice,50,1200,mtv"
+          ],
+          "example": true
+        },
+        {
+          "args": [
+            [
+              "alice,20,800,mtv",
+              "bob,50,1200,mtv"
+            ]
+          ],
+          "expected": [
+            "bob,50,1200,mtv"
+          ],
+          "example": true
+        },
+        {
+          "args": [
+            [
+              "a,0,0,x"
+            ]
+          ],
+          "expected": [],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,1000,x"
+            ]
+          ],
+          "expected": [],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,1001,x"
+            ]
+          ],
+          "expected": [
+            "a,0,1001,x"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,2000,x"
+            ]
+          ],
+          "expected": [
+            "a,0,2000,x"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,10,x",
+              "a,60,10,y"
+            ]
+          ],
+          "expected": [
+            "a,0,10,x",
+            "a,60,10,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,10,x",
+              "a,61,10,y"
+            ]
+          ],
+          "expected": [],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,1000,10,x",
+              "a,940,10,y"
+            ]
+          ],
+          "expected": [
+            "a,1000,10,x",
+            "a,940,10,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,10,x",
+              "a,30,10,x",
+              "a,50,10,x"
+            ]
+          ],
+          "expected": [],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,10,x",
+              "b,10,10,y",
+              "c,20,10,z"
+            ]
+          ],
+          "expected": [],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,10,x",
+              "a,100,10,y",
+              "a,200,10,z"
+            ]
+          ],
+          "expected": [],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,10,x",
+              "a,50,10,y",
+              "a,200,10,x"
+            ]
+          ],
+          "expected": [
+            "a,0,10,x",
+            "a,50,10,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,1001,x",
+              "a,20,5,x",
+              "a,500,5,y"
+            ]
+          ],
+          "expected": [
+            "a,0,1001,x"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,121,282,nyc",
+              "bob,92,1531,x"
+            ]
+          ],
+          "expected": [
+            "bob,92,1531,x"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "cy,87,1996,nyc",
+              "bob,82,605,nyc",
+              "cy,97,1253,y"
+            ]
+          ],
+          "expected": [
+            "cy,87,1996,nyc",
+            "cy,97,1253,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "cy,895,1985,nyc",
+              "bob,43,1309,nyc",
+              "a,26,206,y",
+              "cy,180,348,x"
+            ]
+          ],
+          "expected": [
+            "cy,895,1985,nyc",
+            "bob,43,1309,nyc"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "cy,69,1793,y",
+              "bob,74,181,y",
+              "a,176,1112,nyc",
+              "a,62,1036,x",
+              "a,16,808,x"
+            ]
+          ],
+          "expected": [
+            "cy,69,1793,y",
+            "a,176,1112,nyc",
+            "a,62,1036,x"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,104,1397,nyc",
+              "a,189,355,nyc",
+              "a,160,1661,nyc",
+              "bob,4,1193,nyc",
+              "a,161,1564,y",
+              "cy,137,562,x"
+            ]
+          ],
+          "expected": [
+            "a,104,1397,nyc",
+            "a,189,355,nyc",
+            "a,160,1661,nyc",
+            "bob,4,1193,nyc",
+            "a,161,1564,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "bob,42,1955,y",
+              "cy,395,1491,nyc",
+              "a,36,1609,nyc",
+              "cy,100,261,y",
+              "a,118,1892,y",
+              "bob,78,75,nyc"
+            ]
+          ],
+          "expected": [
+            "bob,42,1955,y",
+            "cy,395,1491,nyc",
+            "a,36,1609,nyc",
+            "a,118,1892,y",
+            "bob,78,75,nyc"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "bob,87,446,nyc",
+              "cy,7,249,x",
+              "cy,775,407,y",
+              "cy,10,1548,nyc",
+              "a,67,698,y",
+              "cy,108,21,y",
+              "cy,63,1157,x"
+            ]
+          ],
+          "expected": [
+            "cy,7,249,x",
+            "cy,10,1548,nyc",
+            "cy,108,21,y",
+            "cy,63,1157,x"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,88,1351,y",
+              "a,582,1254,y",
+              "cy,143,1888,x",
+              "a,164,1960,y",
+              "bob,8,1068,nyc",
+              "cy,53,995,nyc",
+              "a,7,1523,x",
+              "a,995,454,y"
+            ]
+          ],
+          "expected": [
+            "a,88,1351,y",
+            "a,582,1254,y",
+            "cy,143,1888,x",
+            "a,164,1960,y",
+            "bob,8,1068,nyc",
+            "a,7,1523,x"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,64,1024,nyc",
+              "cy,149,989,y",
+              "cy,51,191,y",
+              "a,244,156,x",
+              "cy,718,7,x",
+              "cy,138,268,x",
+              "cy,128,1840,nyc",
+              "bob,680,545,x"
+            ]
+          ],
+          "expected": [
+            "a,64,1024,nyc",
+            "cy,149,989,y",
+            "cy,138,268,x",
+            "cy,128,1840,nyc"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "cy,18,1796,y",
+              "bob,825,773,y",
+              "a,93,218,nyc",
+              "a,97,550,nyc",
+              "a,645,651,y",
+              "a,500,1052,x",
+              "bob,941,1867,nyc",
+              "a,90,907,nyc",
+              "a,37,1220,x"
+            ]
+          ],
+          "expected": [
+            "cy,18,1796,y",
+            "a,93,218,nyc",
+            "a,97,550,nyc",
+            "a,500,1052,x",
+            "bob,941,1867,nyc",
+            "a,90,907,nyc",
+            "a,37,1220,x"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,88,1672,y",
+              "a,168,815,nyc",
+              "cy,28,1934,nyc",
+              "a,687,78,nyc",
+              "bob,974,1457,x",
+              "a,156,659,y",
+              "bob,187,91,nyc",
+              "cy,621,59,x",
+              "bob,57,559,nyc",
+              "bob,179,29,y"
+            ]
+          ],
+          "expected": [
+            "a,88,1672,y",
+            "a,168,815,nyc",
+            "cy,28,1934,nyc",
+            "bob,974,1457,x",
+            "a,156,659,y",
+            "bob,187,91,nyc",
+            "bob,179,29,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,454,286,nyc",
+              "bob,706,537,nyc",
+              "cy,89,1146,x",
+              "bob,162,666,y",
+              "bob,285,1266,y",
+              "bob,969,76,x",
+              "a,158,1147,y",
+              "cy,75,15,x",
+              "a,412,397,y",
+              "cy,82,1798,x",
+              "bob,62,1970,y",
+              "bob,16,1878,y"
+            ]
+          ],
+          "expected": [
+            "a,454,286,nyc",
+            "cy,89,1146,x",
+            "bob,285,1266,y",
+            "a,158,1147,y",
+            "a,412,397,y",
+            "cy,82,1798,x",
+            "bob,62,1970,y",
+            "bob,16,1878,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "bob,55,374,x",
+              "a,40,798,y",
+              "cy,100,1529,x",
+              "a,944,1483,x",
+              "cy,64,1960,nyc",
+              "cy,101,21,nyc",
+              "a,548,1776,x",
+              "cy,196,652,y",
+              "a,134,1465,x",
+              "a,31,1333,nyc",
+              "a,545,318,y",
+              "bob,440,777,nyc"
+            ]
+          ],
+          "expected": [
+            "a,40,798,y",
+            "cy,100,1529,x",
+            "a,944,1483,x",
+            "cy,64,1960,nyc",
+            "cy,101,21,nyc",
+            "a,548,1776,x",
+            "a,134,1465,x",
+            "a,31,1333,nyc",
+            "a,545,318,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "bob,856,1193,y",
+              "bob,159,611,nyc",
+              "cy,922,994,x",
+              "cy,37,558,nyc",
+              "a,12,1715,nyc",
+              "cy,85,268,x",
+              "cy,560,1078,y",
+              "a,930,1702,y",
+              "bob,267,533,y",
+              "cy,997,640,x",
+              "a,862,1131,y",
+              "cy,134,1705,nyc",
+              "bob,83,1673,nyc",
+              "bob,662,497,x"
+            ]
+          ],
+          "expected": [
+            "bob,856,1193,y",
+            "cy,37,558,nyc",
+            "a,12,1715,nyc",
+            "cy,85,268,x",
+            "cy,560,1078,y",
+            "a,930,1702,y",
+            "a,862,1131,y",
+            "cy,134,1705,nyc",
+            "bob,83,1673,nyc"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "bob,186,1168,x",
+              "cy,136,44,y",
+              "bob,66,651,x",
+              "a,55,495,nyc",
+              "cy,65,1996,y",
+              "bob,304,856,x",
+              "cy,112,1942,x",
+              "cy,203,525,x",
+              "bob,916,124,x",
+              "cy,168,127,y",
+              "a,944,1191,x",
+              "a,138,1055,y",
+              "cy,52,88,x",
+              "bob,54,1985,x",
+              "a,151,1203,x"
+            ]
+          ],
+          "expected": [
+            "bob,186,1168,x",
+            "cy,136,44,y",
+            "cy,65,1996,y",
+            "cy,112,1942,x",
+            "cy,203,525,x",
+            "cy,168,127,y",
+            "a,944,1191,x",
+            "a,138,1055,y",
+            "cy,52,88,x",
+            "bob,54,1985,x",
+            "a,151,1203,x"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "cy,258,227,nyc",
+              "bob,101,456,y",
+              "cy,41,845,y",
+              "bob,633,1381,nyc",
+              "bob,324,1434,nyc",
+              "a,245,544,nyc",
+              "a,48,574,x",
+              "cy,78,436,x",
+              "bob,11,809,y",
+              "bob,5,1739,x",
+              "bob,58,509,x",
+              "cy,123,769,x",
+              "bob,35,962,nyc",
+              "a,480,1885,y",
+              "a,100,1427,nyc",
+              "a,879,1550,x",
+              "a,631,1758,x",
+              "bob,84,209,y"
+            ]
+          ],
+          "expected": [
+            "bob,101,456,y",
+            "cy,41,845,y",
+            "bob,633,1381,nyc",
+            "bob,324,1434,nyc",
+            "a,48,574,x",
+            "cy,78,436,x",
+            "bob,11,809,y",
+            "bob,5,1739,x",
+            "bob,58,509,x",
+            "bob,35,962,nyc",
+            "a,480,1885,y",
+            "a,100,1427,nyc",
+            "a,879,1550,x",
+            "a,631,1758,x",
+            "bob,84,209,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "cy,160,663,nyc",
+              "a,477,138,nyc",
+              "cy,945,1128,x",
+              "cy,797,18,y",
+              "a,979,1644,x",
+              "a,221,1667,x",
+              "cy,38,421,y",
+              "bob,74,855,y",
+              "bob,66,1763,nyc",
+              "bob,24,1135,y",
+              "bob,168,485,x",
+              "cy,59,969,y",
+              "a,365,400,x",
+              "bob,147,302,y",
+              "bob,85,1085,y",
+              "cy,74,1214,y",
+              "a,338,687,y",
+              "cy,69,1166,x",
+              "cy,899,114,nyc",
+              "cy,198,850,y"
+            ]
+          ],
+          "expected": [
+            "cy,160,663,nyc",
+            "cy,945,1128,x",
+            "a,979,1644,x",
+            "a,221,1667,x",
+            "cy,38,421,y",
+            "bob,74,855,y",
+            "bob,66,1763,nyc",
+            "bob,24,1135,y",
+            "bob,168,485,x",
+            "cy,59,969,y",
+            "a,365,400,x",
+            "bob,147,302,y",
+            "bob,85,1085,y",
+            "cy,74,1214,y",
+            "a,338,687,y",
+            "cy,69,1166,x",
+            "cy,899,114,nyc",
+            "cy,198,850,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,174,665,x",
+              "cy,742,4,x",
+              "cy,96,1616,y",
+              "a,51,241,nyc",
+              "a,201,800,x",
+              "a,410,1513,nyc",
+              "a,363,900,x",
+              "cy,15,23,y",
+              "cy,980,728,x",
+              "a,49,1936,y",
+              "bob,94,286,x",
+              "bob,721,1910,nyc",
+              "a,4,262,x",
+              "bob,69,168,nyc",
+              "bob,65,435,nyc",
+              "cy,194,1041,x",
+              "a,30,1037,nyc",
+              "cy,968,745,y",
+              "cy,110,1690,nyc",
+              "cy,3,567,x",
+              "cy,61,646,nyc",
+              "a,106,1158,x",
+              "bob,398,306,y",
+              "cy,29,183,x",
+              "bob,160,1864,y"
+            ]
+          ],
+          "expected": [
+            "cy,96,1616,y",
+            "a,51,241,nyc",
+            "a,410,1513,nyc",
+            "a,363,900,x",
+            "cy,15,23,y",
+            "cy,980,728,x",
+            "a,49,1936,y",
+            "bob,94,286,x",
+            "bob,721,1910,nyc",
+            "a,4,262,x",
+            "bob,69,168,nyc",
+            "bob,65,435,nyc",
+            "cy,194,1041,x",
+            "a,30,1037,nyc",
+            "cy,968,745,y",
+            "cy,110,1690,nyc",
+            "cy,3,567,x",
+            "cy,61,646,nyc",
+            "a,106,1158,x",
+            "cy,29,183,x",
+            "bob,160,1864,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "cy,51,182,nyc",
+              "cy,151,829,x",
+              "a,705,584,nyc",
+              "a,13,35,x",
+              "cy,58,1081,x",
+              "bob,167,1751,nyc",
+              "a,682,1922,y",
+              "cy,266,1743,x",
+              "cy,580,390,y",
+              "cy,343,1388,y",
+              "cy,922,1172,x",
+              "a,900,974,y",
+              "a,534,1821,x",
+              "cy,91,244,nyc",
+              "bob,47,571,x",
+              "bob,39,908,x",
+              "bob,90,406,nyc",
+              "cy,12,1343,nyc",
+              "a,83,64,y",
+              "cy,67,793,x",
+              "a,99,75,nyc",
+              "bob,22,1029,x",
+              "bob,139,645,y",
+              "a,670,1668,nyc",
+              "a,724,973,y",
+              "cy,5,815,y",
+              "a,44,1388,y",
+              "cy,651,603,y",
+              "a,134,1176,x",
+              "bob,33,871,y"
+            ]
+          ],
+          "expected": [
+            "cy,51,182,nyc",
+            "cy,151,829,x",
+            "a,705,584,nyc",
+            "a,13,35,x",
+            "cy,58,1081,x",
+            "bob,167,1751,nyc",
+            "a,682,1922,y",
+            "cy,266,1743,x",
+            "cy,343,1388,y",
+            "cy,922,1172,x",
+            "a,534,1821,x",
+            "cy,91,244,nyc",
+            "bob,47,571,x",
+            "bob,39,908,x",
+            "bob,90,406,nyc",
+            "cy,12,1343,nyc",
+            "a,83,64,y",
+            "cy,67,793,x",
+            "a,99,75,nyc",
+            "bob,22,1029,x",
+            "bob,139,645,y",
+            "a,670,1668,nyc",
+            "a,724,973,y",
+            "cy,5,815,y",
+            "a,44,1388,y",
+            "a,134,1176,x",
+            "bob,33,871,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,63,363,y",
+              "cy,96,1586,x",
+              "a,31,1571,nyc",
+              "a,931,169,x",
+              "a,39,361,nyc",
+              "a,53,1506,nyc",
+              "a,963,244,nyc",
+              "bob,11,1022,nyc",
+              "cy,157,1036,nyc",
+              "a,45,1821,x",
+              "a,59,1618,y",
+              "cy,101,1833,y",
+              "bob,75,402,x",
+              "cy,427,1999,x",
+              "a,399,1010,nyc",
+              "a,132,1723,nyc",
+              "bob,42,958,x",
+              "bob,16,810,x",
+              "cy,880,1627,nyc",
+              "a,85,642,x",
+              "a,915,326,y",
+              "a,356,534,nyc",
+              "a,204,1637,nyc",
+              "a,28,1947,y",
+              "bob,184,1914,nyc",
+              "cy,996,997,nyc",
+              "bob,190,1777,nyc",
+              "a,195,1493,nyc",
+              "cy,540,1114,y",
+              "bob,60,1658,nyc",
+              "bob,28,1849,nyc",
+              "cy,236,1685,nyc",
+              "a,694,535,x",
+              "a,30,190,x",
+              "a,125,843,x",
+              "cy,341,769,x",
+              "bob,603,1311,x",
+              "a,60,1742,x",
+              "bob,101,649,nyc",
+              "bob,873,1223,x"
+            ]
+          ],
+          "expected": [
+            "a,63,363,y",
+            "cy,96,1586,x",
+            "a,31,1571,nyc",
+            "a,931,169,x",
+            "a,39,361,nyc",
+            "a,53,1506,nyc",
+            "a,963,244,nyc",
+            "bob,11,1022,nyc",
+            "cy,157,1036,nyc",
+            "a,45,1821,x",
+            "a,59,1618,y",
+            "cy,101,1833,y",
+            "bob,75,402,x",
+            "cy,427,1999,x",
+            "a,399,1010,nyc",
+            "a,132,1723,nyc",
+            "bob,42,958,x",
+            "bob,16,810,x",
+            "cy,880,1627,nyc",
+            "a,85,642,x",
+            "a,915,326,y",
+            "a,204,1637,nyc",
+            "a,28,1947,y",
+            "bob,184,1914,nyc",
+            "bob,190,1777,nyc",
+            "a,195,1493,nyc",
+            "cy,540,1114,y",
+            "bob,60,1658,nyc",
+            "bob,28,1849,nyc",
+            "cy,236,1685,nyc",
+            "a,30,190,x",
+            "a,125,843,x",
+            "bob,603,1311,x",
+            "a,60,1742,x",
+            "bob,101,649,nyc",
+            "bob,873,1223,x"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,5,x",
+              "b,10,5,y",
+              "a,200,5,y",
+              "c,1,1,z",
+              "b,500,5,x"
+            ]
+          ],
+          "expected": [],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,0,1500,x",
+              "b,10,1200,y",
+              "c,20,1001,z"
+            ]
+          ],
+          "expected": [
+            "a,0,1500,x",
+            "b,10,1200,y",
+            "c,20,1001,z"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,10,5,x",
+              "a,12,5,y",
+              "a,14,5,z",
+              "a,500,5,x"
+            ]
+          ],
+          "expected": [
+            "a,10,5,x",
+            "a,12,5,y",
+            "a,14,5,z"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,10,5,x",
+              "a,500,5,y",
+              "b,10,5,x",
+              "b,60,5,x",
+              "b,70,5,y"
+            ]
+          ],
+          "expected": [
+            "b,10,5,x",
+            "b,60,5,x",
+            "b,70,5,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,100,50,x",
+              "a,160,50,y",
+              "a,221,50,x",
+              "a,282,50,y"
+            ]
+          ],
+          "expected": [
+            "a,100,50,x",
+            "a,160,50,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "zed,0,0,aa",
+              "zed,0,0,bb"
+            ]
+          ],
+          "expected": [
+            "zed,0,0,aa",
+            "zed,0,0,bb"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,5,5,x",
+              "a,5,5,y"
+            ]
+          ],
+          "expected": [
+            "a,5,5,x",
+            "a,5,5,y"
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              "a,5,5,x",
+              "b,5,5,y",
+              "a,65,5,y",
+              "b,66,5,x"
+            ]
+          ],
+          "expected": [
+            "a,5,5,x",
+            "a,65,5,y"
+          ],
+          "example": false
+        }
+      ]
+    },
+    {
       "number": 1192,
       "title": "Critical Connections in a Network",
       "url": "https://leetcode.com/problems/critical-connections-in-a-network/",
@@ -163453,6 +164393,1236 @@
             ]
           ],
           "expected": 4,
+          "example": false
+        }
+      ]
+    },
+    {
+      "number": 1391,
+      "title": "Check if There is a Valid Path in a Grid",
+      "url": "https://leetcode.com/problems/check-if-there-is-a-valid-path-in-a-grid/",
+      "difficulty": "Medium",
+      "statement": "You are given an m x n grid. Each cell of grid represents a street. The street of grid[i][j] can be:\n\n- 1 which means a street connecting the left cell and the right cell.\n- 2 which means a street connecting the upper cell and the lower cell.\n- 3 which means a street connecting the left cell and the lower cell.\n- 4 which means a street connecting the right cell and the lower cell.\n- 5 which means a street connecting the left cell and the upper cell.\n- 6 which means a street connecting the right cell and the upper cell.\n\nYou will initially start at the street of the upper-left cell (0, 0). A valid path in the grid is a path that starts from the upper left cell (0, 0) and ends at the bottom-right cell (m - 1, n - 1). The path should only follow the streets.\n\nNotice that you are not allowed to change any street.\n\nReturn true if there is a valid path in the grid or false otherwise.\n\nExample 1:\n\nInput: grid = [[2,4,3],[6,5,2]]\nOutput: true\nExplanation: As shown you can start at cell (0, 0) and visit all the cells of the grid to reach (m - 1, n - 1).\n\nExample 2:\n\nInput: grid = [[1,2,1],[1,2,1]]\nOutput: false\nExplanation: As shown you the street at cell (0, 0) is not connected with any street of any other cell and you will get stuck at cell (0, 0)\n\nExample 3:\n\nInput: grid = [[1,1,2]]\nOutput: false\nExplanation: You will get stuck at cell (0, 1) and you cannot reach cell (0, 2).\n\nConstraints:\n\n    m == grid.length\n    n == grid[i].length\n    1 <= m, n <= 300\n    1 <= grid[i][j] <= 6",
+      "stub": "from typing import List, Optional\n\n\nclass Solution:\n    def hasValidPath(self, grid: List[List[int]]) -> bool:\n        pass\n",
+      "entry": {
+        "className": "Solution",
+        "method": "hasValidPath"
+      },
+      "compare": "exact",
+      "figure": {
+        "kind": "grid",
+        "gridArg": 0
+      },
+      "cases": [
+        {
+          "args": [
+            [
+              [
+                2,
+                4,
+                3
+              ],
+              [
+                6,
+                5,
+                2
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": true
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                2,
+                1
+              ],
+              [
+                1,
+                2,
+                1
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": true
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1,
+                2
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": true
+        },
+        {
+          "args": [
+            [
+              [
+                1
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                2
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                3
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                4
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                5
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                6
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                2
+              ],
+              [
+                2
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                4,
+                3
+              ],
+              [
+                2,
+                5
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                4,
+                1
+              ],
+              [
+                6,
+                1
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                1
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                2,
+                2
+              ],
+              [
+                2,
+                2
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                4,
+                1,
+                3
+              ],
+              [
+                2,
+                3,
+                2
+              ],
+              [
+                6,
+                1,
+                5
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                2
+              ],
+              [
+                2
+              ],
+              [
+                2
+              ],
+              [
+                2
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                4,
+                3,
+                4,
+                3
+              ],
+              [
+                6,
+                5,
+                6,
+                5
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                3
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                6,
+                3
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                6,
+                3
+              ],
+              [
+                1,
+                4
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                3
+              ],
+              [
+                1,
+                1,
+                1,
+                5
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                1,
+                1,
+                1,
+                5
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                3
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                6,
+                4
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                6,
+                1
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                2,
+                6,
+                5,
+                6,
+                1
+              ],
+              [
+                2,
+                4,
+                6,
+                6,
+                5
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1,
+                5,
+                2,
+                3,
+                5
+              ],
+              [
+                1,
+                3,
+                3,
+                5,
+                5,
+                6
+              ],
+              [
+                1,
+                1,
+                2,
+                1,
+                2,
+                6
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                6,
+                6,
+                5,
+                1,
+                6
+              ],
+              [
+                6,
+                5,
+                6,
+                2,
+                1
+              ],
+              [
+                3,
+                6,
+                4,
+                6,
+                3
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                6,
+                2,
+                1,
+                5,
+                6,
+                1
+              ],
+              [
+                4,
+                3,
+                6,
+                5,
+                2,
+                4
+              ],
+              [
+                6,
+                5,
+                3,
+                1,
+                4,
+                1
+              ],
+              [
+                6,
+                3,
+                3,
+                1,
+                6,
+                2
+              ],
+              [
+                2,
+                6,
+                4,
+                4,
+                6,
+                3
+              ],
+              [
+                5,
+                2,
+                1,
+                2,
+                2,
+                1
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                6,
+                4,
+                4,
+                4,
+                1,
+                5
+              ],
+              [
+                2,
+                2,
+                1,
+                1,
+                4,
+                4
+              ],
+              [
+                6,
+                6,
+                6,
+                1,
+                3,
+                1
+              ],
+              [
+                3,
+                3,
+                5,
+                3,
+                3,
+                1
+              ],
+              [
+                4,
+                6,
+                6,
+                2,
+                3,
+                2
+              ],
+              [
+                4,
+                4,
+                2,
+                3,
+                3,
+                2
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                5,
+                2,
+                2,
+                6,
+                2
+              ],
+              [
+                4,
+                3,
+                1,
+                6,
+                3,
+                3
+              ],
+              [
+                6,
+                2,
+                4,
+                2,
+                5,
+                2
+              ],
+              [
+                6,
+                2,
+                4,
+                4,
+                6,
+                3
+              ],
+              [
+                5,
+                2,
+                6,
+                2,
+                2,
+                6
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                5,
+                3,
+                5,
+                3,
+                5,
+                3
+              ],
+              [
+                1,
+                5,
+                3,
+                3,
+                6,
+                1
+              ],
+              [
+                2,
+                6,
+                5,
+                4,
+                1,
+                6
+              ],
+              [
+                4,
+                6,
+                5,
+                3,
+                1,
+                1
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                2,
+                1
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                3,
+                6
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                6,
+                6
+              ],
+              [
+                4,
+                1
+              ]
+            ]
+          ],
+          "expected": false,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ]
+            ]
+          ],
+          "expected": true,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                4,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ],
+              [
+                6,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3
+              ],
+              [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                5
+              ]
+            ]
+          ],
+          "expected": false,
           "example": false
         }
       ]
@@ -173128,6 +175298,3598 @@
       ]
     },
     {
+      "number": 1684,
+      "title": "Count the Number of Consistent Strings",
+      "url": "https://leetcode.com/problems/count-the-number-of-consistent-strings/",
+      "difficulty": "Easy",
+      "statement": "You are given a string `allowed` consisting of distinct characters and an\narray of strings `words`. A string is consistent if all characters in the\nstring appear in the string `allowed`.\n\nReturn the number of consistent strings in the array `words`.\n\nExample 1:\n    Input:  allowed = \"ab\",\n            words = [\"ad\",\"bd\",\"aaab\",\"baa\",\"badab\"]\n    Output: 2\n    Explanation: Strings \"aaab\" and \"baa\" are consistent\n        since they only contain characters 'a' and 'b'.\n\nExample 2:\n    Input:  allowed = \"abc\",\n            words = [\"a\",\"b\",\"c\",\"ab\",\"ac\",\"bc\",\"abc\"]\n    Output: 7\n    Explanation: All strings are consistent.\n\nExample 3:\n    Input:  allowed = \"cad\",\n            words = [\"cc\",\"acd\",\"b\",\"ba\",\"bac\",\"bad\",\"ac\",\"d\"]\n    Output: 4\n    Explanation: Strings \"cc\", \"acd\", \"ac\", and \"d\" are\n        consistent.\n\nConstraints:\n    1 <= words.length <= 10^4\n    1 <= allowed.length <= 26\n    1 <= words[i].length <= 10\n    The characters in allowed are distinct.\n    words[i] and allowed contain only lowercase English letters.",
+      "stub": "from typing import List, Optional\n\n\nclass Solution:\n    def countConsistentStrings(self, allowed: str, words: List[str]) -> int:\n        pass\n",
+      "entry": {
+        "className": "Solution",
+        "method": "countConsistentStrings"
+      },
+      "compare": "exact",
+      "figure": null,
+      "cases": [
+        {
+          "args": [
+            "ab",
+            [
+              "ad",
+              "bd",
+              "aaab",
+              "baa",
+              "badab"
+            ]
+          ],
+          "expected": 2,
+          "example": true
+        },
+        {
+          "args": [
+            "abc",
+            [
+              "a",
+              "b",
+              "c",
+              "ab",
+              "ac",
+              "bc",
+              "abc"
+            ]
+          ],
+          "expected": 7,
+          "example": true
+        },
+        {
+          "args": [
+            "cad",
+            [
+              "cc",
+              "acd",
+              "b",
+              "ba",
+              "bac",
+              "bad",
+              "ac",
+              "d"
+            ]
+          ],
+          "expected": 4,
+          "example": true
+        },
+        {
+          "args": [
+            "a",
+            [
+              "a"
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            "a",
+            [
+              "b"
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            "abcdefghijklmnopqrstuvwxyz",
+            [
+              "zzzzzzzzzz",
+              "a"
+            ]
+          ],
+          "expected": 2,
+          "example": false
+        },
+        {
+          "args": [
+            "z",
+            [
+              "a",
+              "z",
+              "zz",
+              "az"
+            ]
+          ],
+          "expected": 2,
+          "example": false
+        },
+        {
+          "args": [
+            "ab",
+            [
+              "c",
+              "c",
+              "c",
+              "c",
+              "c"
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            "abc",
+            [
+              "abc",
+              "cba",
+              "ccc",
+              "dddddddddd"
+            ]
+          ],
+          "expected": 3,
+          "example": false
+        },
+        {
+          "args": [
+            "aqijn",
+            [
+              "eaafqgngf",
+              "ddieg",
+              "e",
+              "aahjbqcaaf",
+              "in",
+              "ehh",
+              "eacbf",
+              "edfin",
+              "c",
+              "dfeeqqqciq"
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            "drqwu",
+            [
+              "dqw",
+              "ddr",
+              "uudqudrud",
+              "rwwr",
+              "u",
+              "qqud"
+            ]
+          ],
+          "expected": 6,
+          "example": false
+        },
+        {
+          "args": [
+            "namjy",
+            [
+              "nace",
+              "mgbfebge",
+              "hn",
+              "jna",
+              "gaefaaaab",
+              "dyhfg",
+              "gcjmnd",
+              "yggm",
+              "baa",
+              "dbd"
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            "rqhwcaij",
+            [
+              "ccq"
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            "agioftyn",
+            [
+              "nfi",
+              "oattngg",
+              "ntagff"
+            ]
+          ],
+          "expected": 3,
+          "example": false
+        },
+        {
+          "args": [
+            "ulofqhadinwztjegyrbmvxcpsk",
+            [
+              "edru",
+              "qd",
+              "ewst"
+            ]
+          ],
+          "expected": 3,
+          "example": false
+        },
+        {
+          "args": [
+            "ipj",
+            [
+              "iippjij"
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            "prq",
+            [
+              "fqefqqcdc",
+              "f",
+              "ba"
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            "thngr",
+            [
+              "rtrrhhhnrh",
+              "tttrgn",
+              "hgn",
+              "ng",
+              "t",
+              "nthn"
+            ]
+          ],
+          "expected": 6,
+          "example": false
+        },
+        {
+          "args": [
+            "kalrojfduhbpn",
+            [
+              "h"
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            "uervtcaghlmzyoxdspnjkwqbif",
+            [
+              "tkjkcdcog",
+              "mko",
+              "nvjkymbxd",
+              "zifvgo",
+              "z",
+              "lrfxvmlcw",
+              "gwefuhlbnc",
+              "nbdgqo",
+              "h",
+              "vttqwnmp",
+              "rjnlmq",
+              "tsbymu",
+              "tnyhvxgy",
+              "kdpc",
+              "yupb"
+            ]
+          ],
+          "expected": 15,
+          "example": false
+        },
+        {
+          "args": [
+            "xqhosnmecvudfjgtlkzybairpw",
+            [
+              "osrrju"
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            "djiqftolgbcxknhsrwmuepzyav",
+            [
+              "wsisuz",
+              "qt",
+              "cacnjtlh",
+              "zzsdpcn",
+              "xsrstienr",
+              "hnwyktz",
+              "sgy",
+              "rla",
+              "zbefyyvkb",
+              "gtsm",
+              "v",
+              "a",
+              "aae",
+              "y",
+              "clhud"
+            ]
+          ],
+          "expected": 15,
+          "example": false
+        },
+        {
+          "args": [
+            "iophymga",
+            [
+              "a",
+              "iaphooiiah",
+              "igopogp",
+              "oioypyahpi",
+              "yp",
+              "iaimmayoi",
+              "hhmmao",
+              "aihp",
+              "poihpiyhy",
+              "oihigph"
+            ]
+          ],
+          "expected": 10,
+          "example": false
+        },
+        {
+          "args": [
+            "oqk",
+            [
+              "qkqko",
+              "oo",
+              "kkoqkkkqo",
+              "okqq",
+              "kqqkokkk",
+              "q",
+              "ooq",
+              "kooqkqkko",
+              "oooooo",
+              "oooq",
+              "qk",
+              "qqqkoqq",
+              "ooqkoq",
+              "oqooo",
+              "qkko"
+            ]
+          ],
+          "expected": 15,
+          "example": false
+        },
+        {
+          "args": [
+            "npc",
+            [
+              "p",
+              "p",
+              "nncp",
+              "pccccnppcc",
+              "cnnp",
+              "pcpnccppc",
+              "nnpcncc",
+              "n",
+              "ncncppnn",
+              "ncpnpnnp",
+              "nnn",
+              "ccpnpp",
+              "ccnppn",
+              "npccccc",
+              "p"
+            ]
+          ],
+          "expected": 15,
+          "example": false
+        },
+        {
+          "args": [
+            "bpg",
+            [
+              "bcbfgf"
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            "bsgzqydknwrpfhtlvijmxcaueo",
+            [
+              "yvmrskc",
+              "sidkz",
+              "gr",
+              "btj",
+              "ilkfchcpvo",
+              "xid"
+            ]
+          ],
+          "expected": 6,
+          "example": false
+        },
+        {
+          "args": [
+            "wmqoticvhduxr",
+            [
+              "qxtutq",
+              "otvrwmoiq",
+              "oicchq",
+              "cqiiqo",
+              "t",
+              "mo"
+            ]
+          ],
+          "expected": 6,
+          "example": false
+        },
+        {
+          "args": [
+            "qvlrphfb",
+            [
+              "qbvqvlllv",
+              "r",
+              "bhr",
+              "fvbr",
+              "fhp",
+              "ql",
+              "pvbvlrb",
+              "rr",
+              "qv",
+              "bfblf",
+              "hfrpqrlbpq",
+              "brpfprlb",
+              "vrvlhh",
+              "lqfflpvfq",
+              "rrlprrpbqh"
+            ]
+          ],
+          "expected": 15,
+          "example": false
+        },
+        {
+          "args": [
+            "m",
+            [
+              "amcmmdbm",
+              "aadaccmd",
+              "abmmbccmdb",
+              "a",
+              "mmmcddbb",
+              "bcdmdbd"
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            "ipwbgyulrfnjs",
+            [
+              "dyhmfuljik"
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            "kh",
+            [
+              "cebcd",
+              "cha",
+              "eedacbebc",
+              "keadahbhc",
+              "ehhb",
+              "dcekb",
+              "kdkdhchbbd",
+              "ehbbchbcc",
+              "hhcc",
+              "h",
+              "dkd",
+              "abcakbh",
+              "abbbaac",
+              "bcabkeaeka",
+              "hdkehcacda"
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            "ejf",
+            [
+              "ffdcffjb"
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            "oc",
+            [
+              "bbodobb",
+              "doodob",
+              "eoaco",
+              "baddcda",
+              "bddco",
+              "daedac"
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            "uaijo",
+            [
+              "faehu",
+              "hcafcd",
+              "ua",
+              "hbeo",
+              "duf",
+              "efhchch",
+              "jjhj",
+              "edu",
+              "ced",
+              "gbabaoho",
+              "hhaehdcba",
+              "e",
+              "dcbjuho",
+              "cggfa",
+              "idhhbaefa"
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            "tn",
+            [
+              "nttnnn",
+              "tnnn",
+              "nnnn"
+            ]
+          ],
+          "expected": 3,
+          "example": false
+        },
+        {
+          "args": [
+            "abcdefghijklmnopqrstuvwxyz",
+            [
+              "upndfeybxz",
+              "hhhjohxtiv",
+              "znwkpkndtd",
+              "bydnxfptke",
+              "ilqxenaxbn",
+              "ujaaidregp",
+              "xdzqxksezp",
+              "xsedqsovfh",
+              "rutlujawun",
+              "ceeuyelwbt",
+              "nhizlaboji",
+              "khuhrgckbj",
+              "bnuxuksiuj",
+              "qhvzxxlltp",
+              "fwjvuzdxmx",
+              "ajtknrnwdj",
+              "atccckgyta",
+              "xiszwkfgoj",
+              "wehyhewqoa",
+              "jmeckwmxuo",
+              "mrlfwwxxvh",
+              "xhwrkslmpg",
+              "qwuldjdvth",
+              "fkepzjxpvq",
+              "syakylybdb",
+              "eykepiopxu",
+              "tiogbduuyj",
+              "kbzszywrbv",
+              "obckycdusw",
+              "fvcddyrnna",
+              "cnoigxtcjm",
+              "npxildadht",
+              "qpihjvdfmr",
+              "iokpltmkzc",
+              "coekdazewz",
+              "wwbawyykkk",
+              "xntgwruwjn",
+              "irtxrkstis",
+              "mczkxgetoq",
+              "nlgififqwr",
+              "pfbpcmdisj",
+              "cmbbqxhuhp",
+              "hpskulmrjy",
+              "fobgtskopa",
+              "afjrakzorz",
+              "nqaioqkyli",
+              "bzxnewkjnz",
+              "zppefjsaiw",
+              "fnthjmcner",
+              "uhkrkrafmm",
+              "ojypjsiavo",
+              "zbjrqjqxli",
+              "gsuslvkhbe",
+              "ydoiiydtcz",
+              "bimzmysxwa",
+              "uowcbvamlo",
+              "nprrxvprck",
+              "xhiopxnefe",
+              "gqsosumykn",
+              "avfasilbyc"
+            ]
+          ],
+          "expected": 60,
+          "example": false
+        }
+      ]
+    },
+    {
+      "number": 1711,
+      "title": "Count Good Meals",
+      "url": "https://leetcode.com/problems/count-good-meals/",
+      "difficulty": "Medium",
+      "statement": "A good meal is a meal that contains exactly two different food items\nwith a sum of deliciousness equal to a power of two.\n\nYou can pick any two different foods to make a good meal.\n\nGiven an array of integers deliciousness where deliciousness[i] is\nthe deliciousness of the ith item of food, return the number of\ndifferent good meals you can make from this list modulo 10^9 + 7.\n\nNote that items with different indices are considered different even\nif they have the same deliciousness value.\n\nExample 1:\n    Input:  deliciousness = [1,3,5,7,9]\n    Output: 4\n    Explanation:\n        The good meals are (1,3), (1,7), (3,5) and (7,9).\n        Their sums are 4, 8, 8 and 16, all powers of 2.\n\nExample 2:\n    Input:  deliciousness = [1,1,1,3,3,3,7]\n    Output: 15\n    Explanation:\n        The good meals are (1,1) with 3 ways, (1,3) with 9 ways,\n        and (1,7) with 3 ways.\n\nConstraints:\n    1 <= deliciousness.length <= 10^5\n    0 <= deliciousness[i] <= 2^20",
+      "stub": "from typing import List, Optional\n\n\nclass Solution:\n    def countPairs(self, deliciousness: List[int]) -> int:\n        pass\n",
+      "entry": {
+        "className": "Solution",
+        "method": "countPairs"
+      },
+      "compare": "exact",
+      "figure": null,
+      "cases": [
+        {
+          "args": [
+            [
+              1,
+              3,
+              5,
+              7,
+              9
+            ]
+          ],
+          "expected": 4,
+          "example": true
+        },
+        {
+          "args": [
+            [
+              1,
+              1,
+              1,
+              3,
+              3,
+              3,
+              7
+            ]
+          ],
+          "expected": 15,
+          "example": true
+        },
+        {
+          "args": [
+            [
+              0
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              0,
+              0
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              0,
+              1
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              1,
+              1
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              1048576,
+              1048576
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              1048576,
+              0
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              1048576,
+              1048576,
+              1048576,
+              1048576,
+              1048576
+            ]
+          ],
+          "expected": 10,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              3,
+              5
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              2,
+              2,
+              2,
+              2
+            ]
+          ],
+          "expected": 6,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              0,
+              1,
+              2,
+              3,
+              4
+            ]
+          ],
+          "expected": 4,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              19,
+              34,
+              4,
+              14,
+              36,
+              18,
+              32,
+              22,
+              27
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              24,
+              24,
+              9,
+              30,
+              21,
+              21,
+              11,
+              24,
+              10,
+              38
+            ]
+          ],
+          "expected": 2,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              26,
+              17,
+              31,
+              23,
+              24,
+              11,
+              30,
+              13,
+              38,
+              24
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              32,
+              39,
+              16
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              3,
+              24,
+              14
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              4,
+              21
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              34,
+              0,
+              13,
+              32
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              28,
+              28,
+              22,
+              2,
+              5,
+              2
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              37,
+              13
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              21,
+              31,
+              3,
+              10,
+              35,
+              40,
+              17,
+              27
+            ]
+          ],
+          "expected": 2,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              28,
+              6,
+              3,
+              1,
+              28,
+              29
+            ]
+          ],
+          "expected": 2,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              38,
+              39,
+              24,
+              35
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              6,
+              15,
+              35,
+              12,
+              18,
+              22
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              16,
+              38,
+              32,
+              13,
+              20,
+              33,
+              34,
+              24,
+              38,
+              28
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              3,
+              4,
+              3,
+              2,
+              2,
+              2,
+              5
+            ]
+          ],
+          "expected": 5,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              4,
+              1,
+              524288,
+              11,
+              2,
+              524288,
+              16
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              524289,
+              3,
+              1048576,
+              16,
+              524288,
+              5,
+              1,
+              11
+            ]
+          ],
+          "expected": 3,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              524288,
+              11,
+              524288,
+              0,
+              524288,
+              8
+            ]
+          ],
+          "expected": 7,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              785229,
+              872886,
+              216075,
+              1006250,
+              910433,
+              961439,
+              607202,
+              824158,
+              318147,
+              340142,
+              699701,
+              329770
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        }
+      ]
+    },
+    {
+      "number": 1712,
+      "title": "Ways to Split Array Into Three Subarrays",
+      "url": "https://leetcode.com/problems/ways-to-split-array-into-three-subarrays/",
+      "difficulty": "Medium",
+      "statement": "A split of an integer array is good if:\n  - The array is split into three non-empty contiguous\n    subarrays, named left, mid, right from left to right.\n  - The sum of the elements in left is less than or equal\n    to the sum of the elements in mid, and the sum of the\n    elements in mid is less than or equal to the sum of the\n    elements in right.\n\nGiven `nums`, an array of non-negative integers, return the\nnumber of good ways to split `nums`. As the number may be too\nlarge, return it modulo 10^9 + 7.\n\nExample 1:\n    Input:  nums = [1,1,1]\n    Output: 1\n    Explanation: The only good way to split nums is [1] [1] [1].\n\nExample 2:\n    Input:  nums = [1,2,2,2,5,0]\n    Output: 3\n    Explanation: There are three good ways of splitting nums:\n        [1] [2] [2,2,5,0]\n        [1] [2,2] [2,5,0]\n        [1,2] [2,2] [5,0]\n\nExample 3:\n    Input:  nums = [3,2,1]\n    Output: 0\n    Explanation: There is no good way to split nums.\n\nConstraints:\n    3 <= nums.length <= 10^5\n    0 <= nums[i] <= 10^4",
+      "stub": "from typing import List, Optional\n\n\nclass Solution:\n    def waysToSplit(self, nums: List[int]) -> int:\n        pass\n",
+      "entry": {
+        "className": "Solution",
+        "method": "waysToSplit"
+      },
+      "compare": "exact",
+      "figure": null,
+      "cases": [
+        {
+          "args": [
+            [
+              1,
+              1,
+              1
+            ]
+          ],
+          "expected": 1,
+          "example": true
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              2,
+              2,
+              5,
+              0
+            ]
+          ],
+          "expected": 3,
+          "example": true
+        },
+        {
+          "args": [
+            [
+              3,
+              2,
+              1
+            ]
+          ],
+          "expected": 0,
+          "example": true
+        },
+        {
+          "args": [
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "expected": 6,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              5,
+              5,
+              5
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          ],
+          "expected": 3,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          ],
+          "expected": 5,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              6,
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              0,
+              3,
+              0,
+              3,
+              0
+            ]
+          ],
+          "expected": 2,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              10000,
+              10000,
+              10000
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              2,
+              3,
+              0,
+              0,
+              5
+            ]
+          ],
+          "expected": 21,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              11,
+              8,
+              32,
+              38,
+              3,
+              12,
+              48,
+              5,
+              46,
+              17,
+              21
+            ]
+          ],
+          "expected": 9,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              3,
+              3,
+              0,
+              2,
+              3,
+              3,
+              2,
+              0,
+              1,
+              1,
+              1
+            ]
+          ],
+          "expected": 4,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              1,
+              3,
+              2
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              3,
+              6,
+              10,
+              1,
+              9,
+              5,
+              5,
+              8
+            ]
+          ],
+          "expected": 5,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              0,
+              0,
+              1,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0
+            ]
+          ],
+          "expected": 14,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              25,
+              46,
+              17,
+              10,
+              20
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              3,
+              0,
+              3,
+              1,
+              0,
+              3
+            ]
+          ],
+          "expected": 2,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              7,
+              1,
+              4
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              3,
+              3,
+              0,
+              3,
+              3,
+              0,
+              1,
+              3,
+              0,
+              1
+            ]
+          ],
+          "expected": 3,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              2,
+              7,
+              7,
+              5
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              2,
+              3,
+              3,
+              0,
+              1
+            ]
+          ],
+          "expected": 1,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              1
+            ]
+          ],
+          "expected": 14,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              31,
+              9,
+              5,
+              48,
+              0,
+              31,
+              0,
+              38,
+              37,
+              21,
+              47,
+              42
+            ]
+          ],
+          "expected": 17,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              43,
+              49,
+              11,
+              9,
+              23
+            ]
+          ],
+          "expected": 0,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              3,
+              4,
+              5,
+              1,
+              10,
+              3
+            ]
+          ],
+          "expected": 3,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              26,
+              40,
+              42,
+              27,
+              15,
+              39,
+              31,
+              15
+            ]
+          ],
+          "expected": 4,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              0,
+              1,
+              1,
+              0,
+              1
+            ]
+          ],
+          "expected": 3,
+          "example": false
+        },
+        {
+          "args": [
+            [
+              1,
+              6,
+              9,
+              6,
+              4,
+              8,
+              3,
+              6,
+              1,
+              3,
+              0,
+              6,
+              8,
+              1,
+              1,
+              7,
+              8,
+              3,
+              6,
+              3,
+              2,
+              3,
+              10,
+              4,
+              1,
+              2,
+              5,
+              3,
+              4,
+              6,
+              1,
+              2,
+              2,
+              6,
+              2,
+              8,
+              8,
+              10,
+              3,
+              0,
+              0,
+              1,
+              2,
+              4,
+              0,
+              3,
+              2,
+              6,
+              4,
+              9,
+              8,
+              1,
+              9,
+              7,
+              5,
+              7,
+              5,
+              2,
+              0,
+              5
+            ]
+          ],
+          "expected": 270,
+          "example": false
+        }
+      ]
+    },
+    {
+      "number": 1743,
+      "title": "Restore the Array From Adjacent Pairs",
+      "url": "https://leetcode.com/problems/restore-the-array-from-adjacent-pairs/",
+      "difficulty": "Medium",
+      "statement": "There is an integer array `nums` that consists of `n` unique elements,\nbut you have forgotten it. However, you do remember every pair of\nadjacent elements in `nums`.\n\nYou are given a 2D integer array `adjacentPairs` of size `n - 1` where\neach `adjacentPairs[i] = [ui, vi]` indicates that the elements `ui`\nand `vi` are adjacent in `nums`.\n\nIt is guaranteed that every adjacent pair of elements `nums[i]` and\n`nums[i+1]` will exist in `adjacentPairs`, either as\n`[nums[i], nums[i+1]]` or `[nums[i+1], nums[i]]`. The pairs can\nappear in any order.\n\nReturn the original array `nums`. If there are multiple solutions,\nreturn any of them.\n\nExample 1:\n    Input:  adjacentPairs = [[2,1],[3,4],[3,2]]\n    Output: [1,2,3,4]\n    Explanation:\n        This array has all its adjacent pairs in adjacentPairs.\n        Notice that adjacentPairs[i] may not be in\n        left-to-right order.\n\nExample 2:\n    Input:  adjacentPairs = [[4,-2],[1,4],[-3,1]]\n    Output: [-2,4,1,-3]\n    Explanation:\n        There can be negative numbers.\n        Another solution is [-3,1,4,-2], which would also\n        be accepted.\n\nExample 3:\n    Input:  adjacentPairs = [[100000,-100000]]\n    Output: [100000,-100000]\n\nConstraints:\n    nums.length == n\n    adjacentPairs.length == n - 1\n    adjacentPairs[i].length == 2\n    2 <= n <= 10^5\n    -10^5 <= nums[i], ui, vi <= 10^5\n    There exists some nums that has adjacentPairs as its pairs.",
+      "stub": "from typing import List, Optional\n\n\nclass Solution:\n    def restoreArray(self, adjacentPairs: List[List[int]]) -> List[int]:\n        pass\n",
+      "entry": {
+        "className": "Solution",
+        "method": "restoreArray"
+      },
+      "compare": "exact",
+      "figure": null,
+      "cases": [
+        {
+          "args": [
+            [
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                3,
+                2
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                1,
+                2,
+                3,
+                4
+              ],
+              [
+                4,
+                3,
+                2,
+                1
+              ]
+            ]
+          },
+          "example": true
+        },
+        {
+          "args": [
+            [
+              [
+                4,
+                -2
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                -3,
+                1
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -2,
+                4,
+                1,
+                -3
+              ],
+              [
+                -3,
+                1,
+                4,
+                -2
+              ]
+            ]
+          },
+          "example": true
+        },
+        {
+          "args": [
+            [
+              [
+                100000,
+                -100000
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                100000,
+                -100000
+              ],
+              [
+                -100000,
+                100000
+              ]
+            ]
+          },
+          "example": true
+        },
+        {
+          "args": [
+            [
+              [
+                0,
+                1
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                5,
+                -5
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                5,
+                -5
+              ],
+              [
+                -5,
+                5
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                100000,
+                0
+              ],
+              [
+                -100000,
+                100000
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                0,
+                100000,
+                -100000
+              ],
+              [
+                -100000,
+                100000,
+                0
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                5,
+                6
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                7,
+                8
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                6,
+                7
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              [
+                8,
+                7,
+                6,
+                5,
+                4,
+                3,
+                2,
+                1
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                7,
+                8
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                9,
+                8
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                1,
+                2
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                9,
+                8,
+                7,
+                6,
+                5,
+                4,
+                3,
+                2,
+                1
+              ],
+              [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -3,
+                -4
+              ],
+              [
+                -2,
+                -1
+              ],
+              [
+                0,
+                -1
+              ],
+              [
+                -3,
+                -2
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -4,
+                -3,
+                -2,
+                -1,
+                0
+              ],
+              [
+                0,
+                -1,
+                -2,
+                -3,
+                -4
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                100000,
+                99999
+              ],
+              [
+                0,
+                -99999
+              ],
+              [
+                -100000,
+                99999
+              ],
+              [
+                -99999,
+                -100000
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                100000,
+                99999,
+                -100000,
+                -99999,
+                0
+              ],
+              [
+                0,
+                -99999,
+                -100000,
+                99999,
+                100000
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -8,
+                4
+              ],
+              [
+                -19,
+                -15
+              ],
+              [
+                -18,
+                20
+              ],
+              [
+                5,
+                20
+              ],
+              [
+                9,
+                -8
+              ],
+              [
+                -19,
+                5
+              ],
+              [
+                9,
+                -18
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                4,
+                -8,
+                9,
+                -18,
+                20,
+                5,
+                -19,
+                -15
+              ],
+              [
+                -15,
+                -19,
+                5,
+                20,
+                -18,
+                9,
+                -8,
+                4
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                12,
+                5
+              ],
+              [
+                13,
+                5
+              ],
+              [
+                8,
+                12
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                13,
+                5,
+                12,
+                8
+              ],
+              [
+                8,
+                12,
+                5,
+                13
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                20,
+                3
+              ],
+              [
+                9,
+                10
+              ],
+              [
+                20,
+                10
+              ],
+              [
+                9,
+                -5
+              ],
+              [
+                -5,
+                -11
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                3,
+                20,
+                10,
+                9,
+                -5,
+                -11
+              ],
+              [
+                -11,
+                -5,
+                9,
+                10,
+                20,
+                3
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -5,
+                6
+              ],
+              [
+                -16,
+                -14
+              ],
+              [
+                -18,
+                13
+              ],
+              [
+                7,
+                -18
+              ],
+              [
+                6,
+                13
+              ],
+              [
+                -14,
+                -17
+              ],
+              [
+                7,
+                -17
+              ],
+              [
+                12,
+                -2
+              ],
+              [
+                -5,
+                -2
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -16,
+                -14,
+                -17,
+                7,
+                -18,
+                13,
+                6,
+                -5,
+                -2,
+                12
+              ],
+              [
+                12,
+                -2,
+                -5,
+                6,
+                13,
+                -18,
+                7,
+                -17,
+                -14,
+                -16
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                16,
+                -6
+              ],
+              [
+                6,
+                -15
+              ],
+              [
+                -10,
+                6
+              ],
+              [
+                3,
+                -10
+              ],
+              [
+                -19,
+                17
+              ],
+              [
+                3,
+                -19
+              ],
+              [
+                7,
+                16
+              ],
+              [
+                7,
+                -1
+              ],
+              [
+                13,
+                17
+              ],
+              [
+                -6,
+                -15
+              ],
+              [
+                -3,
+                13
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -1,
+                7,
+                16,
+                -6,
+                -15,
+                6,
+                -10,
+                3,
+                -19,
+                17,
+                13,
+                -3
+              ],
+              [
+                -3,
+                13,
+                17,
+                -19,
+                3,
+                -10,
+                6,
+                -15,
+                -6,
+                16,
+                7,
+                -1
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                20,
+                -20
+              ],
+              [
+                3,
+                9
+              ],
+              [
+                -10,
+                3
+              ],
+              [
+                -17,
+                -2
+              ],
+              [
+                10,
+                -10
+              ],
+              [
+                -12,
+                -13
+              ],
+              [
+                10,
+                4
+              ],
+              [
+                -20,
+                -6
+              ],
+              [
+                -12,
+                -2
+              ],
+              [
+                -17,
+                -6
+              ],
+              [
+                -13,
+                4
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                20,
+                -20,
+                -6,
+                -17,
+                -2,
+                -12,
+                -13,
+                4,
+                10,
+                -10,
+                3,
+                9
+              ],
+              [
+                9,
+                3,
+                -10,
+                10,
+                4,
+                -13,
+                -12,
+                -2,
+                -17,
+                -6,
+                -20,
+                20
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                16,
+                -16
+              ],
+              [
+                -14,
+                -4
+              ],
+              [
+                -9,
+                -13
+              ],
+              [
+                -17,
+                -8
+              ],
+              [
+                -13,
+                15
+              ],
+              [
+                -9,
+                -14
+              ],
+              [
+                -4,
+                16
+              ],
+              [
+                15,
+                20
+              ],
+              [
+                20,
+                -8
+              ],
+              [
+                -16,
+                14
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -17,
+                -8,
+                20,
+                15,
+                -13,
+                -9,
+                -14,
+                -4,
+                16,
+                -16,
+                14
+              ],
+              [
+                14,
+                -16,
+                16,
+                -4,
+                -14,
+                -9,
+                -13,
+                15,
+                20,
+                -8,
+                -17
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                8,
+                10
+              ],
+              [
+                9,
+                13
+              ],
+              [
+                9,
+                12
+              ],
+              [
+                -19,
+                -6
+              ],
+              [
+                13,
+                -19
+              ],
+              [
+                4,
+                -6
+              ],
+              [
+                4,
+                8
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                10,
+                8,
+                4,
+                -6,
+                -19,
+                13,
+                9,
+                12
+              ],
+              [
+                12,
+                9,
+                13,
+                -19,
+                -6,
+                4,
+                8,
+                10
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -6,
+                -1
+              ],
+              [
+                6,
+                -1
+              ],
+              [
+                15,
+                1
+              ],
+              [
+                1,
+                6
+              ],
+              [
+                9,
+                15
+              ],
+              [
+                9,
+                14
+              ],
+              [
+                -13,
+                14
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -6,
+                -1,
+                6,
+                1,
+                15,
+                9,
+                14,
+                -13
+              ],
+              [
+                -13,
+                14,
+                9,
+                15,
+                1,
+                6,
+                -1,
+                -6
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -15,
+                -16
+              ],
+              [
+                8,
+                -12
+              ],
+              [
+                -17,
+                -6
+              ],
+              [
+                -17,
+                3
+              ],
+              [
+                13,
+                8
+              ],
+              [
+                13,
+                -6
+              ],
+              [
+                -16,
+                -12
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -15,
+                -16,
+                -12,
+                8,
+                13,
+                -6,
+                -17,
+                3
+              ],
+              [
+                3,
+                -17,
+                -6,
+                13,
+                8,
+                -12,
+                -16,
+                -15
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -15,
+                17
+              ],
+              [
+                16,
+                20
+              ],
+              [
+                16,
+                15
+              ],
+              [
+                -15,
+                -8
+              ],
+              [
+                -13,
+                -7
+              ],
+              [
+                17,
+                15
+              ],
+              [
+                -7,
+                -11
+              ],
+              [
+                -13,
+                -8
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                20,
+                16,
+                15,
+                17,
+                -15,
+                -8,
+                -13,
+                -7,
+                -11
+              ],
+              [
+                -11,
+                -7,
+                -13,
+                -8,
+                -15,
+                17,
+                15,
+                16,
+                20
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -18,
+                -14
+              ],
+              [
+                14,
+                -18
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                -15,
+                15
+              ],
+              [
+                1,
+                9
+              ],
+              [
+                15,
+                -11
+              ],
+              [
+                -10,
+                19
+              ],
+              [
+                -14,
+                -15
+              ],
+              [
+                19,
+                2
+              ],
+              [
+                -11,
+                9
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                14,
+                -18,
+                -14,
+                -15,
+                15,
+                -11,
+                9,
+                1,
+                2,
+                19,
+                -10
+              ],
+              [
+                -10,
+                19,
+                2,
+                1,
+                9,
+                -11,
+                15,
+                -15,
+                -14,
+                -18,
+                14
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -16,
+                18
+              ],
+              [
+                4,
+                18
+              ],
+              [
+                0,
+                -16
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                4,
+                18,
+                -16,
+                0
+              ],
+              [
+                0,
+                -16,
+                18,
+                4
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                16,
+                19
+              ],
+              [
+                19,
+                6
+              ],
+              [
+                20,
+                -11
+              ],
+              [
+                -11,
+                7
+              ],
+              [
+                7,
+                16
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                6,
+                19,
+                16,
+                7,
+                -11,
+                20
+              ],
+              [
+                20,
+                -11,
+                7,
+                16,
+                19,
+                6
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -3,
+                6
+              ],
+              [
+                5,
+                -4
+              ],
+              [
+                5,
+                -3
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                6,
+                -3,
+                5,
+                -4
+              ],
+              [
+                -4,
+                5,
+                -3,
+                6
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -8,
+                -17
+              ],
+              [
+                7,
+                -8
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -17,
+                -8,
+                7
+              ],
+              [
+                7,
+                -8,
+                -17
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                13,
+                -8
+              ],
+              [
+                20,
+                13
+              ],
+              [
+                15,
+                -8
+              ],
+              [
+                -13,
+                15
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                20,
+                13,
+                -8,
+                15,
+                -13
+              ],
+              [
+                -13,
+                15,
+                -8,
+                13,
+                20
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -1,
+                11
+              ],
+              [
+                -9,
+                6
+              ],
+              [
+                -1,
+                -8
+              ],
+              [
+                -9,
+                -8
+              ],
+              [
+                17,
+                11
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                6,
+                -9,
+                -8,
+                -1,
+                11,
+                17
+              ],
+              [
+                17,
+                11,
+                -1,
+                -8,
+                -9,
+                6
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                12,
+                -17
+              ],
+              [
+                17,
+                10
+              ],
+              [
+                -17,
+                10
+              ],
+              [
+                -5,
+                13
+              ],
+              [
+                12,
+                -5
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                17,
+                10,
+                -17,
+                12,
+                -5,
+                13
+              ],
+              [
+                13,
+                -5,
+                12,
+                -17,
+                10,
+                17
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -12,
+                -10
+              ],
+              [
+                -7,
+                -2
+              ],
+              [
+                -12,
+                2
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                3,
+                -2
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -10,
+                -12,
+                2,
+                3,
+                -2,
+                -7
+              ],
+              [
+                -7,
+                -2,
+                3,
+                2,
+                -12,
+                -10
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                8,
+                16
+              ],
+              [
+                -7,
+                -10
+              ],
+              [
+                -13,
+                -1
+              ],
+              [
+                14,
+                15
+              ],
+              [
+                15,
+                -4
+              ],
+              [
+                -7,
+                8
+              ],
+              [
+                16,
+                0
+              ],
+              [
+                -1,
+                0
+              ],
+              [
+                14,
+                -11
+              ],
+              [
+                -20,
+                -10
+              ],
+              [
+                -20,
+                -4
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -13,
+                -1,
+                0,
+                16,
+                8,
+                -7,
+                -10,
+                -20,
+                -4,
+                15,
+                14,
+                -11
+              ],
+              [
+                -11,
+                14,
+                15,
+                -4,
+                -20,
+                -10,
+                -7,
+                8,
+                16,
+                0,
+                -1,
+                -13
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -19,
+                4
+              ],
+              [
+                -20,
+                10
+              ],
+              [
+                -2,
+                -10
+              ],
+              [
+                0,
+                9
+              ],
+              [
+                -2,
+                9
+              ],
+              [
+                -19,
+                -12
+              ],
+              [
+                10,
+                0
+              ],
+              [
+                -20,
+                4
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -10,
+                -2,
+                9,
+                0,
+                10,
+                -20,
+                4,
+                -19,
+                -12
+              ],
+              [
+                -12,
+                -19,
+                4,
+                -20,
+                10,
+                0,
+                9,
+                -2,
+                -10
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -18,
+                -8
+              ],
+              [
+                6,
+                2
+              ],
+              [
+                -3,
+                2
+              ],
+              [
+                -3,
+                5
+              ],
+              [
+                -8,
+                6
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -18,
+                -8,
+                6,
+                2,
+                -3,
+                5
+              ],
+              [
+                5,
+                -3,
+                2,
+                6,
+                -8,
+                -18
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                15,
+                -3
+              ],
+              [
+                -3,
+                20
+              ],
+              [
+                15,
+                18
+              ],
+              [
+                -7,
+                -11
+              ],
+              [
+                -6,
+                18
+              ],
+              [
+                -6,
+                -11
+              ],
+              [
+                -13,
+                -7
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                20,
+                -3,
+                15,
+                18,
+                -6,
+                -11,
+                -7,
+                -13
+              ],
+              [
+                -13,
+                -7,
+                -11,
+                -6,
+                18,
+                15,
+                -3,
+                20
+              ]
+            ]
+          },
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                -38333,
+                88199
+              ],
+              [
+                -68401,
+                -80958
+              ],
+              [
+                -83705,
+                -7334
+              ],
+              [
+                62587,
+                -14177
+              ],
+              [
+                12457,
+                68805
+              ],
+              [
+                91658,
+                -59671
+              ],
+              [
+                -65416,
+                -68066
+              ],
+              [
+                -66283,
+                -59671
+              ],
+              [
+                -51185,
+                -85801
+              ],
+              [
+                -33516,
+                39845
+              ],
+              [
+                12457,
+                -91072
+              ],
+              [
+                -68401,
+                -92131
+              ],
+              [
+                -34689,
+                21283
+              ],
+              [
+                5294,
+                -30799
+              ],
+              [
+                59900,
+                -65416
+              ],
+              [
+                -82360,
+                -78060
+              ],
+              [
+                39845,
+                -78060
+              ],
+              [
+                8864,
+                -56639
+              ],
+              [
+                -34689,
+                62587
+              ],
+              [
+                66728,
+                -95156
+              ],
+              [
+                21283,
+                66728
+              ],
+              [
+                -91072,
+                -83705
+              ],
+              [
+                -46895,
+                -87403
+              ],
+              [
+                22773,
+                -7334
+              ],
+              [
+                -30799,
+                59900
+              ],
+              [
+                -46895,
+                19200
+              ],
+              [
+                -56639,
+                -93124
+              ],
+              [
+                -95156,
+                -92131
+              ],
+              [
+                -87403,
+                -55031
+              ],
+              [
+                -68066,
+                19200
+              ],
+              [
+                -38333,
+                -80958
+              ],
+              [
+                68805,
+                88199
+              ],
+              [
+                8864,
+                -82360
+              ],
+              [
+                91658,
+                -51185
+              ],
+              [
+                -55031,
+                -56867
+              ],
+              [
+                -66283,
+                6824
+              ],
+              [
+                -85801,
+                -56867
+              ],
+              [
+                -14177,
+                -93124
+              ],
+              [
+                22773,
+                5294
+              ]
+            ]
+          ],
+          "expected": {
+            "anyOf": [
+              [
+                -33516,
+                39845,
+                -78060,
+                -82360,
+                8864,
+                -56639,
+                -93124,
+                -14177,
+                62587,
+                -34689,
+                21283,
+                66728,
+                -95156,
+                -92131,
+                -68401,
+                -80958,
+                -38333,
+                88199,
+                68805,
+                12457,
+                -91072,
+                -83705,
+                -7334,
+                22773,
+                5294,
+                -30799,
+                59900,
+                -65416,
+                -68066,
+                19200,
+                -46895,
+                -87403,
+                -55031,
+                -56867,
+                -85801,
+                -51185,
+                91658,
+                -59671,
+                -66283,
+                6824
+              ],
+              [
+                6824,
+                -66283,
+                -59671,
+                91658,
+                -51185,
+                -85801,
+                -56867,
+                -55031,
+                -87403,
+                -46895,
+                19200,
+                -68066,
+                -65416,
+                59900,
+                -30799,
+                5294,
+                22773,
+                -7334,
+                -83705,
+                -91072,
+                12457,
+                68805,
+                88199,
+                -38333,
+                -80958,
+                -68401,
+                -92131,
+                -95156,
+                66728,
+                21283,
+                -34689,
+                62587,
+                -14177,
+                -93124,
+                -56639,
+                8864,
+                -82360,
+                -78060,
+                39845,
+                -33516
+              ]
+            ]
+          },
+          "example": false
+        }
+      ]
+    },
+    {
       "number": 1755,
       "title": "Closest Subsequence Sum",
       "url": "https://leetcode.com/problems/closest-subsequence-sum/",
@@ -176555,6 +182317,2396 @@
             17,
             8,
             22
+          ],
+          "example": false
+        }
+      ]
+    },
+    {
+      "number": 1861,
+      "title": "Rotating the Box",
+      "url": "https://leetcode.com/problems/rotating-the-box/",
+      "difficulty": "Medium",
+      "statement": "You are given an m x n matrix of characters boxGrid representing a side-view of a box. Each cell of the box is one of the following:\n\n    A stone '#'\n    A stationary obstacle '*'\n    Empty '.'\n\nThe box is rotated 90 degrees clockwise, causing some of the stones to fall due to gravity. Each stone falls down until it lands on an obstacle, another stone, or the bottom of the box. Gravity does not affect the obstacles' positions, and the inertia from the box's rotation does not affect the stones' horizontal positions.\n\nIt is guaranteed that each stone in boxGrid rests on an obstacle, another stone, or the bottom of the box.\n\nReturn an n x m matrix representing the box after the rotation described above.\n\nExample 1:\n\nInput: boxGrid = [[\"#\",\".\",\"#\"]]\nOutput: [[\".\"],\n         [\"#\"],\n         [\"#\"]]\n\nExample 2:\n\nInput: boxGrid = [[\"#\",\".\",\"*\",\".\"],\n                  [\"#\",\"#\",\"*\",\".\"]]\nOutput: [[\"#\",\".\"],\n         [\"#\",\"#\"],\n         [\"*\",\"*\"],\n         [\".\",\".\"]]\n\nExample 3:\n\nInput: boxGrid = [[\"#\",\"#\",\"*\",\".\",\"*\",\".\"],\n                  [\"#\",\"#\",\"#\",\"*\",\".\",\".\"],\n                  [\"#\",\"#\",\"#\",\".\",\"#\",\".\"]]\nOutput: [[\".\",\"#\",\"#\"],\n         [\".\",\"#\",\"#\"],\n         [\"#\",\"#\",\"*\"],\n         [\"#\",\"*\",\".\"],\n         [\"#\",\".\",\"*\"],\n         [\"#\",\".\",\".\"]]\n\nConstraints:\n\n    m == boxGrid.length\n    n == boxGrid[i].length\n    1 <= m, n <= 500\n    boxGrid[i][j] is either '#', '*', or '.'.",
+      "stub": "from typing import List, Optional\n\n\nclass Solution:\n    def rotateTheBox(self, boxGrid: List[List[str]]) -> List[List[str]]:\n        pass\n",
+      "entry": {
+        "className": "Solution",
+        "method": "rotateTheBox"
+      },
+      "compare": "exact",
+      "figure": {
+        "kind": "grid",
+        "gridArg": 0
+      },
+      "cases": [
+        {
+          "args": [
+            [
+              [
+                "#",
+                ".",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "."
+            ],
+            [
+              "#"
+            ],
+            [
+              "#"
+            ]
+          ],
+          "example": true
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                ".",
+                "*",
+                "."
+              ],
+              [
+                "#",
+                "#",
+                "*",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "."
+            ],
+            [
+              "#",
+              "#"
+            ],
+            [
+              "*",
+              "*"
+            ],
+            [
+              ".",
+              "."
+            ]
+          ],
+          "example": true
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "#",
+                "*",
+                ".",
+                "*",
+                "."
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                "*",
+                ".",
+                "."
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                ".",
+                "#",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              ".",
+              "#",
+              "#"
+            ],
+            [
+              ".",
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "#",
+              "*"
+            ],
+            [
+              "#",
+              "*",
+              "."
+            ],
+            [
+              "#",
+              ".",
+              "*"
+            ],
+            [
+              "#",
+              ".",
+              "."
+            ]
+          ],
+          "example": true
+        },
+        {
+          "args": [
+            [
+              [
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "."
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "*"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "*"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "#",
+                "#",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#"
+            ],
+            [
+              "#"
+            ],
+            [
+              "#"
+            ],
+            [
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#"
+              ],
+              [
+                "."
+              ],
+              [
+                "*"
+              ],
+              [
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "*",
+              ".",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "*",
+                "#",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "*"
+            ],
+            [
+              "."
+            ],
+            [
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                ".",
+                ".",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "."
+            ],
+            [
+              "."
+            ],
+            [
+              "."
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "*",
+                "#",
+                "*",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#"
+            ],
+            [
+              "*"
+            ],
+            [
+              "#"
+            ],
+            [
+              "*"
+            ],
+            [
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "#"
+              ],
+              [
+                "#",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                ".",
+                "*",
+                "."
+              ],
+              [
+                "#",
+                "#",
+                "*",
+                "*"
+              ],
+              [
+                "*",
+                "#",
+                "#",
+                "#"
+              ],
+              [
+                "*",
+                ".",
+                "#",
+                "#"
+              ],
+              [
+                "*",
+                "*",
+                "*",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "*",
+              "*",
+              "*",
+              "#",
+              "."
+            ],
+            [
+              "*",
+              ".",
+              "#",
+              "#",
+              "#"
+            ],
+            [
+              "*",
+              "#",
+              "#",
+              "*",
+              "*"
+            ],
+            [
+              "#",
+              "#",
+              "#",
+              "*",
+              "."
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "*",
+                "#",
+                "#",
+                "#",
+                "#",
+                "*"
+              ],
+              [
+                "#",
+                "*",
+                "*",
+                ".",
+                ".",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "*"
+            ],
+            [
+              "*",
+              "#"
+            ],
+            [
+              "*",
+              "#"
+            ],
+            [
+              ".",
+              "#"
+            ],
+            [
+              ".",
+              "#"
+            ],
+            [
+              ".",
+              "*"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                ".",
+                "#",
+                "*"
+              ],
+              [
+                "#",
+                ".",
+                "#"
+              ],
+              [
+                "#",
+                "*",
+                "#"
+              ],
+              [
+                ".",
+                ".",
+                "*"
+              ],
+              [
+                "#",
+                "#",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              ".",
+              "#",
+              ".",
+              "."
+            ],
+            [
+              "#",
+              ".",
+              "*",
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "*",
+              "#",
+              "#",
+              "*"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                ".",
+                "#",
+                "*",
+                "#"
+              ],
+              [
+                "*",
+                "*",
+                "#",
+                "*"
+              ],
+              [
+                "*",
+                "#",
+                "*",
+                "#"
+              ],
+              [
+                "*",
+                "#",
+                "#",
+                "#"
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                "#"
+              ],
+              [
+                "#",
+                "#",
+                ".",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              ".",
+              "#",
+              "*",
+              "*",
+              "*",
+              "."
+            ],
+            [
+              "#",
+              "#",
+              "#",
+              "#",
+              "*",
+              "#"
+            ],
+            [
+              "#",
+              "#",
+              "#",
+              "*",
+              "#",
+              "*"
+            ],
+            [
+              "#",
+              "#",
+              "#",
+              "#",
+              "*",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "#",
+                "#"
+              ],
+              [
+                "*",
+                "#",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "*",
+              "#"
+            ],
+            [
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "#",
+                "*",
+                "#",
+                "#"
+              ],
+              [
+                "*",
+                "*",
+                "#",
+                "#",
+                "#"
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                "#",
+                "."
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                "#",
+                "#"
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                "*",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "#",
+              ".",
+              "*",
+              "#"
+            ],
+            [
+              "#",
+              "#",
+              "#",
+              "*",
+              "#"
+            ],
+            [
+              "#",
+              "#",
+              "#",
+              "#",
+              "*"
+            ],
+            [
+              "*",
+              "#",
+              "#",
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "#",
+              "#",
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "*",
+                "#",
+                "#",
+                "#",
+                "*",
+                "*"
+              ],
+              [
+                "#",
+                "#",
+                "*",
+                "#",
+                "#",
+                "*"
+              ],
+              [
+                ".",
+                "#",
+                "#",
+                "#",
+                "*",
+                "*"
+              ],
+              [
+                "#",
+                "*",
+                "#",
+                "#",
+                "#",
+                "*"
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                "*",
+                "#",
+                "."
+              ],
+              [
+                "#",
+                "*",
+                ".",
+                ".",
+                "#",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "#",
+              "#",
+              ".",
+              "#",
+              "*"
+            ],
+            [
+              "*",
+              "#",
+              "*",
+              "#",
+              "#",
+              "#"
+            ],
+            [
+              ".",
+              "#",
+              "#",
+              "#",
+              "*",
+              "#"
+            ],
+            [
+              ".",
+              "*",
+              "#",
+              "#",
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              ".",
+              "#",
+              "*",
+              "#",
+              "*"
+            ],
+            [
+              "#",
+              "#",
+              "*",
+              "*",
+              "*",
+              "*"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "."
+              ],
+              [
+                "*"
+              ],
+              [
+                "*"
+              ],
+              [
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              ".",
+              "*",
+              "*",
+              "."
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "*",
+                ".",
+                "#",
+                "*"
+              ],
+              [
+                "#",
+                "#",
+                "*",
+                "*",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "*"
+            ],
+            [
+              "*",
+              "."
+            ],
+            [
+              "*",
+              "#"
+            ],
+            [
+              ".",
+              "*"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "*",
+                ".",
+                "#",
+                "#"
+              ],
+              [
+                ".",
+                "#",
+                "#",
+                "*",
+                "*"
+              ],
+              [
+                "#",
+                "*",
+                "*",
+                "*",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              ".",
+              "#"
+            ],
+            [
+              "*",
+              "#",
+              "*"
+            ],
+            [
+              "*",
+              "#",
+              "."
+            ],
+            [
+              "*",
+              "*",
+              "#"
+            ],
+            [
+              ".",
+              "*",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                "*",
+                ".",
+                "*",
+                "*",
+                ".",
+                ".",
+                "#"
+              ],
+              [
+                "*",
+                "*",
+                ".",
+                "*",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                "*",
+                ".",
+                "#",
+                ".",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              ".",
+              "*",
+              "*",
+              "."
+            ],
+            [
+              ".",
+              "*",
+              ".",
+              "."
+            ],
+            [
+              "*",
+              ".",
+              "*",
+              "."
+            ],
+            [
+              ".",
+              "*",
+              "*",
+              "."
+            ],
+            [
+              ".",
+              ".",
+              ".",
+              "."
+            ],
+            [
+              ".",
+              ".",
+              ".",
+              "."
+            ],
+            [
+              "#",
+              ".",
+              "#",
+              "."
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                ".",
+                ".",
+                "*",
+                "#",
+                "#"
+              ],
+              [
+                "*",
+                ".",
+                "#",
+                "*",
+                "#"
+              ],
+              [
+                "*",
+                "*",
+                ".",
+                ".",
+                "*"
+              ],
+              [
+                "*",
+                "#",
+                "*",
+                ".",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "*",
+              "*",
+              "*",
+              "."
+            ],
+            [
+              "#",
+              "*",
+              ".",
+              "."
+            ],
+            [
+              "*",
+              ".",
+              "#",
+              "*"
+            ],
+            [
+              ".",
+              ".",
+              "*",
+              "#"
+            ],
+            [
+              ".",
+              "*",
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "#",
+                "#"
+              ],
+              [
+                "*",
+                "#",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "*",
+              "#"
+            ],
+            [
+              ".",
+              "#"
+            ],
+            [
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "#",
+                ".",
+                "#",
+                ".",
+                "*",
+                "#"
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                "#",
+                "*",
+                ".",
+                "#"
+              ],
+              [
+                ".",
+                "*",
+                "#",
+                "*",
+                "*",
+                ".",
+                "."
+              ],
+              [
+                "#",
+                "#",
+                ".",
+                "*",
+                "#",
+                "*",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              ".",
+              ".",
+              "#",
+              "."
+            ],
+            [
+              "#",
+              "*",
+              "#",
+              "."
+            ],
+            [
+              "#",
+              "#",
+              "#",
+              "#"
+            ],
+            [
+              "*",
+              "*",
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "*",
+              "*",
+              "#"
+            ],
+            [
+              "*",
+              ".",
+              ".",
+              "*"
+            ],
+            [
+              "#",
+              ".",
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                ".",
+                "*",
+                ".",
+                ".",
+                "*",
+                "."
+              ],
+              [
+                "*",
+                ".",
+                ".",
+                "#",
+                ".",
+                ".",
+                "*"
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "#",
+                "."
+              ],
+              [
+                ".",
+                "*",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                "*",
+                "#",
+                ".",
+                ".",
+                "#",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              ".",
+              ".",
+              ".",
+              "*",
+              "."
+            ],
+            [
+              "*",
+              "*",
+              ".",
+              ".",
+              "#"
+            ],
+            [
+              ".",
+              ".",
+              ".",
+              ".",
+              "*"
+            ],
+            [
+              ".",
+              ".",
+              ".",
+              ".",
+              "."
+            ],
+            [
+              ".",
+              ".",
+              ".",
+              ".",
+              "."
+            ],
+            [
+              "#",
+              ".",
+              ".",
+              "#",
+              "*"
+            ],
+            [
+              "#",
+              ".",
+              "#",
+              "*",
+              "."
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                ".",
+                "#",
+                "*",
+                "#",
+                "*",
+                "*"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "."
+            ],
+            [
+              "#"
+            ],
+            [
+              "*"
+            ],
+            [
+              "#"
+            ],
+            [
+              "*"
+            ],
+            [
+              "*"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                ".",
+                ".",
+                ".",
+                "*",
+                ".",
+                "#",
+                "."
+              ],
+              [
+                ".",
+                "*",
+                "#",
+                ".",
+                "#",
+                ".",
+                "."
+              ],
+              [
+                "*",
+                ".",
+                ".",
+                "*",
+                "#",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "#",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              ".",
+              ".",
+              "*",
+              ".",
+              "."
+            ],
+            [
+              ".",
+              ".",
+              ".",
+              "*",
+              "."
+            ],
+            [
+              ".",
+              ".",
+              ".",
+              ".",
+              "."
+            ],
+            [
+              ".",
+              ".",
+              "*",
+              ".",
+              "*"
+            ],
+            [
+              ".",
+              ".",
+              ".",
+              ".",
+              "."
+            ],
+            [
+              ".",
+              ".",
+              ".",
+              "#",
+              "."
+            ],
+            [
+              ".",
+              "#",
+              "#",
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "*",
+                "#",
+                "#",
+                "#",
+                "*"
+              ],
+              [
+                ".",
+                "#",
+                "*",
+                "#",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              ".",
+              "*"
+            ],
+            [
+              "#",
+              "#"
+            ],
+            [
+              "*",
+              "#"
+            ],
+            [
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "*"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "*",
+                "#",
+                "#",
+                "*",
+                ".",
+                "#",
+                "*"
+              ],
+              [
+                "#",
+                "*",
+                "#",
+                "#",
+                ".",
+                ".",
+                "#"
+              ],
+              [
+                "*",
+                "*",
+                ".",
+                "*",
+                "#",
+                "#",
+                "*"
+              ],
+              [
+                ".",
+                ".",
+                "#",
+                "#",
+                ".",
+                "*",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              ".",
+              "*",
+              "#",
+              "*"
+            ],
+            [
+              ".",
+              "*",
+              "*",
+              "#"
+            ],
+            [
+              ".",
+              ".",
+              ".",
+              "#"
+            ],
+            [
+              "#",
+              "*",
+              ".",
+              "*"
+            ],
+            [
+              "#",
+              "#",
+              "#",
+              "."
+            ],
+            [
+              "*",
+              "#",
+              "#",
+              "#"
+            ],
+            [
+              ".",
+              "*",
+              "#",
+              "*"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#"
+            ],
+            [
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                ".",
+                "#",
+                "#",
+                "#",
+                ".",
+                "."
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "*",
+                "#"
+              ],
+              [
+                "#",
+                "#",
+                ".",
+                "*",
+                "#",
+                "*",
+                "#"
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "#",
+                "*"
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                "*",
+                "#",
+                ".",
+                "#"
+              ],
+              [
+                "#",
+                "#",
+                "*",
+                "#",
+                "#",
+                "#",
+                "*"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "#",
+              "#",
+              ".",
+              "#",
+              "."
+            ],
+            [
+              "#",
+              "#",
+              "#",
+              "#",
+              "#",
+              "."
+            ],
+            [
+              "*",
+              "#",
+              "#",
+              "#",
+              "#",
+              "."
+            ],
+            [
+              "#",
+              "*",
+              "#",
+              "*",
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              ".",
+              "#",
+              "#",
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "#",
+              "#",
+              "*",
+              "*",
+              "#"
+            ],
+            [
+              "*",
+              "#",
+              "*",
+              "#",
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "#",
+                "#",
+                "*",
+                ".",
+                "*"
+              ],
+              [
+                "*",
+                "*",
+                "*",
+                "#",
+                "*",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "*",
+              "#"
+            ],
+            [
+              "*",
+              "#"
+            ],
+            [
+              "*",
+              "#"
+            ],
+            [
+              "#",
+              "*"
+            ],
+            [
+              "*",
+              "."
+            ],
+            [
+              "#",
+              "*"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                ".",
+                "#",
+                "#"
+              ],
+              [
+                "#",
+                "#",
+                "#",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "."
+            ],
+            [
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#"
+              ],
+              [
+                "#"
+              ],
+              [
+                "#"
+              ],
+              [
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "#",
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#"
+              ],
+              [
+                "#"
+              ],
+              [
+                "#"
+              ],
+              [
+                "."
+              ],
+              [
+                "*"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "*",
+              ".",
+              "#",
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#"
+              ],
+              [
+                "#"
+              ],
+              [
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "#",
+                "."
+              ],
+              [
+                "#",
+                "#",
+                "#"
+              ],
+              [
+                "*",
+                "#",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "*",
+              "#",
+              "."
+            ],
+            [
+              ".",
+              "#",
+              "#"
+            ],
+            [
+              "#",
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                ".",
+                ".",
+                "#",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                "*",
+                "*",
+                "#",
+                "#"
+              ],
+              [
+                "*",
+                ".",
+                "*",
+                "#",
+                ".",
+                "#"
+              ],
+              [
+                ".",
+                ".",
+                ".",
+                "*",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                ".",
+                "#",
+                ".",
+                ".",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              ".",
+              ".",
+              "*",
+              ".",
+              "."
+            ],
+            [
+              ".",
+              ".",
+              ".",
+              ".",
+              "."
+            ],
+            [
+              ".",
+              ".",
+              "*",
+              "*",
+              "."
+            ],
+            [
+              ".",
+              "*",
+              ".",
+              "*",
+              "."
+            ],
+            [
+              ".",
+              ".",
+              "#",
+              "#",
+              "."
+            ],
+            [
+              "#",
+              ".",
+              "#",
+              "#",
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                ".",
+                ".",
+                ".",
+                "#",
+                ".",
+                ".",
+                "#"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "."
+            ],
+            [
+              "."
+            ],
+            [
+              "."
+            ],
+            [
+              "."
+            ],
+            [
+              "."
+            ],
+            [
+              "#"
+            ],
+            [
+              "#"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "*"
+              ],
+              [
+                "#",
+                "."
+              ],
+              [
+                "#",
+                "#"
+              ],
+              [
+                "#",
+                "#"
+              ],
+              [
+                "*",
+                "#"
+              ],
+              [
+                "#",
+                "*"
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              "#",
+              "*",
+              "#",
+              "#",
+              ".",
+              "#"
+            ],
+            [
+              "*",
+              "#",
+              "#",
+              "#",
+              "#",
+              "*"
+            ]
+          ],
+          "example": false
+        },
+        {
+          "args": [
+            [
+              [
+                "#",
+                "*",
+                "#",
+                "#",
+                ".",
+                ".",
+                ".",
+                "#",
+                ".",
+                ".",
+                "*",
+                "."
+              ],
+              [
+                ".",
+                "#",
+                "#",
+                ".",
+                "#",
+                ".",
+                "*",
+                "#",
+                ".",
+                "*",
+                "#",
+                "."
+              ],
+              [
+                "#",
+                "*",
+                "#",
+                ".",
+                ".",
+                "#",
+                "*",
+                "#",
+                ".",
+                "*",
+                ".",
+                "#"
+              ],
+              [
+                ".",
+                "#",
+                "#",
+                ".",
+                "#",
+                ".",
+                ".",
+                ".",
+                "*",
+                "#",
+                "#",
+                "."
+              ],
+              [
+                "*",
+                ".",
+                "*",
+                "#",
+                "#",
+                "#",
+                "#",
+                ".",
+                "*",
+                "*",
+                "*",
+                "."
+              ],
+              [
+                "#",
+                ".",
+                "#",
+                "#",
+                "*",
+                "#",
+                ".",
+                "*",
+                "*",
+                "*",
+                "*",
+                "."
+              ],
+              [
+                "#",
+                "#",
+                "*",
+                "#",
+                "#",
+                "*",
+                ".",
+                "#",
+                ".",
+                "#",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                "#",
+                "#",
+                "#",
+                "*",
+                ".",
+                "*",
+                ".",
+                "#",
+                ".",
+                ".",
+                "."
+              ],
+              [
+                ".",
+                "*",
+                "#",
+                "*",
+                ".",
+                ".",
+                ".",
+                "#",
+                "#",
+                "#",
+                "#",
+                "*"
+              ],
+              [
+                "#",
+                ".",
+                ".",
+                "#",
+                ".",
+                "#",
+                "*",
+                "#",
+                "*",
+                "#",
+                ".",
+                "."
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              ".",
+              ".",
+              ".",
+              "#",
+              ".",
+              "*",
+              ".",
+              "#",
+              ".",
+              "#"
+            ],
+            [
+              ".",
+              "*",
+              "#",
+              "#",
+              "#",
+              ".",
+              ".",
+              "*",
+              ".",
+              "*"
+            ],
+            [
+              ".",
+              "#",
+              "#",
+              "*",
+              "#",
+              "*",
+              ".",
+              ".",
+              ".",
+              "."
+            ],
+            [
+              "#",
+              "*",
+              "#",
+              "#",
+              "#",
+              ".",
+              ".",
+              ".",
+              "#",
+              "."
+            ],
+            [
+              "#",
+              ".",
+              "*",
+              "#",
+              "*",
+              "#",
+              ".",
+              "#",
+              "#",
+              "."
+            ],
+            [
+              "#",
+              ".",
+              ".",
+              "*",
+              ".",
+              "#",
+              "#",
+              "#",
+              "#",
+              "."
+            ],
+            [
+              "*",
+              ".",
+              "*",
+              ".",
+              "#",
+              "#",
+              "#",
+              "*",
+              "*",
+              "."
+            ],
+            [
+              "#",
+              "#",
+              ".",
+              ".",
+              "*",
+              "#",
+              "#",
+              ".",
+              ".",
+              "#"
+            ],
+            [
+              "*",
+              "#",
+              ".",
+              ".",
+              "*",
+              "*",
+              "*",
+              "#",
+              "#",
+              "#"
+            ],
+            [
+              ".",
+              "#",
+              ".",
+              ".",
+              "*",
+              "*",
+              ".",
+              "*",
+              "*",
+              "#"
+            ],
+            [
+              ".",
+              "#",
+              ".",
+              "#",
+              "*",
+              "*",
+              "#",
+              ".",
+              ".",
+              "*"
+            ],
+            [
+              "#",
+              "*",
+              "#",
+              "#",
+              ".",
+              ".",
+              "#",
+              "#",
+              "#",
+              "."
+            ]
           ],
           "example": false
         }
