@@ -40,6 +40,43 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-10-24 ──────────────
+    def shortestPaths_20261024(self, n: int, edges: List[List[int]], s: int, queries: List[int]) -> List[float]:
+        # bellman ford because we are doing shortest path algorithm with negative lengths
+        # since we are given there are cycles, we need to do bellman ford more than just the standard n - 1 edges times
+        # we need a distances array as usual
+        distance = [math.inf] * n
+
+        distance[s] = 0
+        
+        for _ in range(n):
+            working_distance = distance.copy()
+            for src,dst,weight in edges:
+                if distance[src] == math.inf:
+                    continue
+                # if it's cheaper go from src to dst than what we currently have, we can replace
+                if distance[src] + weight < working_distance[dst]:
+                    working_distance[dst] = distance[src] + weight
+            distance = working_distance
+
+        # do it again, but this time, if it decreases, it means it is an infinite loop
+        for _ in range(n):
+            working_distance = distance.copy()
+            for src,dst,weight in edges:
+                if distance[src] == math.inf:
+                    continue
+                # if it's cheaper go from src to dst than what we currently have, we can replace
+                if distance[src] + weight < working_distance[dst]:
+                    working_distance[src] = -math.inf
+                    working_distance[dst] = -math.inf
+            distance = working_distance
+
+        result = []
+        for query in queries:
+            result.append(distance[query])
+
+        return result
+
     # ── Attempt · 2026-10-14 ──────────────
     def shortestPaths_20261014(self, n: int, edges: List[List[int]], s: int, queries: List[int]) -> List[float]:
         # shortest distance, n is 1000, so floyd warshall is not ideal
