@@ -17,6 +17,40 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-10-26 ──────────────
+    def permute_20261026(self, nums: List[int]) -> List[List[int]]:
+        # permutation, so we are picking the next element to put
+        # path: current permutation
+        # state: don't need to track which index to fill, but we do need to know which index we are trying to decide to use, we then need a set as well to see if this number has already been used
+        # decision: use or not use
+        # validity: 
+        #   a. if use, check if not in set
+        # base case: 
+        #   a. if path == len(nums), add to result. 
+        #   b. if index we trying to pick is out of bound, return
+        # __________________________
+        # above is wrong intuition
+
+        result = []
+
+        def backtrack(path, visited):
+            if len(path) == len(nums):
+                result.append(path.copy())
+                return
+
+            # we need to be able to go to prior ones
+            # so we need to use a loop to fill the next slot
+            for i in range(len(nums)):
+                if nums[i] not in visited:
+                    visited.add(nums[i])
+                    path.append(nums[i])
+                    backtrack(path, visited)
+                    visited.remove(nums[i])
+                    path.pop()
+
+        backtrack([], set())
+        return result
+
     # ── Attempt · 2026-10-15 ──────────────
     def permute_20261015(self, nums: List[int]) -> List[List[int]]:
         # all possible permutations, so looking at first example, every element can be the first
