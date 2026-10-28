@@ -32,6 +32,29 @@ import math
 
 class Solution:
 
+    # ── Attempt · 2026-10-27 ──────────────
+    def characterReplacement_20261027(self, s: str, k: int) -> int:
+        # we are constrained by longest char + k
+        # difficulty here is actually finding the longest char in a window in constant time
+        # we are looking for max length so we just need to keep track of longest char in a window overall
+        # so we just keep track of longest, we kinda do need to keep track of freq as we go through them, so update as necessary
+        freq_map = collections.defaultdict(int)
+        longest_char_length = -math.inf
+        longest = 0
+        l = r = 0
+
+        while r < len(s):
+            freq_map[s[r]]+=1
+            longest_char_length = max(longest_char_length, freq_map[s[r]])
+            # if current window is bigger than our max possible solution
+            while r - l + 1 > longest_char_length + k:
+                freq_map[s[l]]-=1
+                l+=1
+            longest = max(longest, r - l + 1)
+            r+=1
+            
+        return longest
+
     # ── Attempt · 2026-09-22 ──────────────
     def characterReplacement_20260922(self, s: str, k: int) -> int:
         # our longest is constrained by maxFreq + k

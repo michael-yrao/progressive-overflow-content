@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-26",
+  "generatedAt": "2026-10-28",
   "entries": [
     {
       "key": "733:bfs",
@@ -4964,8 +4964,8 @@
         {
           "kind": "attempt",
           "symbol": "characterReplacement_20260710",
-          "startLine": 300,
-          "endLine": 321,
+          "startLine": 323,
+          "endLine": 344,
           "lines": [
             "    def characterReplacement_20260710(self, s: str, k: int) -> int:",
             "        # key thing to note here is that we want length only as return",
