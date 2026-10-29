@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-28",
+  "generatedAt": "2026-10-29",
   "pool": [
     "O(1)",
     "O(log n)",
@@ -1505,7 +1505,7 @@
       "difficulty": "Medium",
       "category": "arrays_and_hash",
       "isMiss": false,
-      "note": "Return an array where each element is the product of all other elements (no division, O(1) extra space).",
+      "note": "Return an array where each element is the product of all other elements (no division).",
       "time": "O(n)",
       "space": "O(n)",
       "whyTime": "Three passes over nums: one fills pre, one fills post, one multiplies them into result. Each pass is O(n), so time is O(n).",
