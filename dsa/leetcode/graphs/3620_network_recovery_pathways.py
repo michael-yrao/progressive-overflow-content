@@ -53,6 +53,82 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-10-28 ──────────────
+    def findMaxPathScore_20261028(self, edges: List[List[int]], online: List[bool], k: int) -> int:
+        # two parts
+        # 1. find valid paths
+        # 2. find max path score amongst valid paths
+        # 1 is dijkstra with a constraint of min edge value
+        # 2 is max boundary binary search
+        # let's do 2 first
+        # total cost of all edges cannot exceed k
+        # cost[i] can be 0, so l = 0, r = k
+        # dijkstra, we know our start and end
+        n = len(online)
+        adj_map = collections.defaultdict(list)
+
+        for src,dst,cost in edges:
+            if online[src] and online[dst]:
+                adj_map[src].append((dst,cost))
+        
+        # dijkstra's
+        # we cannot have an edge lower than score
+        # we also cannot have total exceeding k
+        # we need an adj_map of whats actually valid due to online
+        # so this should be set outside
+        # we need visited for each run so that should be local
+        # since we have an adj map, we can do either min heap or distance array
+        # not as familiar with distance array version, let's do min heap
+        def can_finish_with_min_score(score):
+            visited = set()
+            distance = [math.inf] * n
+            min_heap = []
+            heapq.heappush(min_heap, (0, 0))
+            distance[0] = 0
+
+            while min_heap:
+                current_weight, current_node = heapq.heappop(min_heap)
+                # if already visited, continue
+                if current_node in visited:
+                    continue
+                # overall weight shouldn't be over k here
+                # let's be optimistic first before we add the validation
+                visited.add(current_node)
+                # go through the neighbors of this node
+                for neighbor, neighbor_weight in adj_map[current_node]:
+                    # if we've already done this node, continue
+                    if neighbor in visited:
+                        continue
+                    # if violates score, continue
+                    if neighbor_weight < score:
+                        continue
+                    new_total_weight = current_weight + neighbor_weight
+                    # if larger than k, continue
+                    if new_total_weight > k:
+                        continue
+                    if new_total_weight < distance[neighbor]:
+                        distance[neighbor] = new_total_weight
+                        heapq.heappush(min_heap,(new_total_weight, neighbor))
+            
+            return distance[n-1]<=k
+            
+
+        # if we cannot finish with no limitation, there is no valid path
+        if not can_finish_with_min_score(-1):
+            return -1
+        
+        l, r = 0, k
+
+        while l < r:
+            m = (l + r + 1) // 2
+            # if can finish with min score of m, keep it as a solution
+            if can_finish_with_min_score(m):
+                l = m
+            else:
+                r = m - 1
+
+        return l
+
     # ── Attempt · 2026-10-18 ──────────────
     def findMaxPathScore_20261018(self, edges: List[List[int]], online: List[bool], k: int) -> int:
         # max path score amongst all valid paths is max boundary binary search
