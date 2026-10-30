@@ -22,6 +22,29 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-10-29 ──────────────
+    def findItinerary_20261029(self, tickets: List[List[str]]) -> List[str]:
+        # eulerian path
+        # we also want to do this in lexicographical order
+        # adj map of min heap
+
+        adj_map = collections.defaultdict(list)
+
+        for src, dst in tickets:
+            heapq.heappush(adj_map[src], dst)
+
+        result = []
+        
+        def dfs(node):
+            while adj_map[node]:
+                dfs(heapq.heappop(adj_map[node]))
+
+            result.append(node)
+
+        dfs("JFK")
+        result.reverse()
+        return result
+
     # ── Attempt · 2026-10-19 ──────────────
     def findItinerary_20261019(self, tickets: List[List[str]]) -> List[str]:
         # hierholzer with min-heap
