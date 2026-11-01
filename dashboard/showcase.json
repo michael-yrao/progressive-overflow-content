@@ -7287,8 +7287,8 @@
         {
           "kind": "attempt",
           "symbol": "subsets",
-          "startLine": 46,
-          "endLine": 74,
+          "startLine": 76,
+          "endLine": 104,
           "lines": [
             "    # ── Attempt 1 · 2026-09-20 ────────────────────────────────────────────",
             "    def subsets(self, nums: List[int]) -> List[List[int]]:",

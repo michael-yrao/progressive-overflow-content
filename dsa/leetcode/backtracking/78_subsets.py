@@ -17,6 +17,36 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-10-31 ──────────────
+    def subsets_20261031(self, nums: List[int]) -> List[List[int]]:
+        # all possible subsets mean we can pick nothing and also pick anything as our starting point, so we can look at the number each time and decide whether we want it or not
+        # path: current subset
+        # state: current index to choose from, set for keeping track of if we already have this
+        # choice: pick or not pick
+        # validity: 
+        #   a. if pick, is this already in the set
+        # base case: if index is greater or equal to length, add to solution
+
+        result = []
+
+        def backtrack(path, index, visited):
+            if index >= len(nums):
+                result.append(path.copy())
+                return
+
+            # choice #1, pick
+            if nums[index] not in visited:
+                path.append(nums[index])
+                visited.add(nums[index])
+                backtrack(path, index + 1, visited)
+                path.pop()
+                visited.remove(nums[index])
+
+            backtrack(path, index + 1, visited)
+
+        backtrack([], 0, set())
+        return result
+
     # ── Attempt · 2026-09-30 ──────────────
     def subsets_20260930(self, nums: List[int]) -> List[List[int]]:
         # this is the basic backtracking problem where we choose or not choose a number
