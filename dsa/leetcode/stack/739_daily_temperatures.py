@@ -28,6 +28,32 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-10-31 ──────────────
+    def dailyTemperatures_20261031(self, temperatures: List[int]) -> List[int]:
+        # if we go left to right, seems kind of annoying to keep track of position
+        # from the right, we know the right position is always 0
+        # so we can just initialize a result with 0s
+        # then do a decreasing stack since 73 is no longer useful when 76 is in the picture
+        # then we do position subtraction when we pop
+
+        n = len(temperatures)
+        result = [0] * n
+
+        decreasing_stack = []
+
+        for i in range(n-1,-1,-1):
+            # if decreasing stack is not empty and greater
+            # we just drop off the smaller one since it is no longer relevant
+            while decreasing_stack and temperatures[i] >= temperatures[decreasing_stack[-1]]:
+                decreasing_stack.pop()
+            # now that it is good, we know current element is smaller than last element so do minus of the indices
+            if decreasing_stack:
+                result[i] = decreasing_stack[-1] - i
+            # now we add in the latest element
+            decreasing_stack.append(i)
+
+        return result
+
     # ── Attempt · 2026-10-21 ──────────────
     def dailyTemperatures_20261021(self, temperatures: List[int]) -> List[int]:
         # we know from the end, it is always starting at 0 because there is no next temperature
