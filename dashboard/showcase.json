@@ -8577,8 +8577,8 @@
         {
           "kind": "attempt",
           "symbol": "maxDistance_20260922",
-          "startLine": 58,
-          "endLine": 98,
+          "startLine": 93,
+          "endLine": 133,
           "lines": [
             "    # ── Attempt · 2026-09-22 ──────────────",
             "    def maxDistance_20260922(self, position: List[int], m: int) -> int:",

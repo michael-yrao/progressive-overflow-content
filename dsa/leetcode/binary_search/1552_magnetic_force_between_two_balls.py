@@ -18,6 +18,41 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-11-01 ──────────────
+    def maxDistance_20261101(self, position: List[int], m: int) -> int:
+        # we leverage the min as a way for us to do binary search
+        # e.g. if min is good, try to go higher
+        # so this is max boundary binary search on the solution
+        # we are given position is always 2 or more
+        # so l is at min at 1 and r is at most at last index - first
+        # so we know 1 ball is always on the left and 1 ball is always on the right
+        # sort first, then assume these
+        position.sort()
+
+        l, r = 1, position[-1] - position[0]
+
+        def can_place_with_min(distance):
+            # we know we place a ball at start and end always when we optimize
+            # but here, we are just seeing if distance is achievable
+            # so start with 1 ball at 0, and try to fit the rest distance apart
+            num_balls = m - 1
+            last_position = 0
+            for i in range(1,len(position)):
+                if position[i] - position[last_position] >= distance:
+                    last_position = i
+                    num_balls-=1
+            return num_balls <= 0
+            
+        
+        while l < r:
+            mid = (l + r + 1) // 2
+            if can_place_with_min(mid):
+                l = mid
+            else:
+                r = mid - 1
+
+        return l
+
     # ── Attempt · 2026-10-02 ──────────────
     def maxDistance_20261002(self, position: List[int], m: int) -> int:
         # if we ignore the fact that we have only n number of buckets, we would be just placing based on position[0] to position[-1], e.g. one at each end and repeat by cutting by half dependent on how many balls, which means this is a solution based binary search
