@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-28",
+  "generatedAt": "2026-11-01",
   "problems": [
     {
       "number": 1,
@@ -29752,14 +29752,17 @@
       "title": "Largest Rectangle in Histogram",
       "url": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
       "difficulty": "Hard",
-      "statement": null,
+      "statement": "Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.\n\nExample 1:\n    Input:  heights = [2,1,5,6,2,3]\n    Output: 10\n\nExplanation: The above is a histogram where width of each bar is 1. The largest rectangle is shown in the shaded area, which has an area = 10 units.\n\nExample 2:\n    Input:  heights = [2,4]\n    Output: 4\n\nConstraints:\n    1 <= heights.length <= 10^5\n    0 <= heights[i] <= 10^4",
       "stub": "from typing import List, Optional\n\n\nclass Solution:\n    def largestRectangleArea(self, heights: List[int]) -> int:\n        pass\n",
       "entry": {
         "className": "Solution",
         "method": "largestRectangleArea"
       },
       "compare": "exact",
-      "figure": null,
+      "figure": {
+        "kind": "bars",
+        "heightsArg": 0
+      },
       "cases": [
         {
           "args": [
@@ -29773,7 +29776,12 @@
             ]
           ],
           "expected": 10,
-          "example": true
+          "example": true,
+          "figureRect": [
+            2,
+            3,
+            5
+          ]
         },
         {
           "args": [
@@ -29783,7 +29791,7 @@
             ]
           ],
           "expected": 4,
-          "example": false
+          "example": true
         },
         {
           "args": [
