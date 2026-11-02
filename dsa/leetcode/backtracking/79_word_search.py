@@ -31,6 +31,49 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-11-02 ──────────────
+    def exist_20261102(self, board: List[List[str]], word: str) -> bool:
+        # we need to be able to backtrack in case we see letters that are there but not the full word
+        # so this is a backtracking problem
+        # we start our backtracking algorithm when we hit a node that matches the first letter
+        # path: current word we have so far or nodes of those words
+        # state: x, y coordinates. maybe a set to check if we've tried using the node
+        # choice: if we see the next letter, always pick it
+        # validity: see above
+        # base case: if len(path) == len(word), return True. If out of bounds or visited, return False
+
+        rows, cols = len(board), len(board[0])
+        
+        def backtrack(path, row, col, visited):
+            if len(path) == len(word):
+                return True
+
+            if row < 0 or row >= rows or col < 0 or col >= cols or (row, col) in visited:
+                return False
+
+            potential_result = False
+
+            # if match, pick it and continue in all 4 directions
+            if board[row][col] == word[len(path)]:
+                path.append(board[row][col])
+                visited.add((row,col))
+                potential_result = (backtrack(path, row + 1, col, visited)
+                                   or backtrack(path, row - 1, col, visited) 
+                                   or backtrack(path, row, col + 1, visited) 
+                                   or backtrack(path, row, col - 1, visited))
+                path.pop()
+                visited.remove((row,col))
+
+            return potential_result
+
+        for row in range(rows):
+            for col in range(cols):
+                if board[row][col] == word[0]:
+                    if backtrack([], row, col, set()):
+                        return True
+
+        return False
+
     # ── Attempt · 2026-10-19 ──────────────
     def exist_20261019(self, board: List[List[str]], word: str) -> bool:
         # backtracking
