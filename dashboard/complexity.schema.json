@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://progressiveoverflow.com/schemas/complexity.v1.json",
+  "title": "cse-progress complexity analyzer contract",
+  "description": "The Big-O analyzer's Python modules, emitted by scripts/export_complexity.py for the progressiveoverflow.com practice page. The site writes each module's source to <name>.py on the Pyodide path, then imports complexity_infer and grades the learner's labels against infer() on the code they ran. The label pool is not carried here: the site reads it from big-o.json's `pool`. schemaVersion is bumped on any breaking change.",
+  "type": "object",
+  "required": ["schemaVersion", "modules"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "integer", "const": 1 },
+    "modules": {
+      "type": "array",
+      "description": "Every scripts/complexity_*.py except complexity_corpus, sorted by name.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^complexity_[a-z]+$" },
+          "source": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

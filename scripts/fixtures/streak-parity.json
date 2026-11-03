@@ -1,0 +1,415 @@
+{
+  "onSchedule": [
+    {
+      "expected": {
+        "dueToday": 0,
+        "overdue": 1,
+        "totalActive": 1
+      },
+      "name": "overdue",
+      "rows": [
+        {
+          "due": "2026-01-10"
+        }
+      ],
+      "today": "2026-01-11"
+    },
+    {
+      "expected": {
+        "dueToday": 1,
+        "overdue": 0,
+        "totalActive": 1
+      },
+      "name": "due-today",
+      "rows": [
+        {
+          "due": "2026-01-11"
+        }
+      ],
+      "today": "2026-01-11"
+    },
+    {
+      "expected": {
+        "dueToday": 0,
+        "overdue": 0,
+        "totalActive": 1
+      },
+      "name": "future",
+      "rows": [
+        {
+          "due": "2026-01-12"
+        }
+      ],
+      "today": "2026-01-11"
+    },
+    {
+      "expected": {
+        "dueToday": 0,
+        "overdue": 1,
+        "totalActive": 2
+      },
+      "name": "unparseable-due",
+      "rows": [
+        {
+          "due": "soon"
+        },
+        {
+          "due": "2026-01-10"
+        }
+      ],
+      "today": "2026-01-11"
+    }
+  ],
+  "schemaVersion": 1,
+  "streak": [
+    {
+      "atT1": {
+        "current": 0,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 3,
+        "frozenDays": [],
+        "lastStudyDay": null,
+        "longest": 0,
+        "studyDays": 0
+      },
+      "atT2": {
+        "current": 0,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 3,
+        "frozenDays": [],
+        "lastStudyDay": null,
+        "longest": 0,
+        "studyDays": 0
+      },
+      "days": [],
+      "earnEvery": 4,
+      "freezeMax": 3,
+      "name": "empty-history",
+      "t1": "2026-01-10",
+      "t2": "2026-01-12"
+    },
+    {
+      "atT1": {
+        "current": 3,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 3,
+        "frozenDays": [],
+        "lastStudyDay": "2026-01-03",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "atT2": {
+        "current": 3,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 3,
+        "frozenDays": [],
+        "lastStudyDay": "2026-01-03",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "days": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-03"
+      ],
+      "earnEvery": 4,
+      "freezeMax": 3,
+      "name": "today-not-over",
+      "t1": "2026-01-03",
+      "t2": "2026-01-04"
+    },
+    {
+      "atT1": {
+        "current": 3,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 3,
+        "frozenDays": [],
+        "lastStudyDay": "2026-01-03",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "atT2": {
+        "current": 3,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 2,
+        "frozenDays": [
+          "2026-01-04"
+        ],
+        "lastStudyDay": "2026-01-03",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "days": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-03"
+      ],
+      "earnEvery": 4,
+      "freezeMax": 3,
+      "name": "misses-below-bank",
+      "t1": "2026-01-03",
+      "t2": "2026-01-05"
+    },
+    {
+      "atT1": {
+        "current": 3,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 3,
+        "frozenDays": [],
+        "lastStudyDay": "2026-01-03",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "atT2": {
+        "current": 3,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 0,
+        "frozenDays": [
+          "2026-01-04",
+          "2026-01-05",
+          "2026-01-06"
+        ],
+        "lastStudyDay": "2026-01-03",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "days": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-03"
+      ],
+      "earnEvery": 4,
+      "freezeMax": 3,
+      "name": "misses-equal-bank",
+      "t1": "2026-01-03",
+      "t2": "2026-01-07"
+    },
+    {
+      "atT1": {
+        "current": 3,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 3,
+        "frozenDays": [],
+        "lastStudyDay": "2026-01-03",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "atT2": {
+        "current": 0,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 0,
+        "frozenDays": [],
+        "lastStudyDay": "2026-01-03",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "days": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-03"
+      ],
+      "earnEvery": 4,
+      "freezeMax": 3,
+      "name": "misses-bank-plus-one",
+      "t1": "2026-01-03",
+      "t2": "2026-01-08"
+    },
+    {
+      "atT1": {
+        "current": 3,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 2,
+        "frozenDays": [
+          "2026-01-04"
+        ],
+        "lastStudyDay": "2026-01-03",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "atT2": {
+        "current": 3,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 1,
+        "frozenDays": [
+          "2026-01-04",
+          "2026-01-05"
+        ],
+        "lastStudyDay": "2026-01-03",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "days": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-03"
+      ],
+      "earnEvery": 4,
+      "freezeMax": 3,
+      "name": "t1-already-spent-misses",
+      "t1": "2026-01-05",
+      "t2": "2026-01-06"
+    },
+    {
+      "atT1": {
+        "current": 3,
+        "freezeMax": 3,
+        "freezes": 1,
+        "freezesLeft": 1,
+        "frozenDays": [
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "lastStudyDay": "2026-01-05",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "atT2": {
+        "current": 3,
+        "freezeMax": 3,
+        "freezes": 1,
+        "freezesLeft": 0,
+        "frozenDays": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-06"
+        ],
+        "lastStudyDay": "2026-01-05",
+        "longest": 3,
+        "studyDays": 3
+      },
+      "days": [
+        "2026-01-01",
+        "2026-01-04",
+        "2026-01-05"
+      ],
+      "earnEvery": 4,
+      "freezeMax": 3,
+      "name": "bridged-before-last-study-day",
+      "t1": "2026-01-05",
+      "t2": "2026-01-07"
+    },
+    {
+      "atT1": {
+        "current": 4,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 3,
+        "frozenDays": [
+          "2026-01-03"
+        ],
+        "lastStudyDay": "2026-01-05",
+        "longest": 4,
+        "studyDays": 4
+      },
+      "atT2": {
+        "current": 4,
+        "freezeMax": 3,
+        "freezes": 3,
+        "freezesLeft": 1,
+        "frozenDays": [
+          "2026-01-03",
+          "2026-01-06",
+          "2026-01-07"
+        ],
+        "lastStudyDay": "2026-01-05",
+        "longest": 4,
+        "studyDays": 4
+      },
+      "days": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-04",
+        "2026-01-05"
+      ],
+      "earnEvery": 4,
+      "freezeMax": 3,
+      "name": "earned-freeze-at-earn-every",
+      "t1": "2026-01-05",
+      "t2": "2026-01-08"
+    },
+    {
+      "atT1": {
+        "current": 2,
+        "freezeMax": 3,
+        "freezes": 1,
+        "freezesLeft": 1,
+        "frozenDays": [],
+        "lastStudyDay": "2026-01-09",
+        "longest": 2,
+        "studyDays": 4
+      },
+      "atT2": {
+        "current": 2,
+        "freezeMax": 3,
+        "freezes": 1,
+        "freezesLeft": 0,
+        "frozenDays": [
+          "2026-01-10"
+        ],
+        "lastStudyDay": "2026-01-09",
+        "longest": 2,
+        "studyDays": 4
+      },
+      "days": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-08",
+        "2026-01-09"
+      ],
+      "earnEvery": 4,
+      "freezeMax": 3,
+      "name": "broken-gap-in-history",
+      "t1": "2026-01-09",
+      "t2": "2026-01-11"
+    },
+    {
+      "atT1": {
+        "current": 4,
+        "freezeMax": 2,
+        "freezes": 1,
+        "freezesLeft": 1,
+        "frozenDays": [
+          "2026-01-03"
+        ],
+        "lastStudyDay": "2026-01-05",
+        "longest": 4,
+        "studyDays": 4
+      },
+      "atT2": {
+        "current": 0,
+        "freezeMax": 2,
+        "freezes": 1,
+        "freezesLeft": 0,
+        "frozenDays": [
+          "2026-01-03"
+        ],
+        "lastStudyDay": "2026-01-05",
+        "longest": 4,
+        "studyDays": 4
+      },
+      "days": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-04",
+        "2026-01-05"
+      ],
+      "earnEvery": 7,
+      "freezeMax": 2,
+      "name": "live-config",
+      "t1": "2026-01-05",
+      "t2": "2026-01-08"
+    }
+  ]
+}
