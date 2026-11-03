@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-02",
+  "generatedAt": "2026-11-03",
   "entries": [
     {
       "key": "733:bfs",
@@ -7493,8 +7493,8 @@
         {
           "kind": "attempt",
           "symbol": "gasStation_20260921",
-          "startLine": 59,
-          "endLine": 85,
+          "startLine": 79,
+          "endLine": 105,
           "lines": [
             "    # ── Attempt · 2026-09-21 ──────────────",
             "    def gasStation_20260921(self, gas: List[int], cost: List[int]) -> int:",

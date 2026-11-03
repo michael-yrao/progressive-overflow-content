@@ -30,6 +30,26 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-11-03 ──────────────
+    def canCompleteCircuit_20261103(self, gas: List[int], cost: List[int]) -> int:
+        # this is just Kadane's algorithm disguised
+        # we care for gas - cost
+        # so start from the beginning, keep track of running sum of gas, if it ever drops to negative, remove this node from contention
+
+        if sum(gas) - sum(cost) < 0:
+            return -1
+        
+        running_gas = 0
+        current_starting = 0
+
+        for i in range(len(gas)):
+            running_gas+=(gas[i]-cost[i])
+            if running_gas < 0:
+                current_starting = i + 1
+                running_gas = 0
+
+        return current_starting
+
     # ── Attempt · 2026-10-24 ──────────────
     def canCompleteCircuit_20261024(self, gas: List[int], cost: List[int]) -> int:
         # if total cost > total gas, it's just not possible
