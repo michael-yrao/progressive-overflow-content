@@ -1520,7 +1520,7 @@
       "time": "O(n)",
       "space": "O(n)",
       "whyTime": "Three passes over nums: one fills pre, one fills post, one multiplies them into result. Each pass is O(n), so time is O(n).",
-      "whySpace": "pre, post and result are each arrays of n products, so three arrays of length n are kept. Space is O(n).",
+      "whySpace": "pre and post are each arrays of n products. The result array is the returned output and is not counted. Space is O(n).",
       "variables": {
         "n": "length of nums"
       },
@@ -4225,7 +4225,7 @@
       "time": "O(n log n)",
       "space": "O(n)",
       "whyTime": "Sorting potions costs O(n log n). Each spell then binary-searches the sorted potions in O(log n), so all spells add another O(n log n). Total O(n log n).",
-      "whySpace": "Sorting potions in place needs O(n) scratch space, and the answer list holds one count per spell. Space is O(n).",
+      "whySpace": "Sorting potions in place needs O(n) scratch space; the answer list is the returned output and is not counted. Space is O(n).",
       "variables": {
         "n": "length of the longer of spells, potions"
       },
@@ -5023,7 +5023,7 @@
       "time": "O(V+E)",
       "space": "O(V+E)",
       "whyTime": "Building the adjacency map and the in-degree counts takes O(E). Kahn's BFS dequeues each of the V courses once and decrements each edge once. Total O(V+E).",
-      "whySpace": "The adjacency map holds E edges. The in-degree array, queue, result and taken set each hold up to V courses. Space is O(V+E).",
+      "whySpace": "The adjacency map holds E edges. The in-degree array, queue and taken set each hold up to V courses. The result list is the returned output and is not counted. Space is O(V+E).",
       "variables": {
         "V": "courses (graph nodes)",
         "E": "prerequisite pairs (edges)"
@@ -5512,7 +5512,7 @@
       "time": "O(E log E)",
       "space": "O(E)",
       "whyTime": "Each ticket is pushed onto its airport's min-heap once and popped once, each O(log E), and the DFS follows every ticket once: O(E log E).",
-      "whySpace": "The heaps hold all E tickets, and the recursion and result list are at most E + 1 deep: O(E).",
+      "whySpace": "The heaps hold all E tickets, and the recursion goes at most E + 1 calls deep. The result list is the returned output and is not counted. Space is O(E).",
       "variables": {
         "E": "number of tickets",
         "V": "number of airports"
@@ -6909,7 +6909,7 @@
       "time": "O(E²)",
       "space": "O(V+E)",
       "whyTime": "Kruskal is re-run for each of the E edges, once excluding it and once forcing it. Each run builds the union-find over V nodes and unions up to E edges, O(V + E). With E ≥ V - 1 that folds into O(E²).",
-      "whySpace": "The union-find parent and rank maps hold V entries; the sorted edge list and the two result sets hold up to E. Space is O(V + E).",
+      "whySpace": "The union-find parent and rank maps hold V entries, and sorting the edge list in place needs O(E) scratch space. The critical set is read back to filter the pseudo-critical edges, so it counts, up to E entries. The pseudo-critical set becomes the returned output and is not counted. Space is O(V + E).",
       "variables": {
         "V": "number of nodes",
         "E": "number of edges"
@@ -7308,7 +7308,7 @@
       "time": "O(E)",
       "space": "O(E)",
       "whyTime": "Building the degree and adjacency maps touches each of the E pairs once, and Hierholzer's walk pushes and pops each edge exactly once. Since V ≤ E + 1, the total is O(E).",
-      "whySpace": "The adjacency map holds E entries; the degree map and stack hold at most V ≤ E + 1; the result holds E pairs. Space is O(E).",
+      "whySpace": "The adjacency map holds E entries; the degree map and stack hold at most V ≤ E + 1; the node list holds E + 1 nodes. The returned list of pairs is the output and is not counted. Space is O(E).",
       "variables": {
         "V": "number of distinct values",
         "E": "number of pairs"
@@ -8392,7 +8392,7 @@
       "time": "O(n log n)",
       "space": "O(n)",
       "whyTime": "Sorting the intervals costs O(n log n). The merge pass after it visits each interval once, which is only O(n), so sorting dominates.",
-      "whySpace": "The result list holds up to n merged intervals, so space is O(n).",
+      "whySpace": "Sorting intervals in place needs O(n) scratch space; the result list is the returned output and is not counted. Space is O(n).",
       "variables": {
         "n": "number of intervals"
       },
@@ -9414,7 +9414,7 @@
       "time": "O(n log k)",
       "space": "O(k)",
       "whyTime": "Each of the n points is pushed onto a heap capped at k entries, with a pop when it grows past k. Each push and pop is O(log k), so O(n log k).",
-      "whySpace": "The heap never holds more than k + 1 points and the result has k points. Space is O(k).",
+      "whySpace": "The heap never holds more than k + 1 points. The result list is the returned output and is not counted. Space is O(k).",
       "variables": {
         "n": "number of points",
         "k": "closest points to return"
@@ -9705,9 +9705,9 @@
       "isMiss": false,
       "note": null,
       "time": "O(max(m, n))",
-      "space": "O(max(m, n))",
+      "space": "O(1)",
       "whyTime": "The loops walk both lists in step, then finish the longer one, so the work is the length of the longer list. Each digit costs O(1), so time is O(max(m, n)).",
-      "whySpace": "The result list gets one new node per digit, at most max(m, n) + 1 nodes, so space is O(max(m, n)).",
+      "whySpace": "The new nodes form the returned list and are not counted. Only the pointers and the carry are stored, so space is O(1).",
       "variables": {
         "m": "nodes in l1",
         "n": "nodes in l2"
@@ -9725,6 +9725,7 @@
         "O((n + m) log m)"
       ],
       "spaceChoices": [
+        "O(1)",
         "O(log n)",
         "O(log(min(m, n)))",
         "O(log(m·n))",
@@ -9732,9 +9733,8 @@
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
-        "O(n log m)",
-        "O((n + m) log n)",
-        "O((n + m) log m)"
+        "O(n log log n)",
+        "O((n + m) log n)"
       ],
       "timeOptions": [
         "O(max(m, n))",
@@ -9743,10 +9743,10 @@
         "O(V+E)"
       ],
       "spaceOptions": [
-        "O(c)",
-        "O(n)",
-        "O(max(m, n))",
-        "O(V+E)"
+        "O(1)",
+        "O(log n)",
+        "O(k)",
+        "O(n)"
       ],
       "segments": [
         {
@@ -11565,7 +11565,7 @@
       "time": "O(n)",
       "space": "O(n)",
       "whyTime": "The loop runs 2n times to cover the circle. Each index is pushed once and popped once: O(n).",
-      "whySpace": "The stack holds up to n indices and the result list holds n entries: O(n).",
+      "whySpace": "The stack holds up to 2n indices. The result array of n entries is also read back to see which slots are still unfilled, so it counts. Space is O(n).",
       "variables": {
         "n": "length of nums"
       },
@@ -11663,7 +11663,7 @@
       "time": "O(n)",
       "space": "O(n)",
       "whyTime": "Each index is pushed onto the stack once and popped at most once, so the inner while loop does O(n) pops in total across the n iterations. Total O(n).",
-      "whySpace": "The decreasing stack can hold all n indices, for example when temperatures fall each day, and result has n entries. Space is O(n).",
+      "whySpace": "The decreasing stack can hold all n indices, for example when temperatures rise each day. The result array is the returned output and is not counted. Space is O(n).",
       "variables": {
         "n": "length of temperatures"
       },
@@ -13412,7 +13412,7 @@
       "time": "O(n + m)",
       "space": "O(n + m)",
       "whyTime": "Building the trie visits each of the n dictionary characters once. Each sentence word is walked at most its own length, so all lookups cost O(m), plus the split and join. Total O(n + m).",
-      "whySpace": "The trie stores up to n nodes. The word list and the result together hold the m sentence characters. Space is O(n + m).",
+      "whySpace": "The trie stores up to n nodes. The split word list holds the m sentence characters. The result list is joined into the returned string and is not counted. Space is O(n + m).",
       "variables": {
         "n": "total characters in dictionary",
         "m": "length of sentence"
@@ -14687,9 +14687,9 @@
       "isMiss": false,
       "note": null,
       "time": "O(n)",
-      "space": "O(n)",
+      "space": "O(1)",
       "whyTime": "Two pointers walk word1 and word2 once, appending one character per step, and the leftover tail is appended once. Each of the n characters is touched a single time, so O(n).",
-      "whySpace": "The result list holds all n characters before they are joined into the output string, so space is O(n).",
+      "whySpace": "The result list is joined into the returned string, so it is output and is not counted. Only the two pointers are stored, so space is O(1).",
       "variables": {
         "n": "total length of word1 and word2"
       },
@@ -14715,7 +14715,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2ⁿ)"
       ],
       "timeOptions": [
         "O(log n)",
@@ -14725,9 +14725,9 @@
       ],
       "spaceOptions": [
         "O(1)",
-        "O(h)",
-        "O(n)",
-        "O(n log n)"
+        "O(log n)",
+        "O(k)",
+        "O(n)"
       ],
       "segments": [
         {
@@ -15312,7 +15312,7 @@
       "time": "O(m·n)",
       "space": "O(n + m)",
       "whyTime": "Every digit of num1 is multiplied by every digit of num2, m·n products, each added into a result slot in O(1). Time is O(m·n).",
-      "whySpace": "The result digits live in an array of m + n slots, so space is O(n + m).",
+      "whySpace": "The array of m + n digit slots is added into and read back at every product, so it is working state and counts even though it becomes the returned string. Space is O(n + m).",
       "variables": {
         "m": "length of num1",
         "n": "length of num2"
@@ -15661,9 +15661,9 @@
       "isMiss": false,
       "note": null,
       "time": "O(max(m, n))",
-      "space": "O(max(m, n))",
+      "space": "O(1)",
       "whyTime": "Walking both strings from the right, each step adds one digit from each plus the carry. The loop runs about max(m, n) times at O(1) each, so time is O(max(m, n)).",
-      "whySpace": "The result stores one digit per step, at most max(m, n) + 1 digits, so space is O(max(m, n)).",
+      "whySpace": "The digits are appended to a list that is joined into the returned string, so it is output and is not counted. Only the two indices and the carry are stored, so space is O(1).",
       "variables": {
         "m": "length of a",
         "n": "length of b"
@@ -15681,16 +15681,16 @@
         "O((n + m) log m)"
       ],
       "spaceChoices": [
+        "O(1)",
         "O(log n)",
+        "O(log(min(m, n)))",
+        "O(log(m·n))",
         "O(m)",
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
-        "O(n log m)",
-        "O(n log n)",
-        "O((n + m) log n)",
-        "O((n + m) log m)"
+        "O((n + m) log n)"
       ],
       "timeOptions": [
         "O(V)",
@@ -15699,10 +15699,10 @@
         "O(V+E)"
       ],
       "spaceOptions": [
-        "O(m)",
-        "O(L)",
-        "O(max(m, n))",
-        "O(n + q)"
+        "O(1)",
+        "O(log n)",
+        "O(k)",
+        "O(n)"
       ],
       "segments": []
     },
@@ -17480,7 +17480,7 @@
       "time": "O(n log n)",
       "space": "O(n)",
       "whyTime": "A sweep over the 2n edges pushes each building onto a max-heap once and pops it once. Each heap operation is O(log n), so O(n log n).",
-      "whySpace": "The heap holds up to n buildings, and the skyline output holds up to 2n points. Space is O(n).",
+      "whySpace": "The heap holds up to n buildings. The skyline list is the returned output and is not counted. Space is O(n).",
       "variables": {
         "n": "buildings"
       },
@@ -19528,7 +19528,7 @@
       "time": "O(n)",
       "space": "O(n)",
       "whyTime": "Each input character is pushed or popped once, and repeating a segment copies it into the output, so the work follows the output length: O(n).",
-      "whySpace": "The stack holds partial strings and counts for the open brackets, at most the size of the decoded output: O(n).",
+      "whySpace": "The stack holds the partial strings and counts of the open brackets. An inner segment is built in full before it is repeated into its parent, and it can reach half the decoded length n (for example 2[100[a]]), so it counts. Space is O(n).",
       "variables": {
         "n": "length of the decoded string",
         "m": "length of the encoded string",
@@ -20934,7 +20934,7 @@
       "time": "O(n·kⁿ)",
       "space": "O(n·kⁿ)",
       "whyTime": "Hierholzer's DFS walks each of the kⁿ edges of the de Bruijn graph once, building a length-n string for each edge. That is kⁿ steps of O(n) work, so O(n·kⁿ).",
-      "whySpace": "The visited set stores up to kⁿ strings of length n, and the answer has about kⁿ + n - 1 digits. Space is O(n·kⁿ).",
+      "whySpace": "The visited set stores up to kⁿ strings of length n. The answer string is the returned output and is not counted. Space is O(n·kⁿ).",
       "variables": {
         "n": "password length",
         "k": "number of digit values (0 to k-1)"
@@ -21463,9 +21463,9 @@
       "isMiss": false,
       "note": null,
       "time": "O(n)",
-      "space": "O(n)",
+      "space": "O(1)",
       "whyTime": "Two pointers start at both ends. Each step writes the larger square into the next slot of the result from the back, so n steps of O(1) work give O(n).",
-      "whySpace": "The result list holds n squares. Space is O(n).",
+      "whySpace": "The result list is the returned output and is not counted. Only the two pointers and the write index are stored, so space is O(1).",
       "variables": {
         "n": "length of nums"
       },
@@ -21491,7 +21491,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2^(n/2))"
+        "O(2ⁿ)"
       ],
       "timeOptions": [
         "O(log n)",
@@ -21501,9 +21501,9 @@
       ],
       "spaceOptions": [
         "O(1)",
-        "O(h)",
-        "O(n)",
-        "O(n²)"
+        "O(log n)",
+        "O(k)",
+        "O(n)"
       ],
       "segments": []
     },
@@ -21580,9 +21580,9 @@
       "isMiss": false,
       "note": null,
       "time": "O(n + m)",
-      "space": "O(n + m)",
+      "space": "O(1)",
       "whyTime": "Two pointers walk both lists, and each step advances the pointer whose interval ends first. At most n + m steps of O(1) work, so O(n + m).",
-      "whySpace": "The result holds at most n + m - 1 intersections. Space is O(n + m).",
+      "whySpace": "The result list of intersections is the returned output and is not counted. Only the two pointers are stored, so space is O(1).",
       "variables": {
         "n": "length of firstList",
         "m": "length of secondList"
@@ -21600,16 +21600,16 @@
         "O(m·n)"
       ],
       "spaceChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(log(min(m, n)))",
         "O(log(m·n))",
+        "O(m)",
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
-        "O(n log log n)",
-        "O(n log m)",
         "O(n log n)",
-        "O((n + m) log n)",
-        "O((n + m) log m)",
-        "O(m·n)"
+        "O((n + m) log n)"
       ],
       "timeOptions": [
         "O(n)",
@@ -21618,10 +21618,10 @@
         "O(m·n)"
       ],
       "spaceOptions": [
-        "O(n)",
-        "O(max(m, n))",
-        "O(min(n, k))",
-        "O(n + m)"
+        "O(1)",
+        "O(log n)",
+        "O(k)",
+        "O(n)"
       ],
       "segments": []
     },
@@ -21935,7 +21935,7 @@
       "time": "O(n + m)",
       "space": "O(n)",
       "whyTime": "Each booking adds seats at first and subtracts after last in a difference array, O(1) per booking, so O(m). One prefix-sum pass over the n flights adds O(n). Total O(n + m).",
-      "whySpace": "The answer array has one slot per flight. Space is O(n).",
+      "whySpace": "The difference array of n slots is updated per booking and prefix-summed in place, so it is working state and counts even though it is returned. Space is O(n).",
       "variables": {
         "n": "number of flights",
         "m": "number of bookings"
@@ -23817,7 +23817,7 @@
       "time": "O(n log n + q log q)",
       "space": "O(n + q)",
       "whyTime": "Sorting the intervals costs O(n log n) and sorting the queries O(q log q). The sweep pushes each interval into a min-heap once and pops it at most once, O(n log n). Total O(n log n + q log q).",
-      "whySpace": "The heap holds up to n intervals, and the sorted queries and the answer array hold q entries each. Space is O(n + q).",
+      "whySpace": "The heap holds up to n intervals, and the sorted copy of the queries holds q entries. The answer array is the returned output and is not counted. Space is O(n + q).",
       "variables": {
         "n": "number of intervals",
         "q": "number of queries"
@@ -23874,9 +23874,9 @@
       "isMiss": false,
       "note": null,
       "time": "O(m·n)",
-      "space": "O(m·n)",
+      "space": "O(1)",
       "whyTime": "Each row is scanned once to drop its stones, then every cell is copied into the rotated grid. Both steps touch the m·n cells a constant number of times: O(m·n).",
-      "whySpace": "The rotated n by m result stores m·n cells, the output itself counted, so space is O(m·n).",
+      "whySpace": "Stones drop within each row in place. The rotated n by m grid is the returned output and is not counted. Only a few indices are stored, so space is O(1).",
       "variables": {
         "m": "rows of boxGrid",
         "n": "columns of boxGrid"
@@ -23894,16 +23894,16 @@
         "O(n²)"
       ],
       "spaceChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(log(min(m, n)))",
+        "O(log(m·n))",
+        "O(m)",
+        "O(n)",
+        "O(max(m, n))",
         "O(n + m)",
-        "O(n log n)",
-        "O((n + m) log m)",
-        "O(n log n + m·α(n))",
-        "O(m·n)",
-        "O(m·n log(m·n))",
-        "O(n·α(n))",
-        "O(m·n·α(m·n))",
-        "O(n²)",
-        "O(n² log n)"
+        "O(n log log n)",
+        "O((n + m) log n)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -23912,10 +23912,10 @@
         "O(V·E)"
       ],
       "spaceOptions": [
-        "O(n log n)",
-        "O(n·k)",
-        "O(n·k log k)",
-        "O(m·n)"
+        "O(1)",
+        "O(log n)",
+        "O(k)",
+        "O(n)"
       ],
       "segments": []
     },
