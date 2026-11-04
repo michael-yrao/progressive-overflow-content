@@ -9,6 +9,7 @@
     "O(log(m·n))",
     "O(h)",
     "O(k)",
+    "O(c)",
     "O(m)",
     "O(n)",
     "O(L)",
@@ -26,6 +27,7 @@
     "O(n log m)",
     "O(n log n)",
     "O((n + m) log n)",
+    "O((n + m) log m)",
     "O(n log n + n log R)",
     "O(n log n + q log q)",
     "O(n log n + m·α(n))",
@@ -34,6 +36,7 @@
     "O(E log E)",
     "O(V + E log E)",
     "O(n·k)",
+    "O(N·K)",
     "O(n·L)",
     "O(W·k)",
     "O(m + n·k)",
@@ -41,12 +44,14 @@
     "O(n·k log k)",
     "O(m·n)",
     "O(m·n log(m·n))",
+    "O(N·K log(N·K))",
     "O(n·m·L)",
     "O((V + E log E)·log k)",
     "O(V·E)",
     "O(V·(V+E) + q)",
     "O(k·E)",
     "O(n·α(n))",
+    "O(m·n·α(m·n))",
     "O(E²)",
     "O(V²)",
     "O(k²)",
@@ -61,12 +66,14 @@
     "O(n·L²)",
     "O(2^(n/2))",
     "O(n·2^(n/2))",
+    "O(n·2^k)",
     "O(2ⁿ)",
     "O(n·2ⁿ)",
     "O(n²·2ⁿ)",
     "O(2^(n+d))",
     "O(n^d)",
     "O(m·n·3^k)",
+    "O(4ⁿ/√n)",
     "O(n·4ⁿ)",
     "O(m·4ⁿ)",
     "O(n·kⁿ)",
@@ -103,8 +110,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -115,8 +122,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -217,7 +224,7 @@
         "O(n³/k)",
         "O(n³)",
         "O(n·2^(n/2))",
-        "O(n·2ⁿ)"
+        "O(2ⁿ)"
       ],
       "timeOptions": [
         "O(n²)",
@@ -226,7 +233,7 @@
         "O(n³ + q)"
       ],
       "spaceOptions": [
-        "O(k·E)",
+        "O(n·α(n))",
         "O(k²)",
         "O(n²·k)",
         "O(n³ + q)"
@@ -304,8 +311,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2^(n/2))"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -393,7 +400,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
+        "O(2^(n/2))",
         "O(n·2^(n/2))"
       ],
       "spaceChoices": [
@@ -480,15 +487,15 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)"
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -671,7 +678,7 @@
         "k": "max string length"
       },
       "timeChoices": [
-        "O(n log log n)",
+        "O(n log k)",
         "O(n log n)",
         "O(n·k)",
         "O(n·k log k)",
@@ -684,21 +691,21 @@
       ],
       "spaceChoices": [
         "O(n)",
-        "O(min(n, k))",
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
         "O(n·k)",
         "O(n·k log k)",
-        "O(k²)",
-        "O(n²)",
-        "O(n²·k)"
+        "O(n·α(n))",
+        "O(n²·k)",
+        "O(n² log n)",
+        "O(k³)"
       ],
       "timeOptions": [
         "O(n·L + m)",
         "O(n·k log k)",
         "O(m·n)",
-        "O(V·E)"
+        "O((V + E log E)·log k)"
       ],
       "spaceOptions": [
         "O(n)",
@@ -766,8 +773,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -847,6 +854,10 @@
       "variables": {
         "n": "length of nums"
       },
+      "bind": {
+        "nums": "n",
+        "__domain__": "nums"
+      },
       "timeChoices": [
         "O(1)",
         "O(log n)",
@@ -856,8 +867,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -1050,7 +1061,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -1062,7 +1073,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(log n)",
@@ -1150,8 +1161,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -1342,7 +1353,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -1353,7 +1364,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
+        "O(2^(n/2))",
         "O(n·2^(n/2))"
       ],
       "timeOptions": [
@@ -1420,8 +1431,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -1523,7 +1534,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -1634,7 +1645,7 @@
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
-        "O(n·k log k)"
+        "O(n·k)"
       ],
       "timeOptions": [
         "O(1)",
@@ -1800,6 +1811,7 @@
         "k": "number of top elements"
       },
       "timeChoices": [
+        "O(log n)",
         "O(log k)",
         "O(k)",
         "O(n)",
@@ -1808,8 +1820,7 @@
         "O(n log k)",
         "O(n log n)",
         "O(n·k)",
-        "O(n·k log k)",
-        "O(n·α(n))"
+        "O(n·k log k)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -2018,7 +2029,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(n)",
@@ -2121,7 +2132,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -2191,13 +2202,13 @@
         "n": "number of digits"
       },
       "timeChoices": [
-        "O(n²)",
-        "O(n³)",
+        "O(n² log n)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n!)",
         "O(n·n!)"
@@ -2212,10 +2223,10 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2^(n/2))"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
-        "O(n·2ⁿ)",
+        "O(n²·2ⁿ)",
         "O(n·4ⁿ)",
         "O(m·4ⁿ)",
         "O(n·kⁿ)"
@@ -2306,13 +2317,13 @@
         "n": "pairs of parentheses"
       },
       "timeChoices": [
-        "O(n² log n)",
         "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n!)",
         "O(n·n!)"
@@ -2326,11 +2337,11 @@
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
-        "O(n·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)"
       ],
       "timeOptions": [
-        "O(2^(n+d))",
+        "O(n^d)",
         "O(n·4ⁿ)",
         "O(m·4ⁿ)",
         "O(n·kⁿ)"
@@ -2412,7 +2423,6 @@
         "d": "max picks, target ÷ smallest candidate"
       },
       "timeChoices": [
-        "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
@@ -2420,6 +2430,7 @@
         "O(n²·2ⁿ)",
         "O(2^(n+d))",
         "O(n^d)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n!)"
       ],
@@ -2436,8 +2447,8 @@
         "O(n³)"
       ],
       "timeOptions": [
-        "O(n·L²)",
         "O(2^(n/2))",
+        "O(n·2^(n/2))",
         "O(2^(n+d))",
         "O(n^d)"
       ],
@@ -2524,7 +2535,6 @@
         "d": "max picks, target ÷ smallest candidate"
       },
       "timeChoices": [
-        "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
@@ -2532,6 +2542,7 @@
         "O(n²·2ⁿ)",
         "O(2^(n+d))",
         "O(n^d)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n!)"
       ],
@@ -2637,13 +2648,13 @@
         "n": "length of nums"
       },
       "timeChoices": [
-        "O(n²)",
         "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n!)",
         "O(n·n!)"
@@ -2657,12 +2668,12 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
+        "O(2^(n/2))",
         "O(n·2^(n/2))"
       ],
       "timeOptions": [
-        "O(n^d)",
         "O(m·n·3^k)",
+        "O(4ⁿ/√n)",
         "O(n·kⁿ)",
         "O(n·n!)"
       ],
@@ -2746,13 +2757,13 @@
         "n": "length of nums"
       },
       "timeChoices": [
-        "O(n² log n)",
         "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n!)",
         "O(n·n!)"
@@ -2767,10 +2778,10 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
-        "O(n·L²)",
+        "O(2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n!)"
@@ -2853,11 +2864,11 @@
         "k": "length of word"
       },
       "timeChoices": [
-        "O(n·2^(n/2))",
+        "O(n·2^k)",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
-        "O(n²·2ⁿ)",
         "O(m·n·3^k)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(m·4ⁿ)",
         "O(n·kⁿ)",
@@ -2873,14 +2884,14 @@
         "O(k)",
         "O(m)",
         "O(n)",
-        "O(max(m, n))",
+        "O(min(n, k))",
         "O(n + m)"
       ],
       "timeOptions": [
         "O(n²·2ⁿ)",
         "O(m·n·3^k)",
         "O(m·4ⁿ)",
-        "O(n·kⁿ)"
+        "O(n·n!)"
       ],
       "spaceOptions": [
         "O(1)",
@@ -2971,13 +2982,13 @@
         "n": "length of nums"
       },
       "timeChoices": [
-        "O(n² log n)",
         "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n!)",
         "O(n·n!)"
@@ -3078,13 +3089,13 @@
         "n": "length of s"
       },
       "timeChoices": [
-        "O(n² log n)",
         "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n!)",
         "O(n·n!)"
@@ -3099,10 +3110,10 @@
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(4ⁿ/√n)"
       ],
       "timeOptions": [
-        "O(2^(n/2))",
+        "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n!)"
@@ -3442,7 +3453,7 @@
         "O(1)",
         "O(log(m·n))",
         "O(h)",
-        "O(V)"
+        "O(L)"
       ],
       "spaceOptions": [
         "O(1)",
@@ -3895,16 +3906,16 @@
         "h": "hours allowed"
       },
       "timeChoices": [
-        "O(log(min(m, n)))",
         "O(log(m·n))",
-        "O(h)",
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
-        "O(n log n + m·α(n))"
+        "O((n + m) log m)",
+        "O(n log n + m·α(n))",
+        "O(m·n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -3922,7 +3933,7 @@
         "O(n + q)",
         "O(n log m)",
         "O(n log n)",
-        "O(n log n + m·α(n))"
+        "O(n log n + q log q)"
       ],
       "spaceOptions": [
         "O(1)",
@@ -3999,7 +4010,6 @@
         "d": "days allowed"
       },
       "timeChoices": [
-        "O(log(min(m, n)))",
         "O(log(m·n))",
         "O(max(m, n))",
         "O(n + m)",
@@ -4008,6 +4018,7 @@
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))"
       ],
       "spaceChoices": [
@@ -4026,7 +4037,7 @@
         "O(n + q)",
         "O(n log m)",
         "O(n log n)",
-        "O(n log n + m·α(n))"
+        "O(n log n + q log q)"
       ],
       "spaceOptions": [
         "O(1)",
@@ -4109,16 +4120,16 @@
         "__range__": "R"
       },
       "timeChoices": [
-        "O(m)",
-        "O(max(m, n))",
+        "O(n)",
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + n log R)",
         "O(n log n + m·α(n))",
-        "O(m·n log(m·n))"
+        "O(m·n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -4133,7 +4144,7 @@
         "O(n²)"
       ],
       "timeOptions": [
-        "O(n log m)",
+        "O(n log n)",
         "O(n log n + n log R)",
         "O((n + m)·L log n)",
         "O(V + E log E)"
@@ -4239,8 +4250,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(n)",
@@ -4343,19 +4354,19 @@
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
-        "O(n!)"
+        "O(4ⁿ/√n)"
       ],
       "timeOptions": [
         "O(n³/k)",
         "O(n·L²)",
-        "O(2ⁿ)",
-        "O(n·2ⁿ)"
+        "O(n·2^k)",
+        "O(2ⁿ)"
       ],
       "spaceOptions": [
         "O(V³)",
         "O(n·L²)",
-        "O(n²·2ⁿ)",
-        "O(2^(n+d))"
+        "O(n·2ⁿ)",
+        "O(n²·2ⁿ)"
       ],
       "segments": [
         {
@@ -4452,27 +4463,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
         "O(n² log n)"
       ],
       "spaceChoices": [
         "O(n + m)",
         "O(n log n)",
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -4701,27 +4712,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)"
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -5607,27 +5618,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
+        "O(n log m)",
+        "O(n log n)",
+        "O((n + m) log m)",
+        "O(n log n + m·α(n))",
+        "O(m·n)",
+        "O(m·n log(m·n))",
+        "O(n·α(n))",
+        "O(m·n·α(m·n))",
+        "O(n²)"
+      ],
+      "spaceChoices": [
+        "O(n + m)",
         "O(n log n)",
         "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
         "O(n² log n)"
-      ],
-      "spaceChoices": [
-        "O(n + m)",
-        "O(n log log n)",
-        "O(n log n)",
-        "O(n log n + m·α(n))",
-        "O(m·n)",
-        "O(m·n log(m·n))",
-        "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -5737,14 +5748,14 @@
       "timeChoices": [
         "O(n)",
         "O(n log n)",
+        "O(E log E)",
         "O(n·α(n))",
         "O(E²)",
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
         "O(2^(n/2))",
-        "O(n·2^(n/2))",
-        "O(2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -5857,27 +5868,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log n)",
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
         "O(n² log n)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -5981,7 +5992,7 @@
         "O(E²)",
         "O(n²)",
         "O(n² log n)",
-        "O(2ⁿ)"
+        "O(n³)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -5993,7 +6004,7 @@
         "O(E log E)",
         "O(n·α(n))",
         "O(E²)",
-        "O(n² log n)"
+        "O(n²)"
       ],
       "timeOptions": [
         "O(E)",
@@ -6124,27 +6135,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
-        "O(n log n)",
-        "O(n log n + m·α(n))",
-        "O(m·n)",
-        "O(m·n log(m·n))",
-        "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)"
-      ],
-      "spaceChoices": [
-        "O(n + m)",
         "O(n log n)",
         "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
+        "O(n²)"
+      ],
+      "spaceChoices": [
+        "O(n + m)",
+        "O(n log n)",
+        "O((n + m) log m)",
+        "O(n log n + m·α(n))",
+        "O(m·n)",
+        "O(m·n log(m·n))",
+        "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(n·k)",
@@ -6347,7 +6358,7 @@
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
-        "O(n!)"
+        "O(n·4ⁿ)"
       ],
       "spaceChoices": [
         "O(n log n)",
@@ -6456,25 +6467,25 @@
       },
       "timeChoices": [
         "O(E)",
-        "O(n·k)",
+        "O(n·k log k)",
         "O(k·E)",
         "O(n·α(n))",
         "O(E²)",
         "O(k²)",
         "O(n²)",
-        "O(n²·k)",
         "O(n² log n)",
-        "O(n³)"
+        "O(k³)",
+        "O(n³/k)"
       ],
       "spaceChoices": [
         "O(1)",
         "O(log n)",
-        "O(log k)",
         "O(k)",
         "O(n)",
         "O(E)",
         "O(min(n, k))",
         "O(n log log n)",
+        "O(n log k)",
         "O(n log n)",
         "O(n²)"
       ],
@@ -6558,6 +6569,18 @@
       },
       "timeChoices": [
         "O(n + m)",
+        "O(n log n)",
+        "O((n + m) log n)",
+        "O(n log n + m·α(n))",
+        "O(m·n)",
+        "O(m·n log(m·n))",
+        "O(n·α(n))",
+        "O(m·n·α(m·n))",
+        "O(n²)",
+        "O(n² log n)"
+      ],
+      "spaceChoices": [
+        "O(n + m)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
@@ -6565,20 +6588,8 @@
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)"
-      ],
-      "spaceChoices": [
-        "O(n + m)",
-        "O(n log log n)",
-        "O(n log m)",
-        "O(n log n)",
-        "O(n log n + m·α(n))",
-        "O(m·n)",
-        "O(m·n log(m·n))",
-        "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)"
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -6678,15 +6689,15 @@
       },
       "timeChoices": [
         "O(n·α(n))",
+        "O(E²)",
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
-        "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(4ⁿ/√n)"
       ],
       "spaceChoices": [
         "O(n log n)",
@@ -6698,13 +6709,13 @@
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
-        "O(n·2ⁿ)"
+        "O(4ⁿ/√n)"
       ],
       "timeOptions": [
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2ⁿ)"
       ],
       "spaceOptions": [
         "O(n·k)",
@@ -6800,7 +6811,7 @@
         "E": "number of prerequisites"
       },
       "timeChoices": [
-        "O(n·α(n))",
+        "O(E²)",
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
@@ -6809,7 +6820,7 @@
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
-        "O(n²·2ⁿ)"
+        "O(n·4ⁿ)"
       ],
       "spaceChoices": [
         "O(n log n)",
@@ -6821,13 +6832,13 @@
         "O(n³ + q)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
-        "O(n·2ⁿ)"
+        "O(2ⁿ)"
       ],
       "timeOptions": [
         "O(n³ + q)",
         "O(n·L²)",
         "O(2^(n/2))",
-        "O(n·2ⁿ)"
+        "O(2ⁿ)"
       ],
       "spaceOptions": [
         "O(n·k)",
@@ -6928,9 +6939,9 @@
         "O(V²)"
       ],
       "timeOptions": [
-        "O(V·E)",
         "O(V·(V+E) + q)",
         "O(k·E)",
+        "O(n·α(n))",
         "O(E²)"
       ],
       "spaceOptions": [
@@ -7070,8 +7081,8 @@
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
-        "O(n·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -7083,7 +7094,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(m·n)",
@@ -7182,20 +7193,19 @@
         "n": "columns of heights"
       },
       "timeChoices": [
-        "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
-        "O(n log n + m·α(n))",
+        "O((n + m) log m)",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
         "O(n² log n)",
         "O(n³)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
@@ -7203,13 +7213,14 @@
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)"
       ],
       "timeOptions": [
         "O(n·k log k)",
         "O(m·n)",
         "O(m·n log(m·n))",
-        "O(V·E)"
+        "O((V + E log E)·log k)"
       ],
       "spaceOptions": [
         "O(n log n)",
@@ -7458,8 +7469,8 @@
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
-        "O(n·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)"
       ],
       "timeOptions": [
         "O(E²)",
@@ -7605,10 +7616,10 @@
         "O(E²)",
         "O(V²)",
         "O(k²)",
-        "O(V³)"
+        "O(k³)"
       ],
       "spaceChoices": [
-        "O(1)",
+        "O(log k)",
         "O(k)",
         "O(V)",
         "O(E)",
@@ -7622,8 +7633,8 @@
       "timeOptions": [
         "O(n·m·L)",
         "O((V + E log E)·log k)",
-        "O(E²)",
-        "O(V²)"
+        "O(m·n·α(m·n))",
+        "O(E²)"
       ],
       "spaceOptions": [
         "O(V)",
@@ -7773,10 +7784,10 @@
         "O(V²)"
       ],
       "timeOptions": [
-        "O(m·n)",
         "O(m·n log(m·n))",
+        "O(N·K log(N·K))",
         "O(V·(V+E) + q)",
-        "O(k²)"
+        "O(V²)"
       ],
       "spaceOptions": [
         "O(n)",
@@ -7870,7 +7881,7 @@
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(4ⁿ/√n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -7881,8 +7892,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(n log n)",
@@ -8013,7 +8024,7 @@
         "O(E log V)",
         "O(V + E log E)",
         "O(n·k)",
-        "O(n·k log k)"
+        "O(n·L + m)"
       ],
       "spaceOptions": [
         "O(V)",
@@ -8100,7 +8111,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -8394,7 +8405,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))",
+        "O(n³)",
         "O(n·2^(n/2))"
       ],
       "spaceChoices": [
@@ -8407,7 +8418,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(n)",
@@ -8481,7 +8492,7 @@
       "time": "O(n)",
       "space": "O(n)",
       "whyTime": "The intervals arrive sorted, so sort() is a single O(n) check. The three loops share one forward index, so each interval is handled once. Time is O(n).",
-      "whySpace": "The result list holds up to n + 1 intervals, so space is O(n).",
+      "whySpace": "Sorting intervals in place needs O(n) scratch space; the result list is the returned output and is not counted. Space is O(n).",
       "variables": {
         "n": "number of intervals"
       },
@@ -8494,7 +8505,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
+        "O(2^(n/2))",
         "O(n·2^(n/2))"
       ],
       "spaceChoices": [
@@ -8506,8 +8517,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(h)",
@@ -8609,8 +8620,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -8793,7 +8804,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2ⁿ)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -9000,6 +9011,10 @@
       "variables": {
         "n": "length of s"
       },
+      "bind": {
+        "s": "n",
+        "__domain__": "s"
+      },
       "timeChoices": [
         "O(1)",
         "O(log n)",
@@ -9010,7 +9025,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -9106,6 +9121,7 @@
         "k": "group size"
       },
       "timeChoices": [
+        "O(log k)",
         "O(k)",
         "O(n)",
         "O(min(n, k))",
@@ -9114,7 +9130,6 @@
         "O(n log n)",
         "O(n·k)",
         "O(n·k log k)",
-        "O(n·α(n))",
         "O(n²)"
       ],
       "spaceChoices": [
@@ -9212,26 +9227,26 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
-        "O(log(min(m, n)))",
         "O(log(m·n))",
+        "O(m)",
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
-        "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(m·n)"
       ],
       "timeOptions": [
@@ -9347,7 +9362,7 @@
         "O(1)",
         "O(log n)",
         "O(log k)",
-        "O(m)"
+        "O(c)"
       ],
       "spaceOptions": [
         "O(1)",
@@ -9405,7 +9420,7 @@
         "k": "closest points to return"
       },
       "timeChoices": [
-        "O(log n)",
+        "O(1)",
         "O(log k)",
         "O(k)",
         "O(n)",
@@ -9522,7 +9537,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(n)",
@@ -9603,7 +9618,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))",
+        "O(n³)",
         "O(n·2^(n/2))"
       ],
       "spaceChoices": [
@@ -9616,7 +9631,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(n)",
@@ -9698,28 +9713,28 @@
         "n": "nodes in l2"
       },
       "timeChoices": [
-        "O(1)",
-        "O(log n)",
-        "O(m)",
-        "O(n)",
-        "O(max(m, n))",
-        "O(n + m)",
-        "O(n log log n)",
-        "O(n log m)",
-        "O(n log n)",
-        "O((n + m) log n)"
-      ],
-      "spaceChoices": [
-        "O(1)",
         "O(log n)",
         "O(log(min(m, n)))",
         "O(m)",
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
-        "O(n log log n)",
+        "O(n log m)",
         "O(n log n)",
-        "O((n + m) log n)"
+        "O((n + m) log n)",
+        "O((n + m) log m)"
+      ],
+      "spaceChoices": [
+        "O(log n)",
+        "O(log(min(m, n)))",
+        "O(log(m·n))",
+        "O(m)",
+        "O(n)",
+        "O(max(m, n))",
+        "O(n + m)",
+        "O(n log m)",
+        "O((n + m) log n)",
+        "O((n + m) log m)"
       ],
       "timeOptions": [
         "O(max(m, n))",
@@ -9728,7 +9743,7 @@
         "O(V+E)"
       ],
       "spaceOptions": [
-        "O(k)",
+        "O(c)",
         "O(n)",
         "O(max(m, n))",
         "O(V+E)"
@@ -9927,7 +9942,6 @@
         "n": "nodes in list2"
       },
       "timeChoices": [
-        "O(log(min(m, n)))",
         "O(log(m·n))",
         "O(m)",
         "O(n)",
@@ -9935,7 +9949,8 @@
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
-        "O((n + m) log n)",
+        "O(n log n)",
+        "O((n + m) log m)",
         "O(m·n)"
       ],
       "spaceChoices": [
@@ -10032,7 +10047,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -10043,8 +10058,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(log n)",
@@ -10132,8 +10147,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -10219,8 +10234,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -10352,7 +10367,7 @@
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
-        "O(n·k log k)"
+        "O(n·k)"
       ],
       "timeOptions": [
         "O(1)",
@@ -10950,8 +10965,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -10963,7 +10978,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(log n)",
@@ -11052,7 +11067,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -11063,8 +11078,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(log n)",
@@ -11154,8 +11169,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -11166,8 +11181,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -11446,7 +11461,6 @@
         "m": "length of nums1"
       },
       "timeChoices": [
-        "O(log(m·n))",
         "O(m)",
         "O(n)",
         "O(max(m, n))",
@@ -11454,6 +11468,7 @@
         "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)"
       ],
@@ -11563,8 +11578,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2^(n/2))"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -11576,7 +11591,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(h)",
@@ -11661,8 +11676,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -11673,8 +11688,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -11762,7 +11777,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))",
+        "O(n³)",
         "O(n·2^(n/2))"
       ],
       "spaceChoices": [
@@ -11775,7 +11790,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(n)",
@@ -11944,7 +11959,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -12049,7 +12064,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -12061,7 +12076,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(h)",
@@ -12245,7 +12260,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -12330,7 +12345,7 @@
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(n²·2ⁿ)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -12428,7 +12443,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -12451,7 +12466,7 @@
       "spaceOptions": [
         "O(log n)",
         "O(h)",
-        "O(m)",
+        "O(c)",
         "O(n)"
       ],
       "segments": [
@@ -12535,7 +12550,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(1)",
@@ -12547,7 +12562,7 @@
         "O(log n)",
         "O(h)",
         "O(n)",
-        "O(E)"
+        "O(V)"
       ],
       "segments": [
         {
@@ -12718,7 +12733,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -12730,7 +12745,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(log n)",
@@ -12808,7 +12823,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n·2^(n/2))"
+        "O(n³)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -12912,7 +12927,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n·2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(log n)",
@@ -12990,26 +13005,26 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
-        "O(log(min(m, n)))",
         "O(log(m·n))",
+        "O(m)",
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
-        "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(m·n)"
       ],
       "timeOptions": [
@@ -13109,7 +13124,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -13121,7 +13136,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n·2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(1)",
@@ -13132,8 +13147,8 @@
       "spaceOptions": [
         "O(log n)",
         "O(h)",
-        "O(n)",
-        "O(L)"
+        "O(m)",
+        "O(n)"
       ],
       "segments": [
         {
@@ -13403,26 +13418,26 @@
         "m": "length of sentence"
       },
       "timeChoices": [
-        "O(log(min(m, n)))",
         "O(log(m·n))",
-        "O(n)",
-        "O(max(m, n))",
-        "O(n + m)",
-        "O(n log log n)",
-        "O(n log m)",
-        "O((n + m) log n)",
-        "O(n log n + m·α(n))",
-        "O(m·n)"
-      ],
-      "spaceChoices": [
-        "O(log(min(m, n)))",
         "O(m)",
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
+        "O((n + m) log m)",
+        "O(n log n + m·α(n))",
+        "O(m·n)"
+      ],
+      "spaceChoices": [
+        "O(log(m·n))",
+        "O(n)",
+        "O(max(m, n))",
+        "O(n + m)",
+        "O(n log log n)",
+        "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)"
       ],
@@ -13525,8 +13540,8 @@
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
-        "O(n·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -13538,7 +13553,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(n·k)",
@@ -13629,7 +13644,7 @@
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(4ⁿ/√n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -13640,8 +13655,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(n²)",
@@ -13733,7 +13748,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -13825,7 +13840,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -13911,7 +13926,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -14032,8 +14047,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -14121,14 +14136,14 @@
         "n": "elements in nums2"
       },
       "timeChoices": [
-        "O(log(min(m, n)))",
-        "O(m)",
+        "O(log(m·n))",
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
-        "O((n + m) log n)",
+        "O(n log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)"
       ],
@@ -14408,7 +14423,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -14501,7 +14516,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -14591,8 +14606,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -14688,7 +14703,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -14700,7 +14715,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(log n)",
@@ -14784,7 +14799,7 @@
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
-        "O(n log m)"
+        "O((n + m) log m)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -14802,7 +14817,7 @@
         "O(log n)",
         "O(log(min(m, n)))",
         "O(k)",
-        "O(m)"
+        "O(c)"
       ],
       "spaceOptions": [
         "O(1)",
@@ -15016,8 +15031,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -15068,27 +15083,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(n + m)",
         "O(n log n)",
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -15147,7 +15162,7 @@
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
-        "O(n·k log k)"
+        "O(n·k)"
       ],
       "timeOptions": [
         "O(n)",
@@ -15206,7 +15221,7 @@
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
-        "O(n·k log k)"
+        "O(n·k)"
       ],
       "timeOptions": [
         "O(log n)",
@@ -15244,14 +15259,14 @@
         "m": "length of needle"
       },
       "timeChoices": [
-        "O(log(min(m, n)))",
-        "O(m)",
+        "O(log(m·n))",
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)"
       ],
@@ -15265,7 +15280,7 @@
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
-        "O((n + m) log n)"
+        "O(n log m)"
       ],
       "timeOptions": [
         "O(n)",
@@ -15304,19 +15319,18 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log n)",
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
-        "O(log(min(m, n)))",
-        "O(m)",
+        "O(log(m·n))",
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
@@ -15324,6 +15338,7 @@
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(m·n)"
       ],
       "timeOptions": [
@@ -15477,13 +15492,13 @@
         "n": "board side, also number of queens"
       },
       "timeChoices": [
-        "O(n² log n)",
         "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n!)",
         "O(n·n!)"
@@ -15497,8 +15512,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(2ⁿ)",
@@ -15537,15 +15552,15 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -15596,15 +15611,15 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)"
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -15654,7 +15669,6 @@
         "n": "length of b"
       },
       "timeChoices": [
-        "O(1)",
         "O(log n)",
         "O(log(min(m, n)))",
         "O(log(m·n))",
@@ -15662,12 +15676,12 @@
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
-        "O(n log n)",
-        "O((n + m) log n)"
+        "O(n log log n)",
+        "O((n + m) log n)",
+        "O((n + m) log m)"
       ],
       "spaceChoices": [
-        "O(1)",
-        "O(log(m·n))",
+        "O(log n)",
         "O(m)",
         "O(n)",
         "O(max(m, n))",
@@ -15675,7 +15689,8 @@
         "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
-        "O((n + m) log n)"
+        "O((n + m) log n)",
+        "O((n + m) log m)"
       ],
       "timeOptions": [
         "O(V)",
@@ -15772,27 +15787,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(n log n)",
@@ -15831,15 +15846,15 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)"
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -15896,8 +15911,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -16008,13 +16023,13 @@
         "O(n + m)",
         "O(n log m)",
         "O(n log n)",
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n³)"
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -16129,8 +16144,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -16247,7 +16262,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -16259,7 +16274,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n·2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(1)",
@@ -16271,7 +16286,7 @@
         "O(log n)",
         "O(h)",
         "O(n)",
-        "O(V)"
+        "O(L)"
       ],
       "segments": []
     },
@@ -16298,15 +16313,15 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)"
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -16365,7 +16380,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -16377,7 +16392,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -16424,7 +16439,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -16436,7 +16451,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n·2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(h)",
@@ -16448,7 +16463,7 @@
         "O(log n)",
         "O(h)",
         "O(n)",
-        "O(E)"
+        "O(V)"
       ],
       "segments": []
     },
@@ -16475,15 +16490,15 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
-        "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -16651,7 +16666,6 @@
         "L": "length of the longest word"
       },
       "timeChoices": [
-        "O((n + m) log n)",
         "O((n + m)·L log n)",
         "O(n·L)",
         "O(n·L + m)",
@@ -16659,6 +16673,7 @@
         "O(m·n log(m·n))",
         "O(n·m·L)",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
         "O(n² log n)"
       ],
@@ -16675,8 +16690,8 @@
         "O(n²)"
       ],
       "timeOptions": [
-        "O(W·k)",
         "O(m + n·k)",
+        "O(n·L + m)",
         "O(n·m·L)",
         "O((V + E log E)·log k)"
       ],
@@ -16711,37 +16726,37 @@
         "L": "length of the longest word"
       },
       "timeChoices": [
-        "O(n³)",
+        "O(n² log n)",
         "O(n·L²)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
-        "O(m·4ⁿ)",
         "O(n!)"
       ],
       "spaceChoices": [
-        "O(n³)",
         "O(n·L²)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
-        "O(m·4ⁿ)",
-        "O(n!)"
+        "O(n!)",
+        "O(n·n!)"
       ],
       "timeOptions": [
-        "O(n³)",
+        "O(n³ + q)",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n!)"
       ],
       "spaceOptions": [
-        "O(n·L²)",
+        "O(2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n!)"
@@ -16835,8 +16850,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -16907,7 +16922,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(1)",
@@ -17069,7 +17084,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -17127,7 +17142,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -17139,13 +17154,13 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2^(n/2))"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
-        "O(n log n + n log R)"
+        "O((n + m) log m)"
       ],
       "spaceOptions": [
         "O(1)",
@@ -17184,8 +17199,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -17243,7 +17258,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -17295,20 +17310,20 @@
         "W": "words in the list"
       },
       "timeChoices": [
-        "O(n·2^(n/2))",
+        "O(n·2^k)",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
         "O(m·n·3^k)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
-        "O(m·4ⁿ)",
         "O(n·kⁿ)",
         "O(n!)",
         "O(n·n!)"
       ],
       "spaceChoices": [
-        "O(n log m)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(n·k)",
         "O(W·k)",
@@ -17320,12 +17335,12 @@
       ],
       "timeOptions": [
         "O(m·n·3^k)",
-        "O(n·4ⁿ)",
-        "O(n·kⁿ)",
-        "O(n!)"
+        "O(4ⁿ/√n)",
+        "O(m·4ⁿ)",
+        "O(n·kⁿ)"
       ],
       "spaceOptions": [
-        "O(E log E)",
+        "O(V + E log E)",
         "O(W·k)",
         "O(m·n)",
         "O(m·n log(m·n))"
@@ -17361,8 +17376,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -17412,7 +17427,7 @@
         "k": "rank k of the kth largest"
       },
       "timeChoices": [
-        "O(log n)",
+        "O(1)",
         "O(log k)",
         "O(k)",
         "O(n)",
@@ -17433,7 +17448,7 @@
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
-        "O(n·k log k)"
+        "O(n·k)"
       ],
       "timeOptions": [
         "O(n)",
@@ -17478,7 +17493,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))",
+        "O(n³)",
         "O(n·2^(n/2))"
       ],
       "spaceChoices": [
@@ -17590,14 +17605,14 @@
       "timeChoices": [
         "O(n + m)",
         "O(n log n)",
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -17654,8 +17669,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -17667,7 +17682,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -17706,7 +17721,7 @@
         "k": "rank of the wanted value"
       },
       "timeChoices": [
-        "O(1)",
+        "O(log n)",
         "O(log k)",
         "O(h)",
         "O(k)",
@@ -17785,7 +17800,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -17890,7 +17905,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -17949,7 +17964,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -17961,7 +17976,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n·2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(1)",
@@ -18006,8 +18021,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))",
-        "O(n·2^(n/2))"
+        "O(n³)",
+        "O(2ⁿ)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -18232,7 +18247,6 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
@@ -18240,19 +18254,20 @@
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -18297,8 +18312,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -18367,8 +18382,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(log n)",
@@ -18427,7 +18442,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(log n)",
@@ -18596,15 +18611,15 @@
       ],
       "spaceChoices": [
         "O(n + m)",
+        "O(n log m)",
         "O(n log n)",
-        "O(n log n + q log q)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n³)",
-        "O(n³ + q)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(1)",
@@ -18709,7 +18724,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -18779,8 +18794,8 @@
         "O(n log n)",
         "O(E log E)",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)"
+        "O(E²)",
+        "O(n²)"
       ],
       "timeOptions": [
         "O(1)",
@@ -18826,7 +18841,7 @@
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(4ⁿ/√n)"
       ],
       "spaceChoices": [
         "O(n log n)",
@@ -18837,8 +18852,8 @@
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
-        "O(n·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)"
       ],
       "timeOptions": [
         "O(n²)",
@@ -18884,7 +18899,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2^(n/2))"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -18896,7 +18911,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2^(n/2))"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(n)",
@@ -18935,7 +18950,6 @@
       },
       "timeChoices": [
         "O(n)",
-        "O(min(n, k))",
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
@@ -18943,7 +18957,8 @@
         "O(n·k log k)",
         "O(n·α(n))",
         "O(k²)",
-        "O(n²)"
+        "O(n²)",
+        "O(n²·k)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -18994,27 +19009,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -19061,7 +19076,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -19073,7 +19088,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(log n)",
@@ -19084,8 +19099,8 @@
       "spaceOptions": [
         "O(log n)",
         "O(h)",
-        "O(n)",
-        "O(L)"
+        "O(m)",
+        "O(n)"
       ],
       "segments": []
     },
@@ -19118,8 +19133,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -19131,7 +19146,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(h)",
@@ -19176,8 +19191,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))",
-        "O(n·2^(n/2))"
+        "O(n³)",
+        "O(2ⁿ)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -19293,8 +19308,8 @@
         "O(n·k)",
         "O(n·k log k)",
         "O(n·α(n))",
-        "O(k²)",
-        "O(n²·k)"
+        "O(n²)",
+        "O(k³)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -19363,8 +19378,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -19409,8 +19424,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -19460,8 +19475,7 @@
         "m": "length of ransomNote"
       },
       "timeChoices": [
-        "O(log(min(m, n)))",
-        "O(m)",
+        "O(log(m·n))",
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
@@ -19469,6 +19483,7 @@
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(m·n)"
       ],
       "spaceChoices": [
@@ -19522,9 +19537,9 @@
       "timeChoices": [
         "O(1)",
         "O(log n)",
-        "O(log k)",
+        "O(log(min(m, n)))",
+        "O(log(m·n))",
         "O(k)",
-        "O(m)",
         "O(n)",
         "O(max(m, n))",
         "O(min(n, k))",
@@ -19534,12 +19549,12 @@
       "spaceChoices": [
         "O(1)",
         "O(log n)",
-        "O(log k)",
         "O(log(min(m, n)))",
         "O(log(m·n))",
         "O(k)",
         "O(m)",
         "O(n)",
+        "O(max(m, n))",
         "O(n log n)",
         "O(n²)"
       ],
@@ -19586,8 +19601,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -19638,7 +19653,6 @@
       },
       "timeChoices": [
         "O(n)",
-        "O(min(n, k))",
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
@@ -19646,7 +19660,8 @@
         "O(n·k log k)",
         "O(n·α(n))",
         "O(k²)",
-        "O(n²)"
+        "O(n² log n)",
+        "O(k³)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -19658,7 +19673,7 @@
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
-        "O(n·k log k)"
+        "O(n·k)"
       ],
       "timeOptions": [
         "O(n)",
@@ -19755,7 +19770,6 @@
         "m": "length of p"
       },
       "timeChoices": [
-        "O(log(min(m, n)))",
         "O(log(m·n))",
         "O(m)",
         "O(n)",
@@ -19764,6 +19778,7 @@
         "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(m·n)"
       ],
       "spaceChoices": [
@@ -19822,7 +19837,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -19833,8 +19848,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2^(n/2))"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -19893,7 +19908,7 @@
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
-        "O(n·k log k)"
+        "O(n·k)"
       ],
       "timeOptions": [
         "O(1)",
@@ -19951,7 +19966,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(n)",
@@ -19997,8 +20012,8 @@
         "O(n·k log k)",
         "O(n·α(n))",
         "O(k²)",
-        "O(n²)",
-        "O(n²·k)"
+        "O(n² log n)",
+        "O(k³)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -20010,7 +20025,7 @@
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
-        "O(n·k log k)"
+        "O(n·k)"
       ],
       "timeOptions": [
         "O(n)",
@@ -20055,8 +20070,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -20166,15 +20181,15 @@
       },
       "timeChoices": [
         "O(n)",
-        "O(min(n, k))",
         "O(n log log n)",
         "O(n log k)",
         "O(n log n)",
         "O(n·k)",
         "O(n·k log k)",
+        "O(n·α(n))",
         "O(k²)",
-        "O(n²)",
-        "O(n²·k)"
+        "O(n²·k)",
+        "O(k³)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -20231,8 +20246,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -20243,8 +20258,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -20283,27 +20298,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log n)",
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log log n)",
+        "O(n log m)",
         "O(n log n)",
-        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(n log n)",
@@ -20348,8 +20363,8 @@
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
-        "O(n·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -20360,8 +20375,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(n log n)",
@@ -20407,7 +20422,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2^(n/2))"
+        "O(2ⁿ)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -20418,8 +20433,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(n log n)",
@@ -20466,7 +20481,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -20537,7 +20552,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -20642,7 +20657,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2ⁿ)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -20653,7 +20668,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
+        "O(2^(n/2))",
         "O(n·2^(n/2))"
       ],
       "timeOptions": [
@@ -20700,7 +20715,7 @@
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
-        "O(n²·2ⁿ)"
+        "O(4ⁿ/√n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -20757,8 +20772,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -20808,33 +20823,33 @@
         "k": "number of equal subsets"
       },
       "timeChoices": [
-        "O(n²)",
-        "O(n³/k)",
-        "O(n³)",
+        "O(n²·k)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
+        "O(n·2^k)",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n!)"
       ],
       "spaceChoices": [
         "O(n²)",
-        "O(n³/k)",
         "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
+        "O(n·2^k)",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
-        "O(n·4ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n!)"
       ],
       "timeOptions": [
         "O(2ⁿ)",
         "O(n·2ⁿ)",
-        "O(n·4ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n!)"
       ],
       "spaceOptions": [
@@ -20875,7 +20890,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -20925,38 +20940,38 @@
         "k": "number of digit values (0 to k-1)"
       },
       "timeChoices": [
-        "O(n³)",
-        "O(2^(n/2))",
         "O(n·2^(n/2))",
+        "O(n·2^k)",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n·kⁿ)",
         "O(n!)",
         "O(n·n!)"
       ],
       "spaceChoices": [
-        "O(n³/k)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n·kⁿ)",
         "O(n!)",
         "O(n·n!)"
       ],
       "timeOptions": [
-        "O(n²·2ⁿ)",
-        "O(m·n·3^k)",
+        "O(2^(n+d))",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n·kⁿ)"
       ],
       "spaceOptions": [
-        "O(n²·2ⁿ)",
-        "O(n^d)",
+        "O(2^(n+d))",
+        "O(m·n·3^k)",
         "O(n·kⁿ)",
         "O(n·n!)"
       ],
@@ -21051,9 +21066,9 @@
         "O(n·k log k)",
         "O(m·n)",
         "O(m·n log(m·n))",
+        "O(m·n·α(m·n))",
         "O(k²)",
-        "O(n²)",
-        "O(n²·k)"
+        "O(n²)"
       ],
       "spaceChoices": [
         "O(n + m)",
@@ -21063,9 +21078,9 @@
         "O(n·k log k)",
         "O(m·n)",
         "O(m·n log(m·n))",
+        "O(m·n·α(m·n))",
         "O(k²)",
-        "O(n²)",
-        "O(n²·k)"
+        "O(n²)"
       ],
       "timeOptions": [
         "O(n·k)",
@@ -21162,7 +21177,6 @@
         "m": "number of banned words"
       },
       "timeChoices": [
-        "O(log(m·n))",
         "O(m)",
         "O(n)",
         "O(max(m, n))",
@@ -21171,17 +21185,18 @@
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(m·n)"
       ],
       "spaceChoices": [
-        "O(log(min(m, n)))",
         "O(log(m·n))",
+        "O(m)",
         "O(n)",
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
-        "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)"
       ],
@@ -21228,24 +21243,24 @@
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
-        "O(n!)",
         "O(n·n!)"
       ],
       "spaceChoices": [
-        "O(n²)",
-        "O(n³)",
+        "O(n² log n)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(n!)",
         "O(n·n!)"
       ],
       "timeOptions": [
-        "O(2^(n/2))",
+        "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n²·2ⁿ)",
         "O(m·n·3^k)"
@@ -21253,7 +21268,7 @@
       "spaceOptions": [
         "O(2ⁿ)",
         "O(n·2ⁿ)",
-        "O(n·4ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n!)"
       ],
       "segments": []
@@ -21288,7 +21303,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -21338,7 +21353,7 @@
         "k": "the shift per element"
       },
       "timeChoices": [
-        "O(log n)",
+        "O(1)",
         "O(k)",
         "O(n)",
         "O(min(n, k))",
@@ -21406,7 +21421,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -21418,7 +21433,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(h)",
@@ -21429,7 +21444,7 @@
       "spaceOptions": [
         "O(log n)",
         "O(h)",
-        "O(m)",
+        "O(c)",
         "O(n)"
       ],
       "segments": []
@@ -21463,7 +21478,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
+        "O(2^(n/2))",
         "O(n·2^(n/2))"
       ],
       "spaceChoices": [
@@ -21476,7 +21491,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(log n)",
@@ -21523,7 +21538,7 @@
         "O(n log n + q log q)",
         "O(n·α(n))",
         "O(n²)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -21573,7 +21588,18 @@
         "m": "length of secondList"
       },
       "timeChoices": [
-        "O(log(min(m, n)))",
+        "O(log(m·n))",
+        "O(m)",
+        "O(n)",
+        "O(max(m, n))",
+        "O(n + m)",
+        "O(n log log n)",
+        "O(n log m)",
+        "O((n + m) log n)",
+        "O((n + m) log m)",
+        "O(m·n)"
+      ],
+      "spaceChoices": [
         "O(log(m·n))",
         "O(n)",
         "O(max(m, n))",
@@ -21582,18 +21608,7 @@
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
-        "O(m·n)"
-      ],
-      "spaceChoices": [
-        "O(log(min(m, n)))",
-        "O(m)",
-        "O(n)",
-        "O(max(m, n))",
-        "O(n + m)",
-        "O(n log log n)",
-        "O(n log m)",
-        "O(n log n)",
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(m·n)"
       ],
       "timeOptions": [
@@ -21641,7 +21656,7 @@
         "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
-        "O(2ⁿ)"
+        "O(n·2^k)"
       ],
       "spaceChoices": [
         "O(n log n)",
@@ -21704,7 +21719,6 @@
         "O(n·α(n))"
       ],
       "spaceChoices": [
-        "O(n)",
         "O(n + q)",
         "O(n log log n)",
         "O(n log n)",
@@ -21713,6 +21727,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
+        "O(n³)",
         "O(n·L²)"
       ],
       "timeOptions": [
@@ -21759,7 +21774,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2^(n/2))"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -21816,7 +21831,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))",
+        "O(n³)",
         "O(n·2^(n/2))"
       ],
       "spaceChoices": [
@@ -21829,7 +21844,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(n)",
@@ -21867,20 +21882,19 @@
         "n": "columns of grid"
       },
       "timeChoices": [
-        "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
@@ -21888,13 +21902,14 @@
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)"
       ],
       "timeOptions": [
         "O(n·k log k)",
         "O(m·n log(m·n))",
-        "O(k·E)",
-        "O(n·α(n))"
+        "O(V·(V+E) + q)",
+        "O(k·E)"
       ],
       "spaceOptions": [
         "O(n + m)",
@@ -21926,7 +21941,6 @@
         "m": "number of bookings"
       },
       "timeChoices": [
-        "O(log(min(m, n)))",
         "O(log(m·n))",
         "O(m)",
         "O(n)",
@@ -21934,6 +21948,7 @@
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
+        "O(n log n)",
         "O(n log n + m·α(n))",
         "O(m·n)"
       ],
@@ -22045,27 +22060,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log m)",
-        "O(n log n)",
-        "O(n log n + m·α(n))",
-        "O(m·n)",
-        "O(m·n log(m·n))",
-        "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
-      ],
-      "spaceChoices": [
-        "O(n + m)",
-        "O(n log log n)",
         "O(n log n)",
         "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
         "O(n² log n)"
+      ],
+      "spaceChoices": [
+        "O(n + m)",
+        "O(n log m)",
+        "O(n log n)",
+        "O((n + m) log m)",
+        "O(n log n + m·α(n))",
+        "O(m·n)",
+        "O(m·n log(m·n))",
+        "O(n·α(n))",
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -22112,7 +22127,7 @@
         "O(n log n + q log q)",
         "O(n·α(n))",
         "O(n²)",
-        "O(n³ + q)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -22170,7 +22185,7 @@
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(4ⁿ/√n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -22181,8 +22196,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(m·n)",
@@ -22283,24 +22298,24 @@
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
         "O(2^(n/2))",
-        "O(n·2^(n/2))",
-        "O(2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(n log n)",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2^(n/2))",
-        "O(2ⁿ)",
-        "O(n·2ⁿ)"
+        "O(n·2^(n/2))",
+        "O(2ⁿ)"
       ],
       "timeOptions": [
         "O(n·k)",
@@ -22338,13 +22353,13 @@
         "m": "number of swap pairs"
       },
       "timeChoices": [
-        "O(n)",
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))"
@@ -22362,7 +22377,7 @@
         "O(n²)"
       ],
       "timeOptions": [
-        "O(n log k)",
+        "O(n log m)",
         "O(n log n + m·α(n))",
         "O(E log V)",
         "O(E log E)"
@@ -22416,8 +22431,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(n)",
@@ -22463,7 +22478,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -22475,7 +22490,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -22514,11 +22529,11 @@
         "L": "length of the longest product"
       },
       "timeChoices": [
-        "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O((n + m)·L log n)",
         "O(n·L)",
@@ -22573,12 +22588,12 @@
         "n": "columns of seats"
       },
       "timeChoices": [
-        "O(n³)",
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
         "O(m·4ⁿ)",
         "O(n!)",
@@ -22592,12 +22607,12 @@
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
-        "O(n·4ⁿ)",
+        "O(4ⁿ/√n)",
         "O(m·4ⁿ)",
         "O(n!)"
       ],
       "timeOptions": [
-        "O(n·2ⁿ)",
+        "O(n²·2ⁿ)",
         "O(n·4ⁿ)",
         "O(m·4ⁿ)",
         "O(n·n!)"
@@ -22633,19 +22648,18 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
@@ -22653,6 +22667,7 @@
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)"
       ],
       "timeOptions": [
@@ -22692,19 +22707,18 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log m)",
         "O(n log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
@@ -22712,6 +22726,7 @@
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)"
       ],
       "timeOptions": [
@@ -22769,8 +22784,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -22816,7 +22831,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -22828,7 +22843,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(log n)",
@@ -22886,7 +22901,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -22936,6 +22951,7 @@
         "O(n·k)"
       ],
       "spaceChoices": [
+        "O(log n)",
         "O(k)",
         "O(n)",
         "O(min(n, k))",
@@ -22944,7 +22960,6 @@
         "O(n log n)",
         "O(n·k)",
         "O(n·k log k)",
-        "O(n·α(n))",
         "O(n²)"
       ],
       "timeOptions": [
@@ -22986,13 +23001,13 @@
         "O(n + m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -23168,10 +23183,9 @@
         "O(n³/k)",
         "O(n³)",
         "O(2^(n/2))",
-        "O(n·2^(n/2))"
+        "O(n²·2ⁿ)"
       ],
       "spaceChoices": [
-        "O(n·k log k)",
         "O(n·α(n))",
         "O(k²)",
         "O(n²)",
@@ -23179,8 +23193,9 @@
         "O(n² log n)",
         "O(k³)",
         "O(n³/k)",
-        "O(n·2^(n/2))",
-        "O(2ⁿ)"
+        "O(n³)",
+        "O(2^(n/2))",
+        "O(n·2^k)"
       ],
       "timeOptions": [
         "O(n²)",
@@ -23297,7 +23312,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2^(n/2))"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -23337,8 +23352,7 @@
         "W": "number of words"
       },
       "timeChoices": [
-        "O(n log n)",
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(n·k)",
         "O(W·k)",
@@ -23346,7 +23360,8 @@
         "O(n·k log k)",
         "O(m·n)",
         "O(m·n log(m·n))",
-        "O(n·α(n))"
+        "O(n·α(n))",
+        "O(m·n·α(m·n))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -23358,10 +23373,10 @@
         "O(m)",
         "O(n)",
         "O(max(m, n))",
-        "O(min(n, k))"
+        "O(n + m)"
       ],
       "timeOptions": [
-        "O(E log E)",
+        "O(V + E log E)",
         "O(m + n·k)",
         "O(m·n)",
         "O(m·n log(m·n))"
@@ -23397,7 +23412,7 @@
         "L": "length of the longest word"
       },
       "timeChoices": [
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O((n + m)·L log n)",
         "O(n·L)",
@@ -23406,7 +23421,7 @@
         "O(m·n log(m·n))",
         "O(n·m·L)",
         "O(n·α(n))",
-        "O(n² log n)"
+        "O(m·n·α(m·n))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -23421,13 +23436,13 @@
         "O(n log log n)"
       ],
       "timeOptions": [
-        "O(n·k)",
+        "O(N·K)",
         "O(m + n·k)",
         "O(n·L + m)",
-        "O(n·m·L)"
+        "O(N·K log(N·K))"
       ],
       "spaceOptions": [
-        "O(k)",
+        "O(c)",
         "O(m)",
         "O(L)",
         "O(V)"
@@ -23456,16 +23471,16 @@
         "m": "largest deliciousness value"
       },
       "timeChoices": [
-        "O(log(m·n))",
-        "O(n)",
+        "O(m)",
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
-        "O(m·n log(m·n))"
+        "O(m·n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -23483,7 +23498,7 @@
         "O(V+E)",
         "O(n log log n)",
         "O(n log m)",
-        "O(n log n + q log q)"
+        "O(n log n + n log R)"
       ],
       "spaceOptions": [
         "O(log n)",
@@ -23522,8 +23537,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -23535,7 +23550,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(log n)",
@@ -23581,7 +23596,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -23593,7 +23608,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n²·2ⁿ)"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -23637,11 +23652,12 @@
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)",
         "O(n·4ⁿ)",
-        "O(n!)",
-        "O(n·n!)"
+        "O(n!)"
       ],
       "spaceChoices": [
+        "O(n²)",
         "O(n² log n)",
         "O(n³)",
         "O(2^(n/2))",
@@ -23649,21 +23665,20 @@
         "O(2ⁿ)",
         "O(n·2ⁿ)",
         "O(n²·2ⁿ)",
-        "O(n·4ⁿ)",
-        "O(n!)",
-        "O(n·n!)"
+        "O(4ⁿ/√n)",
+        "O(n·4ⁿ)"
       ],
       "timeOptions": [
         "O(n³/k)",
         "O(n·2^(n/2))",
-        "O(2ⁿ)",
-        "O(n²·2ⁿ)"
+        "O(n·2^k)",
+        "O(n·2ⁿ)"
       ],
       "spaceOptions": [
         "O(V³)",
         "O(2^(n/2))",
-        "O(n·2ⁿ)",
-        "O(2^(n+d))"
+        "O(2ⁿ)",
+        "O(n²·2ⁿ)"
       ],
       "segments": []
     },
@@ -23697,7 +23712,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2^(n/2))"
+        "O(2ⁿ)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -23709,7 +23724,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(n log k)",
@@ -23751,11 +23766,11 @@
       "timeChoices": [
         "O(V+E)",
         "O(E log V)",
-        "O(E log E)",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(V·E)",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(E²)",
         "O(V²)",
         "O(n² log n)"
@@ -23770,12 +23785,12 @@
         "O(max(m, n))",
         "O(n + m)",
         "O(V+E)",
-        "O(n log log n)"
+        "O(n log n)"
       ],
       "timeOptions": [
         "O(V+E)",
         "O(E log V)",
-        "O(m·n log(m·n))",
+        "O(N·K log(N·K))",
         "O(V·E)"
       ],
       "spaceOptions": [
@@ -23808,6 +23823,7 @@
         "q": "number of queries"
       },
       "timeChoices": [
+        "O(1)",
         "O(log n)",
         "O(n)",
         "O(n + q)",
@@ -23816,8 +23832,7 @@
         "O(n log n + q log q)",
         "O(n·α(n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -23829,7 +23844,7 @@
         "O(n log n + q log q)",
         "O(n·α(n))",
         "O(n²)",
-        "O(n² log n)"
+        "O(n³ + q)"
       ],
       "timeOptions": [
         "O(n log n + q log q)",
@@ -23868,27 +23883,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)"
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log m)",
         "O(n log n)",
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -23933,8 +23948,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -23946,7 +23961,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(h)",
@@ -24042,6 +24057,7 @@
         "E": "number of roads"
       },
       "timeChoices": [
+        "O(1)",
         "O(V)",
         "O(E)",
         "O(V+E)",
@@ -24050,8 +24066,7 @@
         "O(V + E log E)",
         "O(V·E)",
         "O(E²)",
-        "O(V²)",
-        "O(V³)"
+        "O(V²)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -24109,7 +24124,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -24178,8 +24193,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(n·2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -24285,7 +24300,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -24297,7 +24312,7 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(2^(n/2))"
+        "O(n³)"
       ],
       "timeOptions": [
         "O(log n)",
@@ -24355,7 +24370,7 @@
         "O(n log log n)",
         "O(n log n)",
         "O(E log V)",
-        "O(V + E log E)",
+        "O(E log E)",
         "O(V·E)",
         "O(V²)"
       ],
@@ -24403,7 +24418,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -24454,27 +24469,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
+        "O(n log n)",
+        "O((n + m) log m)",
+        "O(n log n + m·α(n))",
+        "O(m·n)",
+        "O(m·n log(m·n))",
+        "O(n·α(n))",
+        "O(m·n·α(m·n))",
+        "O(n²)",
+        "O(n² log n)"
+      ],
+      "spaceChoices": [
+        "O(n + m)",
         "O(n log n)",
         "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n³)"
-      ],
-      "spaceChoices": [
-        "O(n + m)",
-        "O(n log m)",
-        "O(n log n)",
-        "O(n log n + m·α(n))",
-        "O(m·n)",
-        "O(m·n log(m·n))",
-        "O(n·α(n))",
-        "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -24526,7 +24541,7 @@
       ],
       "spaceChoices": [
         "O(n log n)",
-        "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(n·k)",
         "O(m + n·k)",
@@ -24534,7 +24549,7 @@
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(k²)"
+        "O(m·n·α(m·n))"
       ],
       "timeOptions": [
         "O(1)",
@@ -24543,10 +24558,10 @@
         "O(n)"
       ],
       "spaceOptions": [
-        "O(n·k)",
+        "O(N·K)",
         "O(m + n·k)",
         "O(m·n log(m·n))",
-        "O(n·m·L)"
+        "O(N·K log(N·K))"
       ],
       "segments": []
     },
@@ -24579,8 +24594,8 @@
         "O(n·α(n))",
         "O(n²)",
         "O(n² log n)",
-        "O(n³)",
-        "O(2ⁿ)"
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
       ],
       "spaceChoices": [
         "O(1)",
@@ -24650,7 +24665,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2ⁿ)"
+        "O(n·2^(n/2))"
       ],
       "timeOptions": [
         "O(log n)",
@@ -24708,7 +24723,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(n·k)",
@@ -24746,6 +24761,7 @@
         "E": "number of edges"
       },
       "timeChoices": [
+        "O(1)",
         "O(V)",
         "O(E)",
         "O(V+E)",
@@ -24754,8 +24770,7 @@
         "O(V + E log E)",
         "O(V·E)",
         "O(E²)",
-        "O(V²)",
-        "O(V³)"
+        "O(V²)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -24806,13 +24821,13 @@
       },
       "timeChoices": [
         "O(m)",
-        "O(n)",
         "O(max(m, n))",
         "O(n + m)",
         "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
         "O(m·n log(m·n))"
       ],
@@ -24824,8 +24839,8 @@
         "O(n log m)",
         "O(n log n)",
         "O((n + m) log n)",
+        "O((n + m) log m)",
         "O(n log n + m·α(n))",
-        "O(m·n)",
         "O(n²)"
       ],
       "timeOptions": [
@@ -24865,8 +24880,7 @@
         "k": "maximum index distance"
       },
       "timeChoices": [
-        "O(log(min(m, n)))",
-        "O(m)",
+        "O(log(m·n))",
         "O(n)",
         "O(max(m, n))",
         "O(min(n, k))",
@@ -24874,11 +24888,12 @@
         "O(n log log n)",
         "O(n log k)",
         "O(n log m)",
+        "O(n log n)",
         "O(m·n)"
       ],
       "spaceChoices": [
-        "O(log(min(m, n)))",
         "O(log(m·n))",
+        "O(k)",
         "O(n)",
         "O(max(m, n))",
         "O(min(n, k))",
@@ -24944,7 +24959,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(1)",
@@ -24989,8 +25004,8 @@
         "O(2^(n/2))",
         "O(n·2^(n/2))",
         "O(2ⁿ)",
-        "O(n·2ⁿ)",
-        "O(n·4ⁿ)"
+        "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -25041,27 +25056,27 @@
       },
       "timeChoices": [
         "O(n + m)",
-        "O(n log log n)",
         "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
-        "O(n²)",
-        "O(n³)"
+        "O(m·n·α(m·n))",
+        "O(n²)"
       ],
       "spaceChoices": [
         "O(n + m)",
-        "O(n log m)",
         "O(n log n)",
+        "O((n + m) log n)",
         "O(n log n + m·α(n))",
         "O(m·n)",
         "O(m·n log(m·n))",
         "O(n·α(n))",
+        "O(m·n·α(m·n))",
         "O(n²)",
-        "O(n² log n)",
-        "O(n³)"
+        "O(n² log n)"
       ],
       "timeOptions": [
         "O(n + m)",
@@ -25185,7 +25200,7 @@
         "O(V+E)",
         "O(E log V)",
         "O(V·E)",
-        "O(V²)"
+        "O(E²)"
       ],
       "spaceOptions": [
         "O(n)",
@@ -25225,7 +25240,7 @@
         "O(n·2^(n/2))",
         "O(2ⁿ)",
         "O(n·2ⁿ)",
-        "O(n²·2ⁿ)"
+        "O(4ⁿ/√n)"
       ],
       "spaceChoices": [
         "O(1)",
@@ -25237,7 +25252,7 @@
         "O(n²)",
         "O(n² log n)",
         "O(n³)",
-        "O(n·2^(n/2))"
+        "O(2^(n/2))"
       ],
       "timeOptions": [
         "O(n log n)",

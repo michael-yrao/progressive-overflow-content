@@ -57,7 +57,11 @@
             "        return image"
           ]
         }
-      ]
+      ],
+      "time": "O(m·n)",
+      "space": "O(m·n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "200:bfs",
@@ -131,7 +135,11 @@
             "        return islandCount"
           ]
         }
-      ]
+      ],
+      "time": "O(m·n)",
+      "space": "O(m·n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "200:dfs",
@@ -200,7 +208,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(m·n)",
+      "space": "O(m·n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "146:hashmap-dll",
@@ -289,7 +301,11 @@
             "            del self.cache[lru.key]"
           ]
         }
-      ]
+      ],
+      "time": "O(1)",
+      "space": "O(c)",
+      "timeQualifier": "per operation",
+      "spaceQualifier": null
     },
     {
       "key": "1216:backtracking",
@@ -339,7 +355,11 @@
             "        return backtrack(0,len(s)-1,k)"
           ]
         }
-      ]
+      ],
+      "time": "O(n·2^k)",
+      "space": "O(k)",
+      "timeQualifier": null,
+      "spaceQualifier": "recursion depth"
     },
     {
       "key": "1216:cache",
@@ -392,7 +412,11 @@
             "        return backtrack(0,len(s)-1,k)"
           ]
         }
-      ]
+      ],
+      "time": "O(n²·k)",
+      "space": "O(n²·k)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "901:monotonic-stack",
@@ -433,7 +457,11 @@
             "        return currentSpan"
           ]
         }
-      ]
+      ],
+      "time": "O(1)",
+      "space": "O(n)",
+      "timeQualifier": "amortized per operation",
+      "spaceQualifier": null
     },
     {
       "key": "122:greedy",
@@ -472,7 +500,11 @@
             "        return profit"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "1929:modulo-fill",
@@ -510,7 +542,11 @@
             "        return ans"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "11:two-pointers",
@@ -560,7 +596,11 @@
             "        return maxArea"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "217:set-iteration",
@@ -602,7 +642,11 @@
             "        return False"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "217:length-check",
@@ -640,7 +684,11 @@
             "        return len(set(nums)) < len(nums)"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "271:length-prefix",
@@ -696,7 +744,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "49:sort-key-map",
@@ -735,7 +787,11 @@
             "        return list(anagramMap.values())"
           ]
         }
-      ]
+      ],
+      "time": "O(n·k log k)",
+      "space": "O(n·k)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "49:defaultdict",
@@ -772,7 +828,11 @@
             "        return list(anagramMap.values())"
           ]
         }
-      ]
+      ],
+      "time": "O(n·k log k)",
+      "space": "O(n·k)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "14:vertical-scan",
@@ -816,7 +876,11 @@
             "        return prefix"
           ]
         }
-      ]
+      ],
+      "time": "O(m·n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "128:hashset",
@@ -859,7 +923,11 @@
             "        return maxConsecutive"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "128:endpoint-map",
@@ -907,7 +975,11 @@
             "        return longest"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "229:freq-map",
@@ -955,7 +1027,11 @@
             "        return returnList"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "229:boyer-moore",
@@ -1022,7 +1098,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "169:freq-map",
@@ -1062,7 +1142,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "169:boyer-moore",
@@ -1110,7 +1194,11 @@
             "        return maxElement"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "66:carry",
@@ -1152,7 +1240,11 @@
             "        return [1] + digits"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "238:prefix-suffix",
@@ -1205,7 +1297,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "238:o1-space",
@@ -1252,7 +1348,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "27:write-pointer",
@@ -1295,7 +1395,11 @@
             "        return l"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "189:three-reversals",
@@ -1344,7 +1448,11 @@
             "        reverse(k,len(nums)-1)"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "912:merge-sort",
@@ -1411,7 +1519,11 @@
             "        return mergeSort(nums)"
           ]
         }
-      ]
+      ],
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "75:dutch-flag",
@@ -1469,7 +1581,11 @@
             "            t+=1"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "75:bucket-sort",
@@ -1511,7 +1627,11 @@
             "                index+=1"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "560:prefix-map",
@@ -1570,7 +1690,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "347:min-heap",
@@ -1623,7 +1747,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n log k)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "1:hash-map",
@@ -1670,7 +1798,11 @@
             "        return [-1,-1]"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "242:hash-map",
@@ -1713,7 +1845,11 @@
             "        return sMap == tMap"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "242:sort",
@@ -1744,7 +1880,11 @@
             "        return ''.join(sorted(s)) == ''.join(sorted(t))"
           ]
         }
-      ]
+      ],
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "36:multi-pass",
@@ -1816,7 +1956,11 @@
             "        return True"
           ]
         }
-      ]
+      ],
+      "time": "O(1)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "36:single-loop",
@@ -1884,7 +2028,11 @@
             "        return True"
           ]
         }
-      ]
+      ],
+      "time": "O(1)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "704:iterative",
@@ -1932,7 +2080,11 @@
             "        return -1"
           ]
         }
-      ]
+      ],
+      "time": "O(log n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "704:recursive",
@@ -1975,7 +2127,11 @@
             "        return search(0, len(nums)-1)"
           ]
         }
-      ]
+      ],
+      "time": "O(log n)",
+      "space": "O(log n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "1011:capacity-search",
@@ -2041,7 +2197,11 @@
             "        return left"
           ]
         }
-      ]
+      ],
+      "time": "O(n log m)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "153:min-boundary",
@@ -2086,7 +2246,11 @@
             "        return nums[l]"
           ]
         }
-      ]
+      ],
+      "time": "O(log n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "162:min-boundary",
@@ -2132,7 +2296,11 @@
             "        return l"
           ]
         }
-      ]
+      ],
+      "time": "O(log n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "875:answer-space",
@@ -2187,7 +2355,11 @@
             "        return minBoundaryBinarySearch(1,max(piles))"
           ]
         }
-      ]
+      ],
+      "time": "O(n log m)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "74:two-phase",
@@ -2250,7 +2422,11 @@
             "        return False"
           ]
         }
-      ]
+      ],
+      "time": "O(log(m·n))",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "33:pivot-then-search",
@@ -2317,7 +2493,11 @@
             "            return firstHalfSearch"
           ]
         }
-      ]
+      ],
+      "time": "O(log n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "540:pair-parity",
@@ -2384,7 +2564,11 @@
             "        return nums[l]"
           ]
         }
-      ]
+      ],
+      "time": "O(log n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "2300:sort-min-boundary",
@@ -2447,7 +2631,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O((n + m) log m)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "787:bellman-ford",
@@ -2508,7 +2696,11 @@
             "        return prices[dst] # type: ignore"
           ]
         }
-      ]
+      ],
+      "time": "O(k·E)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "133:dfs-map",
@@ -2580,7 +2772,11 @@
             "        return dfs(node)"
           ]
         }
-      ]
+      ],
+      "time": "O(V+E)",
+      "space": "O(V)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "210:topological",
@@ -2646,7 +2842,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(V+E)",
+      "space": "O(V+E)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "207:topological",
@@ -2717,7 +2917,11 @@
             "        return numberOfCoursesTaken >= numCourses"
           ]
         }
-      ]
+      ],
+      "time": "O(V+E)",
+      "space": "O(V+E)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "261:dfs",
@@ -2786,7 +2990,11 @@
             "        return dfs(0,-1) and len(visited) == n"
           ]
         }
-      ]
+      ],
+      "time": "O(V+E)",
+      "space": "O(V+E)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "261:union-find",
@@ -2872,7 +3080,11 @@
             "        return True    "
           ]
         }
-      ]
+      ],
+      "time": "O(n·α(n))",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "695:dfs-visited",
@@ -2938,7 +3150,11 @@
             "        return maxArea"
           ]
         }
-      ]
+      ],
+      "time": "O(m·n)",
+      "space": "O(m·n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "1584:prims-array",
@@ -3010,7 +3226,11 @@
             "        return sum(distance) # type: ignore"
           ]
         }
-      ]
+      ],
+      "time": "O(n²)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "1584:prims-heap",
@@ -3077,7 +3297,11 @@
             "        return totalCost"
           ]
         }
-      ]
+      ],
+      "time": "O(n² log n)",
+      "space": "O(n²)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "743:dijkstra",
@@ -3149,7 +3373,11 @@
             "        return minTime"
           ]
         }
-      ]
+      ],
+      "time": "O(E log V)",
+      "space": "O(V+E)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "323:union-find",
@@ -3222,7 +3450,11 @@
             "        return componentCounter"
           ]
         }
-      ]
+      ],
+      "time": "O(n·α(n))",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "323:bfs",
@@ -3285,7 +3517,11 @@
             "        return numOfComponents"
           ]
         }
-      ]
+      ],
+      "time": "O(V+E)",
+      "space": "O(V+E)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "417:reverse-dfs",
@@ -3372,7 +3608,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(m·n)",
+      "space": "O(m·n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "684:union-find",
@@ -3446,7 +3686,11 @@
             "        return []"
           ]
         }
-      ]
+      ],
+      "time": "O(n·α(n))",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "994:multi-source-bfs",
@@ -3523,7 +3767,11 @@
             "        return timer"
           ]
         }
-      ]
+      ],
+      "time": "O(m·n)",
+      "space": "O(m·n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "130:union-find",
@@ -3625,7 +3873,11 @@
             "                    board[row][col] = 'X'"
           ]
         }
-      ]
+      ],
+      "time": "O(m·n·α(m·n))",
+      "space": "O(m·n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "130:bfs",
@@ -3714,7 +3966,11 @@
             "                    board[row][col] = 'O'"
           ]
         }
-      ]
+      ],
+      "time": "O(m·n)",
+      "space": "O(m·n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "53:prefix-min",
@@ -3765,7 +4021,11 @@
             "        return maxSum # type: ignore"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "53:kadane",
@@ -3804,7 +4064,11 @@
             "        return maxSum"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "621:heap-simulation",
@@ -3880,7 +4144,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": null,
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "621:heap-bulk",
@@ -3951,7 +4219,11 @@
             "        return intervals"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "355:heap-feed",
@@ -4012,7 +4284,11 @@
             "            self.followMap[followerId].remove(followeeId)"
           ]
         }
-      ]
+      ],
+      "time": null,
+      "space": "O(n + m)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "973:max-heap-k",
@@ -4063,7 +4339,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n log k)",
+      "space": "O(k)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "703:min-heap-k",
@@ -4101,7 +4381,11 @@
             "        return self.heap[0]"
           ]
         }
-      ]
+      ],
+      "time": "O(log k)",
+      "space": "O(k)",
+      "timeQualifier": "per operation",
+      "spaceQualifier": null
     },
     {
       "key": "1046:max-heap",
@@ -4151,7 +4435,11 @@
             "        return -heapq.heappop(maxHeap)"
           ]
         }
-      ]
+      ],
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "2:elementary-add",
@@ -4221,7 +4509,11 @@
             "        return dummyResultNode.next"
           ]
         }
-      ]
+      ],
+      "time": "O(max(m, n))",
+      "space": "O(max(m, n))",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "138:two-pass-map",
@@ -4296,7 +4588,11 @@
             "        return oldToNewMap[head]"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "141:floyd",
@@ -4343,7 +4639,11 @@
             "        return False"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "21:iterative",
@@ -4415,7 +4715,11 @@
             "        return dummy.next"
           ]
         }
-      ]
+      ],
+      "time": "O(n + m)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "21:recursive",
@@ -4466,7 +4770,11 @@
             "            return list2"
           ]
         }
-      ]
+      ],
+      "time": "O(n + m)",
+      "space": "O(n + m)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "19:two-pass",
@@ -4529,7 +4837,11 @@
             "        return head"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "19:one-pass",
@@ -4598,7 +4910,11 @@
             "        return dummy.next"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "19:recursion",
@@ -4676,7 +4992,11 @@
             "        return dummy.next"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "143:mid-reverse-merge",
@@ -4751,7 +5071,11 @@
             "            secondHead = secondHeadNext"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "206:iterative",
@@ -4795,7 +5119,11 @@
             "        return prev"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "206:recursive",
@@ -4840,7 +5168,11 @@
             "        return returnNode"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "121:two-pointers",
@@ -4890,7 +5222,11 @@
             "        return currentMaxProfit"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "219:window-set",
@@ -4940,7 +5276,11 @@
             "        return False"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(min(n, k))",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "424:freq-window",
@@ -4991,7 +5331,11 @@
             "        return maxLength"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "567:fixed-window",
@@ -5066,7 +5410,11 @@
             "        return False"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "496:monotonic-stack",
@@ -5128,7 +5476,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n + m)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "503:circular-stack",
@@ -5187,7 +5539,11 @@
             "        return greater # type: ignore"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "20:stack",
@@ -5241,7 +5597,11 @@
             "        return len(stack) == 0"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "20:stack-set",
@@ -5294,7 +5654,11 @@
             "        return not stack"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "110:postorder",
@@ -5350,7 +5714,11 @@
             "        return isBalanced"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(h)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "102:bfs",
@@ -5408,7 +5776,11 @@
             "        return returnList"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "124:postorder",
@@ -5459,7 +5831,11 @@
             "        return maxPath # type: ignore"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(h)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "199:bfs-last",
@@ -5516,7 +5892,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "105:recursive-split",
@@ -5575,7 +5955,11 @@
             "        return root"
           ]
         }
-      ]
+      ],
+      "time": "O(n²)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "1448:iterative-dfs",
@@ -5630,7 +6014,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(h)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "543:postorder",
@@ -5683,7 +6071,11 @@
             "        return maxDiameter"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(h)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "226:postorder",
@@ -5728,7 +6120,11 @@
             "        return root"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(h)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "235:iterative",
@@ -5774,7 +6170,11 @@
             "                return currentNode"
           ]
         }
-      ]
+      ],
+      "time": "O(h)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "104:postorder",
@@ -5816,7 +6216,11 @@
             "        return 1+max(self.maxDepth(root.left),self.maxDepth(root.right))"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(h)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "100:preorder",
@@ -5857,7 +6261,11 @@
             "            return False"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(h)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "572:bfs-dfs",
@@ -5925,7 +6333,11 @@
             "        return False"
           ]
         }
-      ]
+      ],
+      "time": "O(m·n)",
+      "space": "O(n + m)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "98:iterative-bounds",
@@ -5982,7 +6394,11 @@
             "        return True"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(h)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "211:wildcard-dfs",
@@ -6054,7 +6470,11 @@
             "        return trieSearch(traversal, 0)"
           ]
         }
-      ]
+      ],
+      "time": null,
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "208:children-map",
@@ -6121,7 +6541,11 @@
             "        return True"
           ]
         }
-      ]
+      ],
+      "time": "O(L)",
+      "space": "O(n)",
+      "timeQualifier": "per operation",
+      "spaceQualifier": null
     },
     {
       "key": "18:sort-two-pointers",
@@ -6178,7 +6602,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n³)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "88:merge-from-back",
@@ -6224,7 +6652,11 @@
             "            iterator-=1"
           ]
         }
-      ]
+      ],
+      "time": "O(n + m)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "1768:alternating",
@@ -6264,7 +6696,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "283:two-pointers",
@@ -6310,7 +6746,11 @@
             "            right+=1"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "80:two-pointers",
@@ -6360,7 +6800,11 @@
             "        return l"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "26:two-pointers",
@@ -6405,7 +6849,11 @@
             "        return l"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "344:two-pointers",
@@ -6443,7 +6891,11 @@
             "            l+=1"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "15:sort-two-pointers",
@@ -6499,7 +6951,11 @@
             "        return list(solutionSet)"
           ]
         }
-      ]
+      ],
+      "time": "O(n²)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "42:prefix-arrays",
@@ -6554,7 +7010,11 @@
             "        return totalWater"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "42:two-pointers",
@@ -6629,7 +7089,11 @@
             "        return res"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "167:two-pointers",
@@ -6675,7 +7139,11 @@
             "                l+=1"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "680:skip-check",
@@ -6730,7 +7198,11 @@
             "        return True"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "125:clean-then-scan",
@@ -6772,7 +7244,11 @@
             "        return True"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "125:no-cleaning",
@@ -6822,7 +7298,11 @@
             "        return True"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "3:set-window",
@@ -6880,7 +7360,11 @@
             "        return longest # type: ignore"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(min(n, k))",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "22:backtracking",
@@ -6944,7 +7428,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(4ⁿ/√n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "34:boundary-binary-search",
@@ -7017,7 +7505,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(log n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "45:greedy-range",
@@ -7078,7 +7570,11 @@
             "        return jump+1"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "55:max-reach",
@@ -7128,7 +7624,11 @@
             "        return maxReach >= len(nums) - 1"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "56:sort-merge",
@@ -7186,7 +7686,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "57:three-pass",
@@ -7263,7 +7767,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "78:include-exclude",
@@ -7321,7 +7829,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n·2ⁿ)",
+      "space": "O(n²)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "84:monotonic-stack",
@@ -7384,7 +7896,11 @@
             "        return maxArea"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "127:bfs-wildcard",
@@ -7469,7 +7985,11 @@
             "        return 0"
           ]
         }
-      ]
+      ],
+      "time": "O(n·L²)",
+      "space": "O(n·L²)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "134:greedy-reset",
@@ -7525,7 +8045,11 @@
             "        return startingPoint"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "150:stack",
@@ -7591,7 +8115,11 @@
             "        return int(stack[-1])"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "155:pair-min",
@@ -7634,7 +8162,11 @@
             "        return self.stack[-1][1]"
           ]
         }
-      ]
+      ],
+      "time": "O(1)",
+      "space": "O(n)",
+      "timeQualifier": "per operation",
+      "spaceQualifier": null
     },
     {
       "key": "202:seen-set",
@@ -7680,7 +8212,11 @@
             "        return False"
           ]
         }
-      ]
+      ],
+      "time": "O(log n)",
+      "space": "O(log n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "239:monotonic-deque",
@@ -7745,7 +8281,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(k)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "269:kahn-bfs",
@@ -7847,7 +8387,11 @@
             "        return \"\".join(result)"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "332:hierholzer-stack",
@@ -7917,7 +8461,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(E log E)",
+      "space": "O(E)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "435:sort-by-end",
@@ -7978,7 +8526,11 @@
             "        return removalCount"
           ]
         }
-      ]
+      ],
+      "time": "O(n log n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "648:trie",
@@ -8057,7 +8609,11 @@
             "        return \" \".join(result)"
           ]
         }
-      ]
+      ],
+      "time": "O(n + m)",
+      "space": "O(n + m)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "721:union-find",
@@ -8162,7 +8718,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(N·K log(N·K))",
+      "space": "O(N·K)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "739:monotonic-stack",
@@ -8214,7 +8774,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "763:last-index",
@@ -8282,7 +8846,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n)",
+      "space": "O(1)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "778:dijkstra-heap",
@@ -8351,7 +8919,11 @@
             "        return time"
           ]
         }
-      ]
+      ],
+      "time": "O(n² log n)",
+      "space": "O(n²)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "853:sort-stack",
@@ -8415,7 +8987,11 @@
             "        return len(fleets)"
           ]
         }
-      ]
+      ],
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "1334:floyd-warshall",
@@ -8488,7 +9064,11 @@
             "        return output # type: ignore"
           ]
         }
-      ]
+      ],
+      "time": "O(n³)",
+      "space": "O(n²)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "1462:floyd-warshall",
@@ -8553,7 +9133,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(n³ + q)",
+      "space": "O(n²)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "1552:binary-search-answer",
@@ -8623,7 +9207,11 @@
             "        return l"
           ]
         }
-      ]
+      ],
+      "time": "O(n log n + n log R)",
+      "space": "O(n)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     },
     {
       "key": "2097:hierholzer-stack",
@@ -8724,7 +9312,11 @@
             "        return result"
           ]
         }
-      ]
+      ],
+      "time": "O(E)",
+      "space": "O(E)",
+      "timeQualifier": null,
+      "spaceQualifier": null
     }
   ]
 }

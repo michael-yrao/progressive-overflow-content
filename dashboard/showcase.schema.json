@@ -29,6 +29,10 @@
         "file": { "type": "string", "description": "Repo-root-relative path to the solution file (dashboard/showcase.yml's `file:` when given, else the unique file discovered for lcNumber)." },
         "symbol": { "type": "string", "description": "The picked def (or class, for a design problem) — the manifest's own `symbol` field." },
         "attemptDate": { "type": ["string", "null"], "format": "date", "description": "ISO date parsed from the symbol's own `_YYYYMMDD` suffix, else from an `Attempt · YYYY-MM-DD` banner comment directly above it, else null for an undated legacy def." },
+        "time": { "type": ["string", "null"], "description": "Time bound of the picked symbol: a COMPLEXITY_POOL label from dashboard/bigo.yml when its pick is this symbol, else from showcase.yml. null when unlabelled (TODO)." },
+        "space": { "type": ["string", "null"], "description": "Space bound of the picked symbol; same ownership as `time`." },
+        "timeQualifier": { "type": ["string", "null"], "description": "A closed-list qualifier on `time` (e.g. amortized); null for a bigo-owned symbol." },
+        "spaceQualifier": { "type": ["string", "null"], "description": "A closed-list qualifier on `space`; null for a bigo-owned symbol." },
         "segments": {
           "type": "array",
           "description": "The verbatim slice, in source order (sorted by startLine): an optional single-line `container` segment (the wrapping `class Solution:` header — absent when the manifest's `container` is explicitly null, i.e. a design problem where the symbol IS the class), exactly one `attempt` segment (the picked def/class, its leading `#`-comment banner folded into the same segment, through its last body line), and zero or more `helper` segments (extra module-level symbols named in the manifest's `helpers` list).",
