@@ -43,6 +43,30 @@ from typing import List
 
 class Solution:
 
+    # ── Attempt · 2026-11-04 ──────────────
+    def isValidSudoku_20261104(self, board: List[List[str]]) -> bool:
+        # three sets
+        # row, col set
+        # for the grid, we can do tuple to set // 3
+
+        row_map, col_map, grid_map = collections.defaultdict(set), collections.defaultdict(set), collections.defaultdict(set)
+
+        rows, cols = len(board), len(board[0])
+
+        for row in range(rows):
+            for col in range(cols):
+                grid_coordinate = (row//3, col//3)
+                # skip the dots
+                if board[row][col] == '.':
+                    continue
+                if board[row][col] in row_map[row] or board[row][col] in col_map[col] or board[row][col] in grid_map[grid_coordinate]:
+                    return False
+                row_map[row].add(board[row][col])
+                col_map[col].add(board[row][col])
+                grid_map[grid_coordinate].add(board[row][col])
+
+        return True
+
     # ── Attempt · 2026-09-05 ──────────────
     def isValidSudoku_20260905(self, board: List[List[str]]) -> bool:
         # check row, check col and check each grid

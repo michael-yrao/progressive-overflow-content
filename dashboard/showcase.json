@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-04",
+  "generatedAt": "2026-11-05",
   "entries": [
     {
       "key": "733:bfs",
@@ -1908,8 +1908,8 @@
         {
           "kind": "attempt",
           "symbol": "isValidSudoku",
-          "startLine": 108,
-          "endLine": 150,
+          "startLine": 132,
+          "endLine": 174,
           "lines": [
             "    def isValidSudoku(self, board: List[List[str]]) -> bool:",
             "        # 3 validations",
@@ -1984,8 +1984,8 @@
         {
           "kind": "attempt",
           "symbol": "isValidSudoku_20260821",
-          "startLine": 68,
-          "endLine": 106,
+          "startLine": 92,
+          "endLine": 130,
           "lines": [
             "    # ── Attempt · 2026-08-21 ──────────────",
             "    # ── RECOGNITION — fill BEFORE coding, before the coach says anything ──",
