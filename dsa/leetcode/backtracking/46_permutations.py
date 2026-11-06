@@ -17,6 +17,34 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-11-05 ──────────────
+    def permute_20261105(self, nums: List[int]) -> List[List[int]]:
+        # so any of the numbers can be the first
+        # what this means is we are choosing what goes in the next slot in the current path so this means we lean towards a loop style backtracking
+        # path: current permutation
+        # state: set for O(1) check of what numbers are in
+        # choice: if not in set, append
+        # validity: see above
+        # base case: len of path == len of nums, add to result
+
+        result = []
+
+        def backtrack(path, visited):
+            if len(path) == len(nums):
+                result.append(path.copy())
+                return
+
+            for i in range(len(nums)):
+                if nums[i] not in visited:
+                    path.append(nums[i])
+                    visited.add(nums[i])
+                    backtrack(path,visited)
+                    path.pop()
+                    visited.remove(nums[i])
+
+        backtrack([], set())
+        return result
+
     # ── Attempt · 2026-10-26 ──────────────
     def permute_20261026(self, nums: List[int]) -> List[List[int]]:
         # permutation, so we are picking the next element to put
