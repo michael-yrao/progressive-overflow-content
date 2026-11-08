@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-06",
+  "generatedAt": "2026-11-07",
   "pool": [
     "O(1)",
     "O(log n)",
@@ -20155,6 +20155,64 @@
       "segments": []
     },
     {
+      "key": "516",
+      "lcNumber": 516,
+      "variant": null,
+      "title": "Longest Palindromic Subsequence",
+      "url": "https://leetcode.com/problems/longest-palindromic-subsequence/",
+      "file": null,
+      "symbol": null,
+      "attemptDate": null,
+      "difficulty": "Medium",
+      "category": "reference",
+      "isMiss": false,
+      "note": null,
+      "time": "O(n²)",
+      "space": "O(n²)",
+      "whyTime": "The DP table has n × n cells, one per substring of s, and each is filled from its neighbours in O(1). Time is O(n²).",
+      "whySpace": "The table stores n × n lengths, so space is O(n²).",
+      "variables": {
+        "n": "length of s"
+      },
+      "timeChoices": [
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)",
+        "O(2^(n/2))",
+        "O(n·2^(n/2))",
+        "O(2ⁿ)",
+        "O(n·2ⁿ)",
+        "O(n²·2ⁿ)"
+      ],
+      "spaceChoices": [
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)",
+        "O(2^(n/2))",
+        "O(n·2^(n/2))",
+        "O(2ⁿ)",
+        "O(n·2ⁿ)",
+        "O(n²·2ⁿ)"
+      ],
+      "timeOptions": [
+        "O(n·k)",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)"
+      ],
+      "spaceOptions": [
+        "O(m·n)",
+        "O(n²)",
+        "O(n²·k)",
+        "O(n³)"
+      ],
+      "segments": []
+    },
+    {
       "key": "518",
       "lcNumber": 518,
       "variant": null,
@@ -21328,6 +21386,64 @@
       "segments": []
     },
     {
+      "key": "895",
+      "lcNumber": 895,
+      "variant": null,
+      "title": "Maximum Frequency Stack",
+      "url": "https://leetcode.com/problems/maximum-frequency-stack/",
+      "file": null,
+      "symbol": null,
+      "attemptDate": null,
+      "difficulty": "Hard",
+      "category": "reference",
+      "isMiss": false,
+      "note": null,
+      "time": "O(1)",
+      "space": "O(n)",
+      "whyTime": "push raises the value's count and files it on that count's stack. pop takes the top of the highest-count stack. Each call does O(1) work, so time is O(1).",
+      "whySpace": "Every pushed value sits in exactly one count stack, so the stacks hold n entries and space is O(n).",
+      "variables": {
+        "n": "values pushed so far"
+      },
+      "timeChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n log log n)",
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)",
+        "O(2^(n/2))"
+      ],
+      "spaceChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n log log n)",
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)",
+        "O(n·2^(n/2))"
+      ],
+      "timeOptions": [
+        "O(1)",
+        "O(log n)",
+        "O(k)",
+        "O(n)"
+      ],
+      "spaceOptions": [
+        "O(1)",
+        "O(h)",
+        "O(n)",
+        "O(n²)"
+      ],
+      "segments": []
+    },
+    {
       "key": "910",
       "lcNumber": 910,
       "variant": null,
@@ -21387,6 +21503,64 @@
       "segments": []
     },
     {
+      "key": "934",
+      "lcNumber": 934,
+      "variant": null,
+      "title": "Shortest Bridge",
+      "url": "https://leetcode.com/problems/shortest-bridge/",
+      "file": null,
+      "symbol": null,
+      "attemptDate": null,
+      "difficulty": "Medium",
+      "category": "reference",
+      "isMiss": false,
+      "note": null,
+      "time": "O(n²)",
+      "space": "O(n²)",
+      "whyTime": "A DFS marks the first island, then a multi-source BFS grows outward from it until it touches the second island. Each of the n² cells is visited once, so time is O(n²).",
+      "whySpace": "The visited marks and the BFS queue can hold every cell, so space is O(n²).",
+      "variables": {
+        "n": "side length of the grid"
+      },
+      "timeChoices": [
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)",
+        "O(2^(n/2))",
+        "O(n·2^(n/2))",
+        "O(2ⁿ)",
+        "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)"
+      ],
+      "spaceChoices": [
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)",
+        "O(2^(n/2))",
+        "O(n·2^(n/2))",
+        "O(2ⁿ)",
+        "O(n·2ⁿ)",
+        "O(4ⁿ/√n)"
+      ],
+      "timeOptions": [
+        "O(n log n)",
+        "O(n²)",
+        "O(n²·k)",
+        "O(n² log n)"
+      ],
+      "spaceOptions": [
+        "O(n·k)",
+        "O(n²)",
+        "O(n²·k)",
+        "O(n² log n)"
+      ],
+      "segments": []
+    },
+    {
       "key": "968",
       "lcNumber": 968,
       "variant": null,
@@ -21442,6 +21616,64 @@
         "O(h)",
         "O(c)",
         "O(n)"
+      ],
+      "segments": []
+    },
+    {
+      "key": "958",
+      "lcNumber": 958,
+      "variant": null,
+      "title": "Check Completeness of a Binary Tree",
+      "url": "https://leetcode.com/problems/check-completeness-of-a-binary-tree/",
+      "file": null,
+      "symbol": null,
+      "attemptDate": null,
+      "difficulty": "Medium",
+      "category": "reference",
+      "isMiss": false,
+      "note": null,
+      "time": "O(n)",
+      "space": "O(n)",
+      "whyTime": "BFS visits each node once. After the first missing child appears, any later real node means the tree is not complete. Each node costs O(1), so time is O(n).",
+      "whySpace": "The queue holds a whole level, up to about n / 2 nodes in a wide tree, so space is O(n).",
+      "variables": {
+        "n": "nodes in the tree"
+      },
+      "timeChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n log log n)",
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)",
+        "O(n·2^(n/2))"
+      ],
+      "spaceChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n log log n)",
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
+      ],
+      "timeOptions": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n²)"
+      ],
+      "spaceOptions": [
+        "O(log n)",
+        "O(n)",
+        "O(n log n)",
+        "O(n²)"
       ],
       "segments": []
     },
@@ -21677,6 +21909,64 @@
         "O(n²)",
         "O(n²·k)",
         "O(n² log n)"
+      ],
+      "segments": []
+    },
+    {
+      "key": "1029",
+      "lcNumber": 1029,
+      "variant": null,
+      "title": "Two City Scheduling",
+      "url": "https://leetcode.com/problems/two-city-scheduling/",
+      "file": null,
+      "symbol": null,
+      "attemptDate": null,
+      "difficulty": "Medium",
+      "category": "reference",
+      "isMiss": false,
+      "note": null,
+      "time": "O(n log n)",
+      "space": "O(n)",
+      "whyTime": "Sort the people by aCost - bCost, then send the first half to city a and the rest to city b. The sort dominates, so time is O(n log n).",
+      "whySpace": "The sort uses an O(n) temporary buffer and the sum keeps one scalar, so space is O(n).",
+      "variables": {
+        "n": "length of costs"
+      },
+      "timeChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n log log n)",
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)",
+        "O(2^(n/2))"
+      ],
+      "spaceChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n log log n)",
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
+      ],
+      "timeOptions": [
+        "O(n)",
+        "O(n log n)",
+        "O(E log V)",
+        "O(n·k)"
+      ],
+      "spaceOptions": [
+        "O(log n)",
+        "O(h)",
+        "O(n)",
+        "O(n log n)"
       ],
       "segments": []
     },
@@ -22152,6 +22442,66 @@
       "segments": []
     },
     {
+      "key": "1160",
+      "lcNumber": 1160,
+      "variant": null,
+      "title": "Find Words That Can Be Formed by Characters",
+      "url": "https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/",
+      "file": null,
+      "symbol": null,
+      "attemptDate": null,
+      "difficulty": "Easy",
+      "category": "reference",
+      "isMiss": false,
+      "note": null,
+      "time": "O(n·L + m)",
+      "space": "O(1)",
+      "whyTime": "Count the letters of chars once in O(m). Each word is counted and compared against those counts in O(L), so time is O(n·L + m).",
+      "whySpace": "Both letter counts have 26 slots however long the input is, so space is O(1).",
+      "variables": {
+        "n": "number of words",
+        "L": "length of the longest word",
+        "m": "length of chars"
+      },
+      "timeChoices": [
+        "O(n log log n)",
+        "O(n log n + m·α(n))",
+        "O((n + m)·L log n)",
+        "O(n·L)",
+        "O(n·L + m)",
+        "O(m·n)",
+        "O(m·n log(m·n))",
+        "O(n·m·L)",
+        "O(n·α(n))",
+        "O(m·n·α(m·n))"
+      ],
+      "spaceChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(log(min(m, n)))",
+        "O(log(m·n))",
+        "O(m)",
+        "O(n)",
+        "O(L)",
+        "O(max(m, n))",
+        "O(n + m)",
+        "O(n log m)"
+      ],
+      "timeOptions": [
+        "O(n·L + m)",
+        "O(m·n)",
+        "O(n·m·L)",
+        "O((V + E log E)·log k)"
+      ],
+      "spaceOptions": [
+        "O(1)",
+        "O(log n)",
+        "O(k)",
+        "O(n)"
+      ],
+      "segments": []
+    },
+    {
       "key": "1169",
       "lcNumber": 1169,
       "variant": null,
@@ -22206,6 +22556,64 @@
         "O(log n)",
         "O(n)",
         "O(n log n)"
+      ],
+      "segments": []
+    },
+    {
+      "key": "1190",
+      "lcNumber": 1190,
+      "variant": null,
+      "title": "Reverse Substrings Between Each Pair of Parentheses",
+      "url": "https://leetcode.com/problems/reverse-substrings-between-each-pair-of-parentheses/",
+      "file": null,
+      "symbol": null,
+      "attemptDate": null,
+      "difficulty": "Medium",
+      "category": "reference",
+      "isMiss": false,
+      "note": null,
+      "time": "O(n)",
+      "space": "O(n)",
+      "whyTime": "One pass pairs each parenthesis with its match using a stack. A second pass walks the string, jumping to the match and flipping direction at each bracket, so every character is visited once. Time is O(n).",
+      "whySpace": "The stack, the match table and the result each hold up to n entries, so space is O(n).",
+      "variables": {
+        "n": "length of s"
+      },
+      "timeChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n log log n)",
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(2^(n/2))",
+        "O(n·2^(n/2))"
+      ],
+      "spaceChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n log log n)",
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)",
+        "O(2^(n/2))"
+      ],
+      "timeOptions": [
+        "O(h)",
+        "O(n)",
+        "O(n log n)",
+        "O(n²)"
+      ],
+      "spaceOptions": [
+        "O(log n)",
+        "O(h)",
+        "O(n)",
+        "O(n²)"
       ],
       "segments": []
     },
@@ -22558,6 +22966,65 @@
         "O(1)",
         "O(log n)",
         "O(n)",
+        "O(n²)"
+      ],
+      "segments": []
+    },
+    {
+      "key": "1298",
+      "lcNumber": 1298,
+      "variant": null,
+      "title": "Maximum Candies You Can Get from Boxes",
+      "url": "https://leetcode.com/problems/maximum-candies-you-can-get-from-boxes/",
+      "file": null,
+      "symbol": null,
+      "attemptDate": null,
+      "difficulty": "Hard",
+      "category": "reference",
+      "isMiss": false,
+      "note": null,
+      "time": "O(n + m)",
+      "space": "O(n)",
+      "whyTime": "A BFS opens each box at most once and reads its keys and contained boxes once, O(m) in all. Time is O(n + m).",
+      "whySpace": "The queue and the sets of found boxes and keys hold up to n labels, so space is O(n).",
+      "variables": {
+        "n": "number of boxes",
+        "m": "total length of keys and containedBoxes"
+      },
+      "timeChoices": [
+        "O(log(m·n))",
+        "O(n)",
+        "O(max(m, n))",
+        "O(n + m)",
+        "O(n log log n)",
+        "O(n log m)",
+        "O(n log n)",
+        "O((n + m) log n)",
+        "O((n + m) log m)",
+        "O(m·n)"
+      ],
+      "spaceChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(log(min(m, n)))",
+        "O(log(m·n))",
+        "O(m)",
+        "O(n)",
+        "O(max(m, n))",
+        "O(n + m)",
+        "O(n log n)",
+        "O(n²)"
+      ],
+      "timeOptions": [
+        "O(n)",
+        "O(n + m)",
+        "O(V+E)",
+        "O(m·n)"
+      ],
+      "spaceOptions": [
+        "O(1)",
+        "O(n)",
+        "O(n log n)",
         "O(n²)"
       ],
       "segments": []
@@ -24795,6 +25262,64 @@
       "segments": []
     },
     {
+      "key": "2742",
+      "lcNumber": 2742,
+      "variant": null,
+      "title": "Painting the Walls",
+      "url": "https://leetcode.com/problems/painting-the-walls/",
+      "file": null,
+      "symbol": null,
+      "attemptDate": null,
+      "difficulty": "Hard",
+      "category": "reference",
+      "isMiss": false,
+      "note": null,
+      "time": "O(n²)",
+      "space": "O(n)",
+      "whyTime": "dp[j] is the least cost to cover j walls. Each of the n walls updates all n + 1 values of j once, so time is O(n²).",
+      "whySpace": "dp is a single array of n + 1 values, so space is O(n).",
+      "variables": {
+        "n": "number of walls"
+      },
+      "timeChoices": [
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)",
+        "O(2^(n/2))",
+        "O(n·2^(n/2))",
+        "O(2ⁿ)",
+        "O(n²·2ⁿ)",
+        "O(4ⁿ/√n)"
+      ],
+      "spaceChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n log log n)",
+        "O(n log n)",
+        "O(n·α(n))",
+        "O(n²)",
+        "O(n² log n)",
+        "O(n³)",
+        "O(2^(n/2))"
+      ],
+      "timeOptions": [
+        "O(n·k)",
+        "O(m·n)",
+        "O(n²)",
+        "O(n³)"
+      ],
+      "spaceOptions": [
+        "O(log n)",
+        "O(h)",
+        "O(n)",
+        "O(n log n)"
+      ],
+      "segments": []
+    },
+    {
       "key": "2846",
       "lcNumber": 2846,
       "variant": null,
@@ -24850,6 +25375,65 @@
         "O(n log n)",
         "O(n·k)",
         "O(n²)"
+      ],
+      "segments": []
+    },
+    {
+      "key": "2962",
+      "lcNumber": 2962,
+      "variant": null,
+      "title": "Count Subarrays Where Max Element Appears at Least K Times",
+      "url": "https://leetcode.com/problems/count-subarrays-where-max-element-appears-at-least-k-times/",
+      "file": null,
+      "symbol": null,
+      "attemptDate": null,
+      "difficulty": "Medium",
+      "category": "reference",
+      "isMiss": false,
+      "note": null,
+      "time": "O(n)",
+      "space": "O(1)",
+      "whyTime": "Find the maximum, then slide a window with two pointers. Each pointer moves right at most n times, so time is O(n).",
+      "whySpace": "Only the maximum, the window count and two pointers are stored, so space is O(1).",
+      "variables": {
+        "n": "length of nums",
+        "k": "required count of the maximum"
+      },
+      "timeChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(log k)",
+        "O(k)",
+        "O(n)",
+        "O(min(n, k))",
+        "O(n log log n)",
+        "O(n log k)",
+        "O(n log n)",
+        "O(n²)"
+      ],
+      "spaceChoices": [
+        "O(1)",
+        "O(log n)",
+        "O(log k)",
+        "O(k)",
+        "O(n)",
+        "O(min(n, k))",
+        "O(n log log n)",
+        "O(n log k)",
+        "O(n log n)",
+        "O(n·k)"
+      ],
+      "timeOptions": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n²)"
+      ],
+      "spaceOptions": [
+        "O(1)",
+        "O(log n)",
+        "O(k)",
+        "O(n)"
       ],
       "segments": []
     },
