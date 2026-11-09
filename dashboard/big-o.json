@@ -5507,7 +5507,7 @@
       "note": null,
       "time": "O(E log E)",
       "space": "O(E)",
-      "whyTime": "Each ticket is pushed onto its airport's min-heap once and popped once, each O(log E), and the DFS follows every ticket once: O(E log E).",
+      "whyTime": "Each ticket is pushed onto its airport's min-heap once and popped once, each O(log E). The DFS makes E + 1 calls (one per ticket, plus the start), and reversing the E + 1 entries of the result is O(E). Every airport comes from a ticket, so V ≤ E + 1 and no V term remains. O(E + E log E) simplifies to O(E log E).",
       "whySpace": "The heaps hold all E tickets, and the recursion goes at most E + 1 calls deep. The result list is the returned output and is not counted. Space is O(E).",
       "variables": {
         "E": "number of tickets",
