@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-08",
+  "generatedAt": "2026-11-09",
   "entries": [
     {
       "key": "733:bfs",
@@ -413,7 +413,7 @@
           ]
         }
       ],
-      "time": "O(n²·k)",
+      "time": "O(n³·k)",
       "space": "O(n²·k)",
       "timeQualifier": null,
       "spaceQualifier": null
