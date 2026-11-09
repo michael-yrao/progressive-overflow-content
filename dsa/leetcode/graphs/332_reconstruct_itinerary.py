@@ -22,6 +22,48 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-11-09 ──────────────
+    def findItinerary_20261109(self, tickets: List[List[str]]) -> List[str]:
+        # we are doing non-minheap variant of hierholzer today
+        # which means we need to pre-sort
+        # we are doing this based on destination, so we need to sort by destination
+        # and then we are doing an iterative DFS with a stack
+        # this simulates what we would do with a min heap
+
+        # sort based on destination, now we will get the correct lexicographical ordering
+        # we need to sort descending because pop() takes from the end of the list for adj_map
+        tickets.sort(key=lambda ticket:ticket[1], reverse=True)
+
+        adj_map = collections.defaultdict(list)
+
+        for src, dst in tickets:
+            adj_map[src].append(dst)
+
+        result_list = []
+        
+        # now we do our iterative DFS
+        stack = []
+
+        # add our starting point of JFK in
+
+        stack.append("JFK")
+
+        while stack:
+            current_node = stack[-1]
+            # if there are nodes that are neighbors of this
+            # add it on top of the stack
+            if adj_map[current_node]:
+                next_neighbor = adj_map[current_node].pop()
+                stack.append(next_neighbor)
+            # if current node does not have any more neighbors
+            # pop and add the node to the result_list
+            else:
+                result_list.append(stack.pop())
+
+        result_list.reverse()
+
+        return result_list
+
     # ── Attempt · 2026-11-08 ──────────────
     def findItinerary_20261108(self, tickets: List[List[str]]) -> List[str]:
         # min heap variation of hierholzer today

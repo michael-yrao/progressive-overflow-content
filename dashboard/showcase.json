@@ -8415,8 +8415,8 @@
         {
           "kind": "attempt",
           "symbol": "findItinerary_stack_20260915",
-          "startLine": 149,
-          "endLine": 189,
+          "startLine": 191,
+          "endLine": 231,
           "lines": [
             "    # ── Attempt · 2026-09-15 ──────────────",
             "    def findItinerary_stack_20260915(self, tickets: List[List[str]]) -> List[str]:",
