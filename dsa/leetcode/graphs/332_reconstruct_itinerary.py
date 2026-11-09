@@ -22,6 +22,45 @@ from typing import List, Optional
 
 class Solution:
 
+    # ── Attempt · 2026-11-08 ──────────────
+    def findItinerary_20261108(self, tickets: List[List[str]]) -> List[str]:
+        # min heap variation of hierholzer today
+        # let's remind ourselves what hierholzer is
+        # in this problem, we are given we start at JFK and that we are to traverse through every single edge exactly once
+        # this is what is called an eulerian path
+        # we visit each edge once but with no guarantee that we will end at the starting node
+        # if we have guaranteed start and end, it is an eulerian circuit
+        # what we are trying to do in hierholzer is add to the result when there is no more neighbor for this node
+        # since we have a requirement to do lexicographical order here, it is good use of min heap
+        # what we need here is an adjacency map, since we are using min heap, we can just do adj map of min heap so when there is no more neighbors, we know it is the latest node we can mark as done
+        adj_map = collections.defaultdict(list)
+
+        # populate the adj_map
+        for src, dst in tickets:
+            heapq.heappush(adj_map[src], dst)
+
+        result_list = []
+        
+        # we called this backtrack before but it's really a dfs
+        def dfs(node):
+            # no more neighbor for this node, so we add it to the result
+            if not adj_map[node]:
+                result_list.append(node)
+                return
+
+            # now that we know it is not the end node, look until it is
+            while adj_map[node]:
+                current_node = heapq.heappop(adj_map[node])
+                dfs(current_node)
+            # now that we finished every edge going out from node, add the node to the result
+            result_list.append(node)
+
+        dfs("JFK")
+
+        result_list.reverse()
+
+        return result_list
+
     # ── Attempt · 2026-10-29 ──────────────
     def findItinerary_20261029(self, tickets: List[List[str]]) -> List[str]:
         # eulerian path
